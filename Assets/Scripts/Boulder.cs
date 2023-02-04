@@ -5,12 +5,11 @@ using UnityEngine;
 public class Boulder : MonoBehaviour
 {
     private Rigidbody2D rb;
-    private Vector2 playerDir;
     private bool onGround = false;
     private int moveMultiplier = -1;
     private float pushForce = 150f;
+    private Vector3 startingPos;
 
-    [SerializeField] private Transform player;
     [SerializeField] private Transform groundChecker;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private bool moveRight;
@@ -23,7 +22,7 @@ public class Boulder : MonoBehaviour
         {
             moveMultiplier = 1;
         }
-        rb.AddForce(new Vector2(moveMultiplier, 0) * pushForce * 0.2f);
+        startingPos = transform.position;
     }
 
     // Update is called once per frame
@@ -38,11 +37,6 @@ public class Boulder : MonoBehaviour
         {
             onGround = true;
             rb.AddForce(new Vector2(moveMultiplier, 0) * pushForce);
-            //if (player != null)
-            //{
-            //  playerDir = player.position - transform.position;
-            // rb.velocity = new Vector2(playerDir.x * 0.5f, 0);
-            //}
         }
 
         if (!IsGrounded())
@@ -53,8 +47,7 @@ public class Boulder : MonoBehaviour
 
     private void CheckIfStopped()
     {
-        print(rb.velocity.magnitude);
-        if (rb.velocity.magnitude < 0.02f)
+        if (rb.velocity.magnitude < 0.02f && startingPos != transform.position)
         {
             Destroy(this.gameObject);
         }
