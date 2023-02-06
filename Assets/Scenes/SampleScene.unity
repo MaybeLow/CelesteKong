@@ -432,9 +432,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldownTime: 15
   boulderPrefab: {fileID: 4226227176624290058, guid: 35cfb88305b25fc4b803f9c2e5fde8de, type: 3}
---- !u!4 &895166642 stripped
+--- !u!4 &899275818 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 51296624310785229, guid: 1a75445e944283747b9059fd3d383062, type: 3}
+  m_CorrespondingSourceObject: {fileID: 51296624590258540, guid: 1a75445e944283747b9059fd3d383062, type: 3}
   m_PrefabInstance: {fileID: 51296625142872946}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &1253338558 stripped
@@ -526,6 +526,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1690468729 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 51296625489643508, guid: 1a75445e944283747b9059fd3d383062, type: 3}
+  m_PrefabInstance: {fileID: 51296625142872946}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1704773422
 GameObject:
   m_ObjectHideFlags: 0
@@ -550,12 +555,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1704773422}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.03, y: 0, z: 0}
+  m_LocalPosition: {x: 0.07, y: -0.01, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1806548105}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1806136165 stripped
 Transform:
@@ -567,6 +572,35 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 51296625489643515, guid: 1a75445e944283747b9059fd3d383062, type: 3}
   m_PrefabInstance: {fileID: 51296625142872946}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1806548106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1690468729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 164dc6e0cf1a7c347b0057944b99ac90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1806548107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1690468729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16e7e5a955ca5d74a9fed6fcaa47c41c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groundChecker: {fileID: 899275818}
+  wallGrabChecker: {fileID: 1704773423}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &1874555926
 GameObject:
   m_ObjectHideFlags: 0
@@ -916,7 +950,7 @@ PrefabInstance:
     - target: {fileID: 51296625489643518, guid: 1a75445e944283747b9059fd3d383062, type: 3}
       propertyPath: wallJumpChecker
       value: 
-      objectReference: {fileID: 895166642}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1a75445e944283747b9059fd3d383062, type: 3}
 --- !u!1001 &3038695685256387135
