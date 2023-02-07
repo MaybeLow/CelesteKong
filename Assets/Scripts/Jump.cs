@@ -17,7 +17,6 @@ public class Jump : MonoBehaviour
 
     public void JumpObject(Vector2 jumpDir, float jumpScale = jumpScale)
     {
-        //rb.velocity = new Vector2(jumpDir.x, jumpDir.y) * jumpRate;
         rb.velocity = jumpDir * jumpScale;
 
         if (rb.velocity.y >= 0)

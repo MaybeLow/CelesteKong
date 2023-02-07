@@ -14,14 +14,15 @@ public class PlayerMovement : MonoBehaviour
     private float climbSpeed = 5;
     private bool onWall = false;
     private bool isWallSliding = false;
-    private float wallSlideSpeed = 1.6f;
+    private float wallSlideSpeed = 2.4f;
 
     private bool isWallJumping;
     private float wallJumpDir;
-    private float wallJumpTime = 0.2f;
+    // Wall jump cooldown
+    private float wallJumpTime = 0.17f;
     private float wallJumpCounter;
-    private float wallJumpDuration = 0.4f;
-    private Vector2 wallJumpScale = new Vector2(1.5f, 3.1f);
+    private float wallJumpDuration = 0.3f;
+    private Vector2 wallJumpScale = new Vector2(8f, 12f);
 
     private float xMove;
     private float yMove;
@@ -41,8 +42,8 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         GetMoveInput();
-        UpdateJumpInput();
-        UpdateWallGrabInput();
+        GroundJump();
+        WallGrub();
         WallSlide();
         WallJump();
     }
@@ -54,12 +55,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void UpdateMovement()
     {
+        // Update horizontal movement
         if (!onWall && !isWallJumping)
         {
             rb.velocity = new Vector2(xMove * speed, rb.velocity.y);
             UpdateFlip();
         }
-        else
+        // Update vertical movement
+        else if (onWall && !isWallJumping)
         {
             rb.velocity = new Vector2(rb.velocity.x, yMove * climbSpeed);
         }
@@ -71,9 +74,9 @@ public class PlayerMovement : MonoBehaviour
         yMove = Input.GetAxisRaw("Vertical");
     }
 
-    private void UpdateJumpInput()
+    private void GroundJump()
     {
-        if (!isWallJumping)
+        if (!onWall && !isWallJumping)
         {
             if (Input.GetButtonDown("Jump") && IsGrounded())
             {
@@ -87,7 +90,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void UpdateWallGrabInput()
+    private void WallGrub()
     {
         if (Input.GetKey("z") && IsWalled())
         {
@@ -101,9 +104,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void UpdateFlip()
     {
-        if (!onWall &&
-            ((xMove < -0.1f && transform.localScale.x >= 0)
-            || (xMove > 0.1f && transform.localScale.x < -0)))
+        if ((xMove < -0.1f && transform.localScale.x >= 0)
+            || (xMove > 0.1f && transform.localScale.x < -0))
         {
             FlipPlayer();
         }
@@ -118,7 +120,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void WallSlide()
     {
-        if (IsWalled() && !IsGrounded() && xMove != 0) {
+        if (IsWalled() && !IsGrounded() && !onWall && xMove != 0) {
             isWallSliding = true;
             rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -wallSlideSpeed, float.MaxValue));
         } 
@@ -132,8 +134,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isWallSliding || onWall)
         {
-            isWallJumping= false;
-            wallJumpDir = -transform.localScale.x;
+            isWallJumping = false;
+            wallJumpDir = -(transform.localScale.x / Mathf.Abs(transform.localScale.x));
             wallJumpCounter = wallJumpTime;
 
             CancelInvoke(nameof(StopWallJumping));
@@ -148,6 +150,8 @@ public class PlayerMovement : MonoBehaviour
             isWallJumping = true;
 
             jp.JumpObject(new Vector2(wallJumpDir * wallJumpScale.x, wallJumpScale.y), 1);
+            print("x " + rb.velocity.x);
+            print("y " + rb.velocity.y);
             wallJumpCounter = 0;
 
             FlipPlayer();
