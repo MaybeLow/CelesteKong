@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     [SerializeField] private Camera playerCamera;
 
     // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         bc = GetComponent<BoxCollider2D>();
@@ -35,7 +35,7 @@ public class Player : MonoBehaviour
             {
                 case "Boulder":
                     print("DEAD");
-                    //Destroy(this.gameObject);
+                    Destroy(this.gameObject);
                     //Game Over
                     break;
 

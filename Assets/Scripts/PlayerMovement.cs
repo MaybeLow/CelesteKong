@@ -32,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
 
     // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         jp = GetComponent<Jump>();
@@ -104,8 +104,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void UpdateFlip()
     {
-        if ((xMove < -0.1f && transform.localScale.x >= 0)
-            || (xMove > 0.1f && transform.localScale.x < -0))
+        if (!isWallSliding &&
+            ((xMove < -0.1f && transform.localScale.x >= 0)
+            || (xMove > 0.1f && transform.localScale.x < -0)))
         {
             FlipPlayer();
         }
@@ -139,13 +140,14 @@ public class PlayerMovement : MonoBehaviour
             wallJumpCounter = wallJumpTime;
 
             CancelInvoke(nameof(StopWallJumping));
-        }
+        } 
+        // state, command
         else
         {
             wallJumpCounter -= Time.deltaTime;
         }
 
-        if (Input.GetButtonDown("Jump") && wallJumpCounter > 0f)
+        if (Input.GetButtonDown("Jump") && wallJumpCounter > 0f && IsWalled())
         {
             isWallJumping = true;
 

@@ -14,15 +14,20 @@ public class Boulder : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private bool moveRight;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+    }
+
+    // Start is called before the first frame update
+    private void Start()
+    {
         if (moveRight)
         {
             moveMultiplier = 1;
         }
         startingPos = transform.position;
+        rb.AddForce(new Vector2(moveMultiplier, rb.velocity.y) * pushForce * 0.2f);
     }
 
     // Update is called once per frame
@@ -47,8 +52,9 @@ public class Boulder : MonoBehaviour
 
     private void CheckIfStopped()
     {
-        if (rb.velocity.magnitude < 0.02f && startingPos != transform.position)
+        if (rb.velocity.magnitude < 0.05f && startingPos != transform.position)
         {
+            print(rb.velocity.magnitude);
             Destroy(this.gameObject);
         }
     }

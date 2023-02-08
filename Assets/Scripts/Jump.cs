@@ -10,7 +10,7 @@ public class Jump : MonoBehaviour
     [SerializeField] private const float gravityScale = 2f;
     [SerializeField] private const float fallingGravityScale = 3f;
 
-    private void Start()
+    private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
     }
