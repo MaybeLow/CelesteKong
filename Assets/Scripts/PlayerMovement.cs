@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
 
     private float climbSpeed = 5;
     private bool onWall = false;
+
     private bool isWallSliding = false;
     private float wallSlideSpeed = 2.4f;
 
