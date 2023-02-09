@@ -79,11 +79,12 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!onWall && !isWallJumping)
         {
+            // Perform a high jump
             if (Input.GetButtonDown("Jump") && IsGrounded())
             {
                 jp.JumpObject(new Vector2(rb.velocity.x, jumpScale));
             }
-
+            // Perform a low jump if the jump button is released early
             if (Input.GetButtonUp("Jump") && rb.velocity.y > 0)
             {
                 jp.JumpObject(new Vector2(rb.velocity.x, jumpScale * 0.3f));

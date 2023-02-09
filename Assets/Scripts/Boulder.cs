@@ -12,7 +12,7 @@ public class Boulder : MonoBehaviour
 
     [SerializeField] private Transform groundChecker;
     [SerializeField] private LayerMask groundLayer;
-    [SerializeField] private bool moveRight;
+    [SerializeField] private bool moveRight = false;
 
     private void Awake()
     {
@@ -31,7 +31,7 @@ public class Boulder : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
         UpdateMovement();
         CheckIfStopped();
@@ -62,5 +62,18 @@ public class Boulder : MonoBehaviour
     private bool IsGrounded()
     {
         return Physics2D.OverlapCircle(groundChecker.position, 0.5f, groundLayer);
+    }
+
+    public void SetDirection(bool moveRight)
+    {
+        switch (moveRight)
+        {
+            case true:
+                moveMultiplier = 1;
+                break;
+            case false:
+                moveMultiplier = -1;
+                break;
+        }
     }
 }

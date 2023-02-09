@@ -7,6 +7,7 @@ public class Spawner : MonoBehaviour
     private float targetTime;
     [SerializeField] private float cooldownTime = 15.0f;
     [SerializeField] private Boulder boulderPrefab;
+    [SerializeField] private bool faceRight = false;
 
     private void Start()
     {
@@ -14,18 +15,21 @@ public class Spawner : MonoBehaviour
     }
 
     // Update is called once per frame
-    private void Update()
+    private void FixedUpdate()
     {
         cooldownTime -= Time.deltaTime;
         if (cooldownTime <= 0.0f)
         {
-            spawnBoulder();
+            SpawnBoulder();
         }
     }
 
-    private void spawnBoulder()
+    private void SpawnBoulder()
     {
         cooldownTime = targetTime;
-        Instantiate(boulderPrefab, transform.position, Quaternion.identity);
+        boulderPrefab.SetDirection(faceRight);
+        Boulder boulder = Instantiate(boulderPrefab, transform.position, Quaternion.identity);
+
+        boulder.SetDirection(faceRight);
     }
 }
