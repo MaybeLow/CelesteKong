@@ -9,11 +9,17 @@ public class TriggerEventFire : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        OnTriggerChange?.Invoke(true);
+        if (collision.tag == "Ground")
+        {
+            OnTriggerChange?.Invoke(true);
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        OnTriggerChange?.Invoke(false);
+        if (collision.tag == "Ground")
+        {
+            OnTriggerChange?.Invoke(false);
+        }
     }
 }

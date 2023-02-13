@@ -35,7 +35,7 @@ public class Player : MonoBehaviour
             {
                 case "Boulder":
                     print("DEAD");
-                    Destroy(this.gameObject);
+                    //Destroy(this.gameObject);
                     //Game Over
                     break;
 
