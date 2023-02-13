@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
 
     private float climbSpeed = 5;
     private bool onWall = false;
+    private bool onGround = false;
 
     private bool isWallSliding = false;
     private float wallSlideSpeed = 2.4f;
@@ -80,7 +81,7 @@ public class PlayerMovement : MonoBehaviour
         if (!onWall && !isWallJumping)
         {
             // Perform a high jump
-            if (Input.GetButtonDown("Jump") && IsGrounded())
+            if (Input.GetButtonDown("Jump") && onGround)
             {
                 jp.JumpObject(new Vector2(rb.velocity.x, jumpScale));
             }
@@ -123,7 +124,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void WallSlide()
     {
-        if (IsWalled() && !IsGrounded() && !onWall && xMove != 0) {
+        if (IsWalled() && !onGround && !onWall && xMove != 0) {
             isWallSliding = true;
             rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -wallSlideSpeed, float.MaxValue));
         } 
@@ -168,6 +169,11 @@ public class PlayerMovement : MonoBehaviour
     private void StopWallJumping()
     {
         isWallJumping = false;
+    }
+
+    public void OnGroundedChange(bool _onGround)
+    {
+        onGround= _onGround;
     }
 
     private bool IsGrounded()
