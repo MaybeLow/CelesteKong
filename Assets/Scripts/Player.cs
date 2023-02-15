@@ -35,10 +35,14 @@ public class Player : MonoBehaviour
             {
                 case "Boulder":
                     print("DEAD");
-                    //Destroy(this.gameObject);
+                    Destroy(this.gameObject);
                     //Game Over
                     break;
-
+                case "Spike":
+                    print("DEAD");
+                    Destroy(this.gameObject);
+                    //Game Over
+                    break;
                 case "Floor":
                     if (collisions[i].transform != currentFloor)
                     {

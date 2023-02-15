@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Spawner : MonoBehaviour
+public class BoulderSpawner : MonoBehaviour
 {
     private float targetTime;
     [SerializeField] private float cooldownTime = 15.0f;
