@@ -139,7 +139,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (onWall && (isWallSliding || onWallGrab))
         {
-            print("1  --  " + onWall);
             isWallJumping = false;
             wallJumpDir = -(transform.localScale.x / Mathf.Abs(transform.localScale.x));
             wallJumpCounter = wallJumpTime;
@@ -154,7 +153,6 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetButtonDown("Jump") && wallJumpCounter > 0f && onWall)
         {
-            print("a");
             isWallJumping = true;
             isWallSliding = false;
             onWall = false;
@@ -181,7 +179,6 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnWalledChange(bool _onWall)
     {
-        print("2  ++  " + _onWall);
         onWall = _onWall;
     }   
 }

@@ -21,12 +21,12 @@ public class BoulderSpawner : MonoBehaviour
         if (cooldownTime <= 0.0f)
         {
             SpawnBoulder();
+            cooldownTime = targetTime;
         }
     }
 
     private void SpawnBoulder()
     {
-        cooldownTime = targetTime;
         boulderPrefab.SetDirection(faceRight);
         Boulder boulder = Instantiate(boulderPrefab, transform.position, Quaternion.identity);
 
