@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
     private void UpdateMovement()
     {
         // Update horizontal movement
-        if (!pm.onWallGrab && !pm.isWallJumping)
+        if (!pm.onWallGrab && !pm.isWallJumping && !pm.isDashing)
         {
             rb.velocity = new Vector2(pm.xMove * speed, rb.velocity.y);
             UpdateFlip();

@@ -11,6 +11,7 @@ public class PlayerManager : MonoBehaviour
     public bool onWallGrab = false;
     public bool isWallSliding = false;
     public bool isWallJumping = false;
+    public bool isDashing = false;
     public float xMove;
     public float yMove;
 

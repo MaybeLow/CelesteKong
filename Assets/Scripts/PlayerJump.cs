@@ -27,12 +27,12 @@ public class PlayerJump : MonoBehaviour
         if (!pm.onWallGrab && !pm.isWallJumping)
         {
             // Perform a high jump
-            if (Input.GetKeyDown("c") && pm.onGround)
+            if (Input.GetKeyDown("c") && pm.onGround && !pm.isDashing)
             {
                 Jump(Vector2.up, jumpScale);
             }
             // Perform a low jump if the jump button is released early
-            if (Input.GetKeyUp("c") && rb.velocity.y > 0)
+            if (Input.GetKeyUp("c") && rb.velocity.y > 0 && !pm.isDashing)
             {
                 Jump(Vector2.up, jumpScale * 0.3f);
             }

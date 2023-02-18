@@ -6,10 +6,13 @@ public class PlayerDash : MonoBehaviour
 {
     private Rigidbody2D rb;
     private PlayerManager pm;
+
+    private float currentCooldown = 0;
+    private float dashTime = 0.3f;
+    private bool isRecharged = true;
+
     [SerializeField] private float dashScale = 500f;
     [SerializeField] private float cooldownTime = 3.0f;
-    private float currentCooldown = 0;
-    private bool isRecharged = true;
 
     private void Awake()
     {
@@ -26,7 +29,7 @@ public class PlayerDash : MonoBehaviour
     // Update is called once per frame
     private void FixedUpdate()
     {
-        DashCooldown();
+        //DashCooldown();
     }
 
     private void DashCooldown()
@@ -42,9 +45,24 @@ public class PlayerDash : MonoBehaviour
     {
         if (Input.GetKeyDown("x") && isRecharged)
         {
-            rb.AddForce(new Vector2(pm.xMove, pm.yMove) * dashScale);
-            isRecharged = false;
-            currentCooldown = cooldownTime;
+            StartCoroutine(Dash());
         }
+    }
+
+    private IEnumerator Dash()
+    {
+        rb.velocity = new Vector2(transform.localScale.x / Mathf.Abs(transform.localScale.x) * dashScale, 0f);
+        isRecharged = false;
+        pm.isDashing = true;
+        float savedGravity = rb.gravityScale;
+        rb.gravityScale = 0;
+        currentCooldown = cooldownTime;
+
+        yield return new WaitForSeconds(dashTime);
+        pm.isDashing = false;
+        rb.gravityScale = savedGravity;
+
+        yield return new WaitForSeconds(cooldownTime);
+        isRecharged = true;
     }
 }

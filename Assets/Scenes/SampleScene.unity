@@ -7391,8 +7391,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 154bc406980f37b4faee17c3072245d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dashScale: 500
-  cooldownTime: 3
+  dashScale: 17
+  cooldownTime: 1
 --- !u!114 &1806548113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7410,6 +7410,7 @@ MonoBehaviour:
   onWallGrab: 0
   isWallSliding: 0
   isWallJumping: 0
+  isDashing: 0
   xMove: 0
   yMove: 0
   playerCamera: {fileID: 519420031}
