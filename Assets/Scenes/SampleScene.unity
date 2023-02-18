@@ -7269,7 +7269,6 @@ GameObject:
   - component: {fileID: 1806548104}
   - component: {fileID: 1806548118}
   - component: {fileID: 1806548117}
-  - component: {fileID: 1806548108}
   - component: {fileID: 1806548106}
   - component: {fileID: 1806548107}
   - component: {fileID: 1806548112}
@@ -7380,19 +7379,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16e7e5a955ca5d74a9fed6fcaa47c41c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1806548108
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1806548102}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a19a1bc3a3636af49843a94a2bcdff49, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerCamera: {fileID: 519420031}
 --- !u!114 &1806548112
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7426,6 +7412,7 @@ MonoBehaviour:
   isWallJumping: 0
   xMove: 0
   yMove: 0
+  playerCamera: {fileID: 519420031}
 --- !u!114 &1806548114
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -23,9 +23,13 @@ public class PlayerDash : MonoBehaviour
         CheckInput();
     }
 
-
     // Update is called once per frame
     private void FixedUpdate()
+    {
+        DashCooldown();
+    }
+
+    private void DashCooldown()
     {
         currentCooldown -= Time.deltaTime;
         if (currentCooldown <= 0.0f)

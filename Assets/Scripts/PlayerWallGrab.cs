@@ -43,7 +43,7 @@ public class PlayerWallGrab : MonoBehaviour
     private void WallClimb()
     {
         // Update vertical movement
-        if (pm.onWallGrab && !pm.isWallJumping)
+        if (pm.onWallGrab)
         {
             rb.velocity = new Vector2(rb.velocity.x, pm.yMove * climbSpeed);
         }
