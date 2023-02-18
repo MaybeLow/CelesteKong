@@ -4,13 +4,21 @@ using UnityEngine;
 
 public class PlayerDash : MonoBehaviour
 {
-    [SerializeField] private float dashScale;
+    private Rigidbody2D rb;
+    private PlayerManager pm;
+    [SerializeField] private float dashScale = 500f;
     [SerializeField] private float cooldownTime = 3.0f;
     private float currentCooldown = 0;
     private bool isRecharged = true;
 
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        pm = GetComponent<PlayerManager>();
+    }
+
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         CheckInput();
     }
@@ -30,7 +38,7 @@ public class PlayerDash : MonoBehaviour
     {
         if (Input.GetKeyDown("x") && isRecharged)
         {
-            transform.position += new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"), transform.position.z) * dashScale;
+            rb.AddForce(new Vector2(pm.xMove, pm.yMove) * dashScale);
             isRecharged = false;
             currentCooldown = cooldownTime;
         }

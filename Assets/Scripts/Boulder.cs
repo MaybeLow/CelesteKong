@@ -54,7 +54,6 @@ public class Boulder : MonoBehaviour
     {
         if (rb.velocity.magnitude < 0.05f && startingPos != transform.position)
         {
-            print(rb.velocity.magnitude);
             Destroy(this.gameObject);
         }
     }
