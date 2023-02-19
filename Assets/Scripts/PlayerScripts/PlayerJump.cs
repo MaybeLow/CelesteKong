@@ -54,12 +54,12 @@ public class PlayerJump : MonoBehaviour
 
     private void UpdateGravity()
     {
-        if (rb.velocity.y > 0)
+        if (rb.velocity.y > 0 && !pm.OnGround)
         {
             rb.gravityScale = gravityScale;
             PlayJumpAnimations();
         }
-        else if (rb.velocity.y < 0)
+        else if (rb.velocity.y < 0 && !pm.OnGround)
         {
             rb.gravityScale = fallingGravityScale;
             PlayFallAnimations();
