@@ -42,7 +42,7 @@ public class PlayerMovement : MonoBehaviour
     private void PlayRunningAnimation()
     {
         // Play running animation
-        if ((rb.velocity.x > 0 || rb.velocity.x < 0) && pm.OnGround)
+        if ((rb.velocity.x > 0 || rb.velocity.x < 0) && pm.OnGround && !pm.OnWall)
         {
             pm.playerAnimator.SetBool("isRunning", true);
         }
