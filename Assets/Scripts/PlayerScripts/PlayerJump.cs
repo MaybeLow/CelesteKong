@@ -25,6 +25,11 @@ public class PlayerJump : MonoBehaviour
         JumpInput();
     }
 
+    private void FixedUpdate()
+    {
+        UpdateGravity();
+    }
+
     private void JumpInput()
     {
         if (!pm.OnWallGrab && !pm.IsWallJumping)
@@ -45,14 +50,40 @@ public class PlayerJump : MonoBehaviour
     private void Jump(Vector2 jumpDir, float jumpScale)
     {
         rb.velocity = jumpDir * jumpScale;
+    }
 
-        if (rb.velocity.y >= 0)
+    private void UpdateGravity()
+    {
+        if (rb.velocity.y > 0)
         {
             rb.gravityScale = gravityScale;
+            PlayJumpAnimations();
         }
         else if (rb.velocity.y < 0)
         {
             rb.gravityScale = fallingGravityScale;
+            PlayFallAnimations();
+        } else
+        {
+            ResetAnimations();
         }
+    }
+
+    private void PlayJumpAnimations()
+    {
+        pm.playerAnimator.SetBool("isJumping", true);
+        pm.playerAnimator.SetBool("isFalling", false);
+    }
+
+    private void PlayFallAnimations()
+    {
+        pm.playerAnimator.SetBool("isJumping", false);
+        pm.playerAnimator.SetBool("isFalling", true);
+    }
+
+    private void ResetAnimations()
+    {
+        pm.playerAnimator.SetBool("isJumping", false);
+        pm.playerAnimator.SetBool("isFalling", false);
     }
 }

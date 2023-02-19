@@ -35,6 +35,20 @@ public class PlayerMovement : MonoBehaviour
         if (!pm.OnWallGrab && !pm.IsWallJumping && !pm.IsDashing)
         {
             rb.velocity = new Vector2(pm.XMove * speed, rb.velocity.y);
+            PlayRunningAnimation();
+        }
+    }
+
+    private void PlayRunningAnimation()
+    {
+        // Play running animation
+        if ((rb.velocity.x > 0 || rb.velocity.x < 0) && pm.OnGround)
+        {
+            pm.playerAnimator.SetBool("isRunning", true);
+        }
+        else
+        {
+            pm.playerAnimator.SetBool("isRunning", false);
         }
     }
 

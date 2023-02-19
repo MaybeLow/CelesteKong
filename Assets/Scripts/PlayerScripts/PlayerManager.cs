@@ -18,12 +18,15 @@ public class PlayerManager : MonoBehaviour
     public float XMove { get; set; }
     public float YMove { get; set; }
 
+    public Animator playerAnimator { get; set; }
+
     [SerializeField] private Camera playerCamera;
 
     // Start is called before the first frame update
     private void Awake()
     {
         bc = GetComponent<BoxCollider2D>();
+        playerAnimator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
