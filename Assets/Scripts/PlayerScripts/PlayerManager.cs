@@ -18,7 +18,7 @@ public class PlayerManager : MonoBehaviour
     public float XMove { get; set; }
     public float YMove { get; set; }
 
-    public Animator playerAnimator { get; set; }
+    public Animator PlayerAnimator { get; set; }
 
     [SerializeField] private Camera playerCamera;
 
@@ -26,7 +26,7 @@ public class PlayerManager : MonoBehaviour
     private void Awake()
     {
         bc = GetComponent<BoxCollider2D>();
-        playerAnimator = GetComponent<Animator>();
+        PlayerAnimator = GetComponent<Animator>();
     }
 
     // Update is called once per frame

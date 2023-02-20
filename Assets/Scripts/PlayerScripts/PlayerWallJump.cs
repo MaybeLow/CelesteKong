@@ -41,11 +41,13 @@ public class PlayerWallJump : MonoBehaviour
         if (pm.OnWall && !pm.OnGround && !pm.OnWallGrab && pm.XMove != 0)
         {
             pm.IsWallSliding = true;
+            pm.PlayerAnimator.SetBool("isWallSliding", true);
             rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -wallSlideSpeed, float.MaxValue));
         }
         else
         {
             pm.IsWallSliding = false;
+            pm.PlayerAnimator.SetBool("isWallSliding", false);
         }
     }
 

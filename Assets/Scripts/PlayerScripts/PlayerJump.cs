@@ -71,19 +71,19 @@ public class PlayerJump : MonoBehaviour
 
     private void PlayJumpAnimations()
     {
-        pm.playerAnimator.SetBool("isJumping", true);
-        pm.playerAnimator.SetBool("isFalling", false);
+        pm.PlayerAnimator.SetBool("isJumping", true);
+        pm.PlayerAnimator.SetBool("isFalling", false);
     }
 
     private void PlayFallAnimations()
     {
-        pm.playerAnimator.SetBool("isJumping", false);
-        pm.playerAnimator.SetBool("isFalling", true);
+        pm.PlayerAnimator.SetBool("isJumping", false);
+        pm.PlayerAnimator.SetBool("isFalling", true);
     }
 
     private void ResetAnimations()
     {
-        pm.playerAnimator.SetBool("isJumping", false);
-        pm.playerAnimator.SetBool("isFalling", false);
+        pm.PlayerAnimator.SetBool("isJumping", false);
+        pm.PlayerAnimator.SetBool("isFalling", false);
     }
 }

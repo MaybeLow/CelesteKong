@@ -44,11 +44,11 @@ public class PlayerMovement : MonoBehaviour
         // Play running animation
         if ((rb.velocity.x > 0 || rb.velocity.x < 0) && pm.OnGround && !pm.OnWall)
         {
-            pm.playerAnimator.SetBool("isRunning", true);
+            pm.PlayerAnimator.SetBool("isRunning", true);
         }
         else
         {
-            pm.playerAnimator.SetBool("isRunning", false);
+            pm.PlayerAnimator.SetBool("isRunning", false);
         }
     }
 

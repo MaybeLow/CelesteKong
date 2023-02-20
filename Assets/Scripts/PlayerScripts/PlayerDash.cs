@@ -41,13 +41,13 @@ public class PlayerDash : MonoBehaviour
         rb.velocity = new Vector2(transform.localScale.x / Mathf.Abs(transform.localScale.x) * dashScale, 0f);
         isRecharged = false;
         pm.IsDashing = true;
-        pm.playerAnimator.SetBool("isDashing", true);
+        pm.PlayerAnimator.SetBool("isDashing", true);
         float savedGravity = rb.gravityScale;
         rb.gravityScale = 0;
 
         yield return new WaitForSeconds(dashTime);
         pm.IsDashing = false;
-        pm.playerAnimator.SetBool("isDashing", false);
+        pm.PlayerAnimator.SetBool("isDashing", false);
         rb.gravityScale = savedGravity;
 
         yield return new WaitForSeconds(cooldownTime);
