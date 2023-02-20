@@ -36,10 +36,12 @@ public class PlayerWallGrab : MonoBehaviour
         if (Input.GetKey("z") && pm.OnWall)
         {
             pm.OnWallGrab = true;
+            pm.PlayerAnimator.SetBool("isWallClimbing", true);
         }
         else
         {
             pm.OnWallGrab = false;
+            pm.PlayerAnimator.SetBool("isWallClimbing", false);
         }
     }
 

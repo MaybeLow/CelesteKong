@@ -49,6 +49,7 @@ public class PlayerManager : MonoBehaviour
     public void OnGroundedChange(bool _onGround)
     {
         OnGround = _onGround;
+        PlayerAnimator.SetBool("onGround", _onGround);
     }
 
     public void OnWalledChange(bool _onWall)
