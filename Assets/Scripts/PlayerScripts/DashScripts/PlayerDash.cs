@@ -5,16 +5,21 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(PlayerManager))]
 
-public class PlayerDash : MonoBehaviour
+public abstract class PlayerDash : MonoBehaviour
 {
-    private Rigidbody2D rb;
-    private PlayerManager pm;
+    protected Rigidbody2D rb;
+    protected PlayerManager pm;
 
-    private float dashTime = 0.3f;
-    private bool isRecharged = true;
+    protected float dashTime = 1.3f;
+    protected bool isRecharged = true;
+    protected float currentX;
+    protected Vector2 dashRelativePosition;
+    protected Vector2 dashStartingPosition;
+    protected float dashDirection;
+    protected Vector2 dashMovement;
 
-    [SerializeField] private float dashScale = 10f;
-    [SerializeField] private float cooldownTime = 3.0f;
+    [SerializeField] protected float dashScale = 10f;
+    [SerializeField] protected float cooldownTime = 3.0f;
 
     private void Awake()
     {
@@ -22,10 +27,20 @@ public class PlayerDash : MonoBehaviour
         pm = GetComponent<PlayerManager>();
     }
 
+    private void Start()
+    {
+        //dashStartingPosition = transform.position;
+    }
+
     // Update is called once per frame
     private void Update()
     {
         CheckInput();
+    }
+
+    private void FixedUpdate()
+    {
+        DashEquation();
     }
 
     private void CheckInput()
@@ -38,14 +53,19 @@ public class PlayerDash : MonoBehaviour
 
     private IEnumerator Dash()
     {
-        rb.velocity = new Vector2(transform.localScale.x / Mathf.Abs(transform.localScale.x) * dashScale, 0f);
-        isRecharged = false;
         pm.IsDashing = true;
+
+        dashDirection = transform.localScale.x / Mathf.Abs(transform.localScale.x);
+        dashRelativePosition = new Vector2(0f, 0f);
+        dashStartingPosition = transform.position;
+
+        isRecharged = false;
         pm.PlayerAnimator.SetBool("isDashing", true);
         float savedGravity = rb.gravityScale;
         rb.gravityScale = 0;
 
         yield return new WaitForSeconds(dashTime);
+        transform.rotation = Quaternion.identity;
         pm.IsDashing = false;
         pm.PlayerAnimator.SetBool("isDashing", false);
         rb.gravityScale = savedGravity;
@@ -53,4 +73,6 @@ public class PlayerDash : MonoBehaviour
         yield return new WaitForSeconds(cooldownTime);
         isRecharged = true;
     }
+
+    protected abstract void DashEquation();
 }
