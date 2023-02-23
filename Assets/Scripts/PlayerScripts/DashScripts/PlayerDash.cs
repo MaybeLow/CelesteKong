@@ -27,11 +27,6 @@ public abstract class PlayerDash : MonoBehaviour
         pm = GetComponent<PlayerManager>();
     }
 
-    private void Start()
-    {
-        //dashStartingPosition = transform.position;
-    }
-
     // Update is called once per frame
     private void Update()
     {
