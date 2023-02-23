@@ -47,6 +47,7 @@ public class PlayerStateManager : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        print(currentState);
         GetMoveInput();
         PlayerState newState = currentState.Tick(this);
         if (!newState.Equals(currentState))

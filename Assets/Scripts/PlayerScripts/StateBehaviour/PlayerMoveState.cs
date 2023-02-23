@@ -8,13 +8,18 @@ public class PlayerMoveState : PlayerState
     {
         UpdateFlip(player);
         player.rb.velocity = new Vector2(player.XMove * player.MovementSpeed, player.rb.velocity.y);
-        if (Mathf.Abs(player.XMove) > 0)
+        
+        if (Input.GetKeyDown("c") && player.OnGround)
         {
-            return player.MoveState;
+            return player.JumpState;
+        }
+        else if (Mathf.Abs(player.XMove) == 0)
+        {
+            return player.IdleState;
         }
         else
         {
-            return player.IdleState;
+            return player.MoveState;
         }
     }
 
