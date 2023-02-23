@@ -5,12 +5,12 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(PlayerManager))]
 
-public abstract class PlayerDash : MonoBehaviour
+public class PlayerDash : MonoBehaviour
 {
     protected Rigidbody2D rb;
     protected PlayerManager pm;
 
-    protected float dashTime = 1.3f;
+    protected float dashTime = 0.6f;
     protected bool isRecharged = true;
     protected float currentX;
     protected Vector2 dashRelativePosition;
@@ -35,7 +35,7 @@ public abstract class PlayerDash : MonoBehaviour
 
     private void FixedUpdate()
     {
-        DashEquation();
+        //StartDash();
     }
 
     private void CheckInput()
@@ -51,8 +51,8 @@ public abstract class PlayerDash : MonoBehaviour
         pm.IsDashing = true;
 
         dashDirection = transform.localScale.x / Mathf.Abs(transform.localScale.x);
-        dashRelativePosition = new Vector2(0f, 0f);
-        dashStartingPosition = transform.position;
+
+        rb.velocity = new Vector2(transform.localScale.x / Mathf.Abs(transform.localScale.x) * dashScale, 0f);
 
         isRecharged = false;
         pm.PlayerAnimator.SetBool("isDashing", true);
@@ -68,6 +68,4 @@ public abstract class PlayerDash : MonoBehaviour
         yield return new WaitForSeconds(cooldownTime);
         isRecharged = true;
     }
-
-    protected abstract void DashEquation();
 }
