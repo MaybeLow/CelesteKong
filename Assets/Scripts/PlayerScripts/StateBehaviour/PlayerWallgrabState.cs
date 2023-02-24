@@ -6,7 +6,7 @@ public class PlayerWallgrabState : PlayerState
 {
     public PlayerState Tick(PlayerStateManager player)
     {
-        WallClimb(player);
+        player.rb.velocity = new Vector2(player.rb.velocity.x, player.YMove * player.ClimbSpeed);
         // Perform a low jump if the jump button is released early
         if (Input.GetKeyDown("c"))
         {
@@ -34,11 +34,5 @@ public class PlayerWallgrabState : PlayerState
     public void Exit(PlayerStateManager player)
     {
         player.PlayerAnimator.SetBool("isWallClimbing", false);
-    }
-
-    private void WallClimb(PlayerStateManager player)
-    {
-        // Update vertical movement
-        player.rb.velocity = new Vector2(player.rb.velocity.x, player.YMove * player.ClimbSpeed);
     }
 }

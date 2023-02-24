@@ -13,11 +13,13 @@ public class PlayerStateManager : MonoBehaviour
     public PlayerMoveState MoveState = new PlayerMoveState();
     public PlayerWallgrabState WallgrabState = new PlayerWallgrabState();
     public PlayerFallState FallState = new PlayerFallState();
+    public PlayerWallslideState WallslideState = new PlayerWallslideState();
 
 
     public float MovementSpeed { get; set; } = 10f;
     public float JumpScale { get; set; } = 10f;
     public float ClimbSpeed { get; set; } = 10f;
+    public float WallSlideSpeed { get; set; } = 2f;
     public Rigidbody2D rb { get; set; }
     private BoxCollider2D bc;
 
@@ -47,7 +49,7 @@ public class PlayerStateManager : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        //print(currentState);
+        print(currentState);
         GetMoveInput();
         PlayerState newState = currentState.Tick(this);
         if (!newState.Equals(currentState))
