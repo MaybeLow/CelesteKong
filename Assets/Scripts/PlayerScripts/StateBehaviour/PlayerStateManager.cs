@@ -51,6 +51,7 @@ public class PlayerStateManager : MonoBehaviour
     {
         print(currentState);
         GetMoveInput();
+
         PlayerState newState = currentState.Tick(this);
         if (!newState.Equals(currentState))
         {
@@ -62,7 +63,36 @@ public class PlayerStateManager : MonoBehaviour
 
     private void FixedUpdate()
     {
+        UpdateMovement();
         CheckTagOverlap();
+    }
+
+    private void UpdateMovement()
+    {
+        if (currentState == IdleState)
+        {
+            rb.velocity = new Vector2(0f, 0f);
+        }
+        else if (currentState == MoveState)
+        {
+            rb.velocity = new Vector2(XMove * MovementSpeed, rb.velocity.y);
+        }
+        else if (currentState == JumpState)
+        {
+            rb.velocity = new Vector2(XMove * MovementSpeed, rb.velocity.y);
+        }
+        else if (currentState == FallState)
+        {
+            rb.velocity = new Vector2(XMove * MovementSpeed, rb.velocity.y);
+        }
+        else if (currentState == WallgrabState)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, YMove * ClimbSpeed);
+        }
+        else if (currentState == WallslideState)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -WallSlideSpeed, float.MaxValue));
+        }
     }
 
     private void GetMoveInput()

@@ -7,7 +7,6 @@ public class PlayerWallslideState : PlayerState
     private float initialXMove;
     public PlayerState Tick(PlayerStateManager player)
     {
-        WallSlide(player);
         if (Input.GetKeyDown("c")) {
             return player.JumpState;
         }
@@ -23,9 +22,13 @@ public class PlayerWallslideState : PlayerState
         {
             return player.IdleState;
         }
-        else
+        else if (player.OnWall)
         {
             return player.WallslideState;
+        }
+        else
+        {
+            return player.IdleState;
         }
     }
 
@@ -38,11 +41,6 @@ public class PlayerWallslideState : PlayerState
     public void Exit(PlayerStateManager player)
     {
         player.PlayerAnimator.SetBool("isWallSliding", false);
-    }
-
-    private void WallSlide(PlayerStateManager player)
-    {
-        player.rb.velocity = new Vector2(player.rb.velocity.x, Mathf.Clamp(player.rb.velocity.y, -player.WallSlideSpeed, float.MaxValue));
     }
 
 }

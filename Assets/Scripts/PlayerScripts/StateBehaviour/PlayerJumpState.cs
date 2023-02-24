@@ -7,7 +7,6 @@ public class PlayerJumpState : PlayerState
     public PlayerState Tick(PlayerStateManager player)
     {
         UpdateFlip(player);
-        player.rb.velocity = new Vector2(player.XMove * player.MovementSpeed, player.rb.velocity.y);
         // Perform a low jump if the jump button is released early
         if (Input.GetKeyUp("c") && player.rb.velocity.y > 0)
         {

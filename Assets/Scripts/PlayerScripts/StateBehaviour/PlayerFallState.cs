@@ -7,7 +7,6 @@ public class PlayerFallState : PlayerState
     public PlayerState Tick(PlayerStateManager player)
     {
         UpdateFlip(player);
-        player.rb.velocity = new Vector2(player.XMove * player.MovementSpeed, player.rb.velocity.y);
 
         if (Input.GetKey("z") && player.OnWall)
         {
