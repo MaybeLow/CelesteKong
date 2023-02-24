@@ -11,21 +11,21 @@ public class PlayerStateManager : MonoBehaviour
     public PlayerIdleState IdleState = new PlayerIdleState();
     public PlayerJumpState JumpState = new PlayerJumpState();
     public PlayerMoveState MoveState = new PlayerMoveState();
+    public PlayerWallgrabState WallgrabState = new PlayerWallgrabState();
+    public PlayerFallState FallState = new PlayerFallState();
 
 
     public float MovementSpeed { get; set; } = 10f;
     public float JumpScale { get; set; } = 10f;
+    public float ClimbSpeed { get; set; } = 10f;
     public Rigidbody2D rb { get; set; }
     private BoxCollider2D bc;
-    public bool OnGround { get; set; } = false;
-    public bool OnWall { get; set; } = false;
-    public bool OnWallGrab { get; set; } = false;
-    public bool IsWallSliding { get; set; } = false;
-    public bool IsWallJumping { get; set; } = false;
-    public bool IsDashing { get; set; } = false;
 
     public float XMove { get; set; }
     public float YMove { get; set; }
+
+    public bool OnGround { get; set; }
+    public bool OnWall { get; set; }
 
     public Animator PlayerAnimator { get; set; }
 
@@ -47,7 +47,7 @@ public class PlayerStateManager : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        print(currentState);
+        //print(currentState);
         GetMoveInput();
         PlayerState newState = currentState.Tick(this);
         if (!newState.Equals(currentState))

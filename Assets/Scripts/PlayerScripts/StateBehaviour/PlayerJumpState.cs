@@ -13,15 +13,21 @@ public class PlayerJumpState : PlayerState
         {
             Jump(player, Vector2.up, player.JumpScale * 0.3f);
         }
-        if (player.rb.velocity.y < 0)
+
+        if (player.rb.velocity.y <= 0)
         {
-            player.PlayerAnimator.SetBool("isJumping", false);
-            player.PlayerAnimator.SetBool("isFalling", true);
+            return player.FallState;
         }
-        if (player.rb.velocity.y <= 0 && player.OnGround)
+        else if (Input.GetKey("z") && player.OnWall)
         {
-            return player.IdleState;
-        } else
+            return player.WallgrabState;
+        }
+        else if (Input.GetKeyUp("c") && player.OnWall)
+        {
+            // Wall Jump
+            return player.JumpState;
+        }
+        else
         {
             return player.JumpState;
         }
@@ -31,15 +37,12 @@ public class PlayerJumpState : PlayerState
     {
         Jump(player, Vector2.up, player.JumpScale);
 
-        player.PlayerAnimator.SetBool("isRunning", false);
         player.PlayerAnimator.SetBool("isJumping", true);
-        player.PlayerAnimator.SetBool("isDashing", false);
-        player.PlayerAnimator.SetBool("isFalling", false);
     }
 
     public void Exit(PlayerStateManager player)
     {
-        //Destroy(this);
+        player.PlayerAnimator.SetBool("isJumping", false);
     }
 
     private void Jump(PlayerStateManager player, Vector2 jumpDir, float jumpScale)

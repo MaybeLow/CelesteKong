@@ -15,6 +15,14 @@ public class PlayerIdleState : PlayerState
         {
             return player.MoveState;
         }
+        else if (player.rb.velocity.y < 0 && !player.OnGround)
+        {
+            return player.FallState;
+        }
+        else if (Input.GetKey("z") && player.OnWall)
+        {
+            return player.WallgrabState;
+        }
         else
         {
             return player.IdleState;
@@ -23,10 +31,7 @@ public class PlayerIdleState : PlayerState
 
     public void Enter(PlayerStateManager player)
     {
-        player.PlayerAnimator.SetBool("isRunning", false);
-        player.PlayerAnimator.SetBool("isJumping", false);
-        player.PlayerAnimator.SetBool("isDashing", false);
-        player.PlayerAnimator.SetBool("isFalling", false);
+        //lol
     }
 
     public void Exit(PlayerStateManager player)
