@@ -14,12 +14,19 @@ public class PlayerStateManager : MonoBehaviour
     public PlayerWallgrabState WallgrabState = new PlayerWallgrabState();
     public PlayerFallState FallState = new PlayerFallState();
     public PlayerWallslideState WallslideState = new PlayerWallslideState();
+    public PlayerDashState DashState = new PlayerDashState();
 
 
     public float MovementSpeed { get; set; } = 10f;
     public float JumpScale { get; set; } = 10f;
     public float ClimbSpeed { get; set; } = 10f;
     public float WallSlideSpeed { get; set; } = 2f;
+    public float DashScale { get; set; } = 20f;
+    public float DashTime { get; set; } = 0.4f;
+    public float DashCooldownTime { get; set; } = 2f;
+
+    public bool IsDashRecharged { get; set; } = true;
+
     public Rigidbody2D rb { get; set; }
     private BoxCollider2D bc;
 
@@ -92,6 +99,11 @@ public class PlayerStateManager : MonoBehaviour
         else if (currentState == WallslideState)
         {
             rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -WallSlideSpeed, float.MaxValue));
+        } 
+        else if (currentState == DashState)
+        {
+            float dashDirection = transform.localScale.x / Mathf.Abs(transform.localScale.x);
+            rb.velocity = new Vector2(dashDirection * DashScale, 0f);
         }
     }
 

@@ -21,6 +21,11 @@ public class PlayerFallState : PlayerState
             // Wall Jump
             return player.JumpState;
         }
+
+        else if (Input.GetKeyDown("x") && player.IsDashRecharged)
+        {
+            return player.DashState;
+        }
         else if (Mathf.Abs(player.XMove) > 0 && player.OnWall)
         {
             return player.WallslideState;

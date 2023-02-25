@@ -19,6 +19,10 @@ public class PlayerIdleState : PlayerState
         {
             return player.FallState;
         }
+        else if (Input.GetKeyDown("x") && player.IsDashRecharged)
+        {
+            return player.DashState;
+        }
         else if (Input.GetKey("z") && player.OnWall)
         {
             return player.WallgrabState;
