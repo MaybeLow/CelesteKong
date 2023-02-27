@@ -15,6 +15,9 @@ public class PlayerDashState : PlayerState
         if (Time.time - dashEnterTime >= player.DashTime) 
         {
             return player.IdleState;
+        } else if (player.OnWall)
+        {
+            return player.WallslideState;
         }
         else
         {

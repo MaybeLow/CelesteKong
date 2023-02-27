@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerJumpState : PlayerState
+public class PlayerJumpState : PlayerFlipper
 {
-    public PlayerState Tick(PlayerStateManager player)
+    public override PlayerState Tick(PlayerStateManager player)
     {
         UpdateFlip(player);
         // Perform a low jump if the jump button is released early
@@ -41,14 +41,14 @@ public class PlayerJumpState : PlayerState
         }
     }
 
-    public void Enter(PlayerStateManager player)
+    public override void Enter(PlayerStateManager player)
     {
         Jump(player, Vector2.up, player.JumpScale);
 
         player.PlayerAnimator.SetBool("isJumping", true);
     }
 
-    public void Exit(PlayerStateManager player)
+    public override void Exit(PlayerStateManager player)
     {
         player.PlayerAnimator.SetBool("isJumping", false);
     }
@@ -56,21 +56,5 @@ public class PlayerJumpState : PlayerState
     private void Jump(PlayerStateManager player, Vector2 jumpDir, float jumpScale)
     {
         player.rb.velocity = jumpDir * jumpScale;
-    }
-
-    private void UpdateFlip(PlayerStateManager player)
-    {
-        if (player.XMove < -0.1f && player.transform.localScale.x >= 0
-            || player.XMove > 0.1f && player.transform.localScale.x < -0)
-        {
-            FlipPlayer(player);
-        }
-    }
-
-    private void FlipPlayer(PlayerStateManager player)
-    {
-        Vector3 localScale = player.transform.localScale;
-        localScale.x *= -1;
-        player.transform.localScale = localScale;
     }
 }

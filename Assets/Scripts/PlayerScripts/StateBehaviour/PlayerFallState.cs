@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerFallState : PlayerState
+public class PlayerFallState : PlayerFlipper
 {
-    public PlayerState Tick(PlayerStateManager player)
+    public override PlayerState Tick(PlayerStateManager player)
     {
         UpdateFlip(player);
 
@@ -21,7 +21,6 @@ public class PlayerFallState : PlayerState
             // Wall Jump
             return player.JumpState;
         }
-
         else if (Input.GetKeyDown("x") && player.IsDashRecharged)
         {
             return player.DashState;
@@ -36,29 +35,13 @@ public class PlayerFallState : PlayerState
         }
     }
 
-    public void Enter(PlayerStateManager player)
+    public override void Enter(PlayerStateManager player)
     {
         player.PlayerAnimator.SetBool("isFalling", true);
     }
 
-    public void Exit(PlayerStateManager player)
+    public override void Exit(PlayerStateManager player)
     {
         player.PlayerAnimator.SetBool("isFalling", false);
-    }
-
-    private void UpdateFlip(PlayerStateManager player)
-    {
-        if (player.XMove < -0.1f && player.transform.localScale.x >= 0
-            || player.XMove > 0.1f && player.transform.localScale.x < -0)
-        {
-            FlipPlayer(player);
-        }
-    }
-
-    private void FlipPlayer(PlayerStateManager player)
-    {
-        Vector3 localScale = player.transform.localScale;
-        localScale.x *= -1;
-        player.transform.localScale = localScale;
     }
 }

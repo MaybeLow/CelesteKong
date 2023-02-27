@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerWallslideState : PlayerState
+public class PlayerWallslideState : PlayerFlipper
 {
     private float initialXMove;
-    public PlayerState Tick(PlayerStateManager player)
+
+    public override PlayerState Tick(PlayerStateManager player)
     {
         if (Input.GetKeyDown("c")) {
             return player.JumpState;
@@ -13,6 +14,11 @@ public class PlayerWallslideState : PlayerState
         else if (Input.GetKey("z"))
         {
             return player.WallgrabState;
+        }
+        else if (Input.GetKeyDown("x") && player.IsDashRecharged)
+        {
+            FlipPlayer(player);
+            return player.DashState;
         }
         else if (player.XMove != initialXMove)
         {
@@ -32,13 +38,13 @@ public class PlayerWallslideState : PlayerState
         }
     }
 
-    public void Enter(PlayerStateManager player)
+    public override void Enter(PlayerStateManager player)
     {
         initialXMove = player.XMove;
         player.PlayerAnimator.SetBool("isWallSliding", true);
     }
 
-    public void Exit(PlayerStateManager player)
+    public override void Exit(PlayerStateManager player)
     {
         player.PlayerAnimator.SetBool("isWallSliding", false);
     }

@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMoveState : PlayerState
+public class PlayerMoveState : PlayerFlipper
 {
-    public PlayerState Tick(PlayerStateManager player)
+    public override PlayerState Tick(PlayerStateManager player)
     {
         UpdateFlip(player);
         
@@ -20,6 +20,10 @@ public class PlayerMoveState : PlayerState
         {
             return player.WallgrabState;
         }
+        else if (Input.GetKeyDown("x") && player.IsDashRecharged)
+        {
+            return player.DashState;
+        }
         else if (player.rb.velocity.y < 0 && !player.OnGround)
         {
             return player.FallState;
@@ -30,29 +34,13 @@ public class PlayerMoveState : PlayerState
         }
     }
 
-    public void Enter(PlayerStateManager player)
+    public override void Enter(PlayerStateManager player)
     {
         player.PlayerAnimator.SetBool("isRunning", true);
     }
 
-    public void Exit(PlayerStateManager player)
+    public override void Exit(PlayerStateManager player)
     {
         player.PlayerAnimator.SetBool("isRunning", false);
-    }
-
-    private void UpdateFlip(PlayerStateManager player)
-    {
-        if (player.XMove < -0.1f && player.transform.localScale.x >= 0
-            || player.XMove > 0.1f && player.transform.localScale.x < -0)
-        {
-            FlipPlayer(player);
-        }
-    }
-
-    private void FlipPlayer(PlayerStateManager player)
-    {
-        Vector3 localScale = player.transform.localScale;
-        localScale.x *= -1;
-        player.transform.localScale = localScale;
     }
 }
