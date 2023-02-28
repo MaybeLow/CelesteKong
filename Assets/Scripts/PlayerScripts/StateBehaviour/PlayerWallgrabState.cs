@@ -23,7 +23,7 @@ public class PlayerWallgrabState : IPlayerState
         }
         else if (Mathf.Abs(player.rb.velocity.y) > 0 && !player.OnWall)
         {
-            return player.FallState;
+            return player.JumpState;
         }
         else
         {

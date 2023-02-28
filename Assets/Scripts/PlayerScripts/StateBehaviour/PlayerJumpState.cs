@@ -54,7 +54,10 @@ public class PlayerJumpState : PlayerFlipper
      */
     public override void Enter(PlayerStateManager player)
     {
-        Jump(player, Vector2.up, JumpScale);
+        if (player.OnGround)
+        {
+            Jump(player, Vector2.up, JumpScale);
+        }
 
         player.PlayerAnimator.SetBool("isJumping", true);
     }
