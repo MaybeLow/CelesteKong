@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class PlayerIdleState : PlayerState
+/**
+ * Player idle state
+ */
+public class PlayerIdleState : IPlayerState
 {
-    public PlayerState Tick(PlayerStateManager player)
+    public IPlayerState Tick(PlayerStateManager player)
     {
+        // State transitions
         if (Input.GetKeyDown("c") && player.OnGround)
         {
             return player.JumpState;
@@ -33,13 +37,19 @@ public class PlayerIdleState : PlayerState
         }
     }
 
+    /**
+     * Idle state does not have an animator state, thus the method is empty
+     */
     public void Enter(PlayerStateManager player)
     {
-        //lol
+        
     }
 
+    /**
+     * Idle state does not have an animator state, thus the method is empty
+     */
     public void Exit(PlayerStateManager player)
     {
-        //Destroy(this);
+        
     }
 }

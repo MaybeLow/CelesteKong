@@ -3,21 +3,26 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
-using static UnityEngine.RuleTile.TilingRuleOutput;
 
-public class PlayerDashState : PlayerState
+/**
+ * Player dash state
+ */
+public class PlayerDashState : IPlayerState
 {
     private float dashTime = 0.4f;
     private float dashCooldownTime = 2f;
     private float dashEnterTime;
     private float savedGravity;
 
-    public PlayerState Tick(PlayerStateManager player)
+    public IPlayerState Tick(PlayerStateManager player)
     {
+        // Transit to a different state when the dash timer runs out
         if (Time.time - dashEnterTime >= dashTime) 
         {
             return player.IdleState;
-        } else if (player.OnWall)
+        } 
+        // Switch state when the player touches a wall.
+        else if (player.OnWall)
         {
             return player.WallslideState;
         }
@@ -27,6 +32,10 @@ public class PlayerDashState : PlayerState
         }
     }
 
+    /**
+     * On enter, set the animator in isDashing state, initialise the initial time, 
+     * and set gravity to 0 temporarily
+     */
     public void Enter(PlayerStateManager player)
     {
         dashEnterTime = Time.time;
@@ -36,6 +45,10 @@ public class PlayerDashState : PlayerState
         player.rb.gravityScale = 0;
     }
 
+    /**
+     * On exit, set the isDashing state to false, reset rotation and gravity, 
+     * and start a dash cooldown coroutine
+     */
     public void Exit(PlayerStateManager player)
     {
         player.PlayerAnimator.SetBool("isDashing", false);

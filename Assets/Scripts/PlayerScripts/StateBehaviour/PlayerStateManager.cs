@@ -4,10 +4,14 @@ using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]
 
+/**
+ * Class that manages the state-based player character movement
+ */
 public class PlayerStateManager : MonoBehaviour
 {
-    private PlayerState currentState;
+    private IPlayerState currentState;
 
+    // A set of all possible states the player may be in
     public PlayerIdleState IdleState = new PlayerIdleState();
     public PlayerJumpState JumpState = new PlayerJumpState();
     public PlayerMoveState MoveState = new PlayerMoveState();
@@ -16,7 +20,7 @@ public class PlayerStateManager : MonoBehaviour
     public PlayerWallslideState WallslideState = new PlayerWallslideState();
     public PlayerDashState DashState = new PlayerDashState();
 
-
+    // Variables that manages the movement scales
     public float MovementSpeed { get; set; } = 10f;
     public float JumpMovementSpeed { get; set; } = 10f;
     public float FallMovementSpeed { get; set; } = 10f;
@@ -24,14 +28,17 @@ public class PlayerStateManager : MonoBehaviour
     public float WallSlideSpeed { get; set; } = 2f;
     public float DashScale { get; set; } = 20f;
 
+    // A check that ensures the dash cannot be called if it is not recharged
     public bool IsDashRecharged { get; set; } = true;
 
     public Rigidbody2D rb { get; private set; }
     private BoxCollider2D bc;
 
+    // Movement input
     public float XMove { get; set; }
     public float YMove { get; set; }
 
+    // Ground and wall collider checkers
     public bool OnGround { get; set; }
     public bool OnWall { get; set; }
 
@@ -39,12 +46,17 @@ public class PlayerStateManager : MonoBehaviour
 
     [SerializeField] private Camera playerCamera;
 
-
+    /**
+     * When enabled, set the current state to idle
+     */
     private void OnEnable()
     {
         currentState = IdleState;
     }
-    // Start is called before the first frame update
+
+    /**
+     * On awake, initialise components
+     */
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -52,7 +64,9 @@ public class PlayerStateManager : MonoBehaviour
         PlayerAnimator = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
+    /**
+     * With each update, get the user inputs and change the current state
+     */
     private void Update()
     {
         print(currentState);
@@ -60,15 +74,21 @@ public class PlayerStateManager : MonoBehaviour
         UpdateState();
     }
 
+    /**
+     * With each fixed update, update the player movement and check collider overlaps
+     */
     private void FixedUpdate()
     {
         UpdateMovement();
         CheckTagOverlap();
     }
 
+    /**
+     * Update state, if the new state is different from the current state
+     */
     private void UpdateState()
     {
-        PlayerState newState = currentState.Tick(this);
+        IPlayerState newState = currentState.Tick(this);
         if (!newState.Equals(currentState))
         {
             currentState.Exit(this);
@@ -77,6 +97,9 @@ public class PlayerStateManager : MonoBehaviour
         }
     }
 
+    /**
+     * Update movement depending on the current player state
+     */
     private void UpdateMovement()
     {
         if (currentState == IdleState)
@@ -103,6 +126,7 @@ public class PlayerStateManager : MonoBehaviour
         {
             rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -WallSlideSpeed, float.MaxValue));
         } 
+        // The length of dash depends on the direction the player is looking at
         else if (currentState == DashState)
         {
             if (XMove == 0f && YMove != 0f)
@@ -122,23 +146,35 @@ public class PlayerStateManager : MonoBehaviour
         }
     }
 
+    /**
+     * Get the x and y input from keyboard
+     */
     private void GetMoveInput()
     {
         XMove = Input.GetAxisRaw("Horizontal");
         YMove = Input.GetAxisRaw("Vertical");
     }
 
+    /**
+     * Check if the ground trigger overlaps with the ground
+     */
     public void OnGroundedChange(bool _onGround)
     {
         OnGround = _onGround;
         PlayerAnimator.SetBool("onGround", _onGround);
     }
 
+    /**
+     * Check if the wall trigger overlaps with the ground (walls are considered grounds)
+     */
     public void OnWalledChange(bool _onWall)
     {
         OnWall = _onWall;
     }
 
+    /**
+     * Check collider overlaps with other colliders
+     */
     private void CheckTagOverlap()
     {
         ContactFilter2D contactFilter = new ContactFilter2D().NoFilter();

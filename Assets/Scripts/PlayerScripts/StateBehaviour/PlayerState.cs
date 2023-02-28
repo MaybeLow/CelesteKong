@@ -2,9 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface PlayerState
+/**
+ * Interface class that manages the 3 basic state methods
+ */
+public interface IPlayerState
 {
-    public PlayerState Tick(PlayerStateManager player);
+    // Tick is called each frame for the state the player is currently in
+    public IPlayerState Tick(PlayerStateManager player);
+    // Enter is called whenever the player enters the state
     public void Enter(PlayerStateManager player);
+    // Exit is called whenever the player exits the state
     public void Exit(PlayerStateManager player);
 }

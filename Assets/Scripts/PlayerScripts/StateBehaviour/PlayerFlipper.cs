@@ -2,12 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class PlayerFlipper : PlayerState
+/**
+ * An abstract class that rotates the player if the horizontal movement changes
+ */
+public abstract class PlayerFlipper : IPlayerState
 {
-    public abstract PlayerState Tick(PlayerStateManager player);
+    public abstract IPlayerState Tick(PlayerStateManager player);
     public abstract void Enter(PlayerStateManager player);
     public abstract void Exit(PlayerStateManager player);
 
+    /**
+     * Check which direction the player is facing and rotate if needed
+     */
     protected void UpdateFlip(PlayerStateManager player)
     {
         if (player.XMove < -0.1f && player.transform.localScale.x >= 0
@@ -17,6 +23,9 @@ public abstract class PlayerFlipper : PlayerState
         }
     }
 
+    /**
+     * Flip the player
+     */
     protected void FlipPlayer(PlayerStateManager player)
     {
         Vector3 localScale = player.transform.localScale;

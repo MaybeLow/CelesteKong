@@ -2,12 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/**
+ * Player wall slide state
+ */
 public class PlayerWallslideState : PlayerFlipper
 {
+    // The initial direction the player is facing when it starts wall sliding
     private float initialXMove;
 
-    public override PlayerState Tick(PlayerStateManager player)
+    public override IPlayerState Tick(PlayerStateManager player)
     {
+        // State transitions
         if (Input.GetKeyDown("c")) {
             return player.JumpState;
         }
@@ -33,12 +38,18 @@ public class PlayerWallslideState : PlayerFlipper
         }
     }
 
+    /**
+     * On enter, set the animator in isWallSliding state and initialise the initial direction
+     */
     public override void Enter(PlayerStateManager player)
     {
         initialXMove = player.XMove;
         player.PlayerAnimator.SetBool("isWallSliding", true);
     }
 
+    /**
+     * On exit, set the isWallSliding state to false
+     */
     public override void Exit(PlayerStateManager player)
     {
         player.PlayerAnimator.SetBool("isWallSliding", false);
