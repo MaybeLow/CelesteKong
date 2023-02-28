@@ -7,12 +7,14 @@ using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class PlayerDashState : PlayerState
 {
+    private float dashTime = 0.4f;
+    private float dashCooldownTime = 2f;
     private float dashEnterTime;
     private float savedGravity;
 
     public PlayerState Tick(PlayerStateManager player)
     {
-        if (Time.time - dashEnterTime >= player.DashTime) 
+        if (Time.time - dashEnterTime >= dashTime) 
         {
             return player.IdleState;
         } else if (player.OnWall)
@@ -47,7 +49,7 @@ public class PlayerDashState : PlayerState
     private IEnumerator DashCooldown(PlayerStateManager player)
     {
         player.IsDashRecharged = false;
-        yield return new WaitForSeconds(player.DashCooldownTime);
+        yield return new WaitForSeconds(dashCooldownTime);
         player.IsDashRecharged = true;
     }
 }

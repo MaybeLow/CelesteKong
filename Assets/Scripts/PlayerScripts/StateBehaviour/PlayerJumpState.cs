@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class PlayerJumpState : PlayerFlipper
 {
+    private float JumpScale = 10f;
     public override PlayerState Tick(PlayerStateManager player)
     {
         UpdateFlip(player);
         // Perform a low jump if the jump button is released early
         if (Input.GetKeyUp("c") && player.rb.velocity.y > 0)
         {
-            Jump(player, Vector2.up, player.JumpScale * 0.3f);
+            Jump(player, Vector2.up, JumpScale * 0.3f);
         }
 
         if (player.rb.velocity.y <= 0)
@@ -43,7 +44,7 @@ public class PlayerJumpState : PlayerFlipper
 
     public override void Enter(PlayerStateManager player)
     {
-        Jump(player, Vector2.up, player.JumpScale);
+        Jump(player, Vector2.up, JumpScale);
 
         player.PlayerAnimator.SetBool("isJumping", true);
     }

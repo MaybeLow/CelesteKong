@@ -15,11 +15,6 @@ public class PlayerWallslideState : PlayerFlipper
         {
             return player.WallgrabState;
         }
-        else if (Input.GetKeyDown("x") && player.IsDashRecharged)
-        {
-            FlipPlayer(player);
-            return player.DashState;
-        }
         else if (player.XMove != initialXMove)
         {
             return player.FallState;

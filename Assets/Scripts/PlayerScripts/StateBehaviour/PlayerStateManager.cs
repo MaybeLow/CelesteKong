@@ -18,16 +18,15 @@ public class PlayerStateManager : MonoBehaviour
 
 
     public float MovementSpeed { get; set; } = 10f;
-    public float JumpScale { get; set; } = 10f;
+    public float JumpMovementSpeed { get; set; } = 10f;
+    public float FallMovementSpeed { get; set; } = 10f;
     public float ClimbSpeed { get; set; } = 10f;
     public float WallSlideSpeed { get; set; } = 2f;
     public float DashScale { get; set; } = 20f;
-    public float DashTime { get; set; } = 0.4f;
-    public float DashCooldownTime { get; set; } = 2f;
 
     public bool IsDashRecharged { get; set; } = true;
 
-    public Rigidbody2D rb { get; set; }
+    public Rigidbody2D rb { get; private set; }
     private BoxCollider2D bc;
 
     public float XMove { get; set; }
@@ -36,7 +35,7 @@ public class PlayerStateManager : MonoBehaviour
     public bool OnGround { get; set; }
     public bool OnWall { get; set; }
 
-    public Animator PlayerAnimator { get; set; }
+    public Animator PlayerAnimator { get; private set; }
 
     [SerializeField] private Camera playerCamera;
 
@@ -58,7 +57,17 @@ public class PlayerStateManager : MonoBehaviour
     {
         print(currentState);
         GetMoveInput();
+        UpdateState();
+    }
 
+    private void FixedUpdate()
+    {
+        UpdateMovement();
+        CheckTagOverlap();
+    }
+
+    private void UpdateState()
+    {
         PlayerState newState = currentState.Tick(this);
         if (!newState.Equals(currentState))
         {
@@ -66,12 +75,6 @@ public class PlayerStateManager : MonoBehaviour
             currentState = newState;
             currentState.Enter(this);
         }
-    }
-
-    private void FixedUpdate()
-    {
-        UpdateMovement();
-        CheckTagOverlap();
     }
 
     private void UpdateMovement()
@@ -86,11 +89,11 @@ public class PlayerStateManager : MonoBehaviour
         }
         else if (currentState == JumpState)
         {
-            rb.velocity = new Vector2(XMove * MovementSpeed, rb.velocity.y);
+            rb.velocity = new Vector2(XMove * JumpMovementSpeed, rb.velocity.y);
         }
         else if (currentState == FallState)
         {
-            rb.velocity = new Vector2(XMove * MovementSpeed, rb.velocity.y);
+            rb.velocity = new Vector2(XMove * FallMovementSpeed, rb.velocity.y);
         }
         else if (currentState == WallgrabState)
         {
@@ -102,8 +105,20 @@ public class PlayerStateManager : MonoBehaviour
         } 
         else if (currentState == DashState)
         {
-            float dashDirection = transform.localScale.x / Mathf.Abs(transform.localScale.x);
-            rb.velocity = new Vector2(dashDirection * DashScale, 0f);
+            if (XMove == 0f && YMove != 0f)
+            {
+                rb.velocity = new Vector2(0, YMove * DashScale * 0.5f);
+            }
+            else if (XMove != 0f && YMove != 0f)
+            {
+                float dashDirection = transform.localScale.x / Mathf.Abs(transform.localScale.x);
+                rb.velocity = new Vector2(dashDirection * DashScale * 0.7f, YMove * DashScale * 0.7f);
+            }
+            else
+            {
+                float dashDirection = transform.localScale.x / Mathf.Abs(transform.localScale.x);
+                rb.velocity = new Vector2(dashDirection * DashScale, 0f);
+            }
         }
     }
 
