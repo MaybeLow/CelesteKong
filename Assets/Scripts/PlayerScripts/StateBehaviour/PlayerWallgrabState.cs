@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class PlayerWallgrabState : PlayerState
 {
+    private float initialXMove;
+
     public PlayerState Tick(PlayerStateManager player)
     {
-        if (Input.GetKeyDown("c"))
+        if (Input.GetKeyDown("c") && initialXMove != player.XMove && player.XMove != 0f)
         {
             return player.JumpState;
         }
@@ -26,6 +28,7 @@ public class PlayerWallgrabState : PlayerState
 
     public void Enter(PlayerStateManager player)
     {
+        initialXMove = player.XMove;
         player.PlayerAnimator.SetBool("isWallClimbing", true);
     }
 
