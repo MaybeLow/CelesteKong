@@ -7,6 +7,8 @@ using UnityEngine;
  */
 public class PlayerWallgrabState : IPlayerState
 {
+    private float climbSpeed = 10f;
+
     // The initial direction the player is facing when a wall is grabbed
     private float initialXMove;
 
@@ -29,6 +31,11 @@ public class PlayerWallgrabState : IPlayerState
         {
             return player.IdleState;
         }
+    }
+
+    public void FixedTick(PlayerStateManager player)
+    {
+        player.rb.velocity = new Vector2(player.rb.velocity.x, player.YMove * climbSpeed);
     }
 
     /**

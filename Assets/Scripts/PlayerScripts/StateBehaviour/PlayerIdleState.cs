@@ -37,6 +37,11 @@ public class PlayerIdleState : IPlayerState
         }
     }
 
+    public void FixedTick(PlayerStateManager player)
+    {
+        player.rb.velocity = new Vector2(0f, 0f);
+    }
+
     /**
      * Idle state does not have an animator state, thus the method is empty
      */

@@ -9,6 +9,8 @@ using static UnityEngine.RuleTile.TilingRuleOutput;
  */
 public class PlayerWallslideState : PlayerFlipper
 {
+    private float wallSlideSpeed = 2f;
+
     // The initial direction the player is facing when it starts wall sliding
     private float initialXMove;
     private float wallJumpTime = 0.2f;
@@ -18,6 +20,7 @@ public class PlayerWallslideState : PlayerFlipper
         // State transitions
         if (Input.GetKeyDown("c"))
         {
+            player.OnWall = false;
             WallJump(player);
             return player.JumpState;
         }
@@ -27,6 +30,7 @@ public class PlayerWallslideState : PlayerFlipper
         }
         else if (player.XMove != initialXMove)
         {
+            player.OnWall = false;
             return player.FallState;
         }
         else if (player.OnGround)
@@ -37,6 +41,11 @@ public class PlayerWallslideState : PlayerFlipper
         {
             return player.WallslideState;
         }
+    }
+
+    public override void FixedTick(PlayerStateManager player)
+    {
+        player.rb.velocity = new Vector2(player.rb.velocity.x, Mathf.Clamp(player.rb.velocity.y, -wallSlideSpeed, float.MaxValue));
     }
 
     /**
@@ -60,7 +69,7 @@ public class PlayerWallslideState : PlayerFlipper
     {
         player.StartCoroutine(DontMove(player));
         FlipPlayer(player);
-        float dashDirection = player.transform.localScale.x / Mathf.Abs(player.transform.localScale.x);
+        float dashDirection = player.Transform.localScale.x / Mathf.Abs(player.Transform.localScale.x);
         player.rb.AddForce(new Vector2(dashDirection * 500f, 700f));
     }
 

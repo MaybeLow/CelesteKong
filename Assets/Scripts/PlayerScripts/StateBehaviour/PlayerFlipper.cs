@@ -8,6 +8,7 @@ using UnityEngine;
 public abstract class PlayerFlipper : IPlayerState
 {
     public abstract IPlayerState Tick(PlayerStateManager player);
+    public abstract void FixedTick(PlayerStateManager player);
     public abstract void Enter(PlayerStateManager player);
     public abstract void Exit(PlayerStateManager player);
 
@@ -17,11 +18,10 @@ public abstract class PlayerFlipper : IPlayerState
     protected void UpdateFlip(PlayerStateManager player)
     {
         if (player.CanMove && 
-            (player.XMove < -0.1f && player.transform.localScale.x >= 0
-            || player.XMove > 0.1f && player.transform.localScale.x < -0))
+            (player.XMove < -0.1f && player.Transform.localScale.x >= 0
+            || player.XMove > 0.1f && player.Transform.localScale.x < -0))
         {
             FlipPlayer(player);
-            Debug.Log("Flipping player!");
         }
     }
 
@@ -30,8 +30,8 @@ public abstract class PlayerFlipper : IPlayerState
      */
     protected void FlipPlayer(PlayerStateManager player)
     {
-        Vector3 localScale = player.transform.localScale;
+        Vector3 localScale = player.Transform.localScale;
         localScale.x *= -1;
-        player.transform.localScale = localScale;
+        player.Transform.localScale = localScale;
     }
 }

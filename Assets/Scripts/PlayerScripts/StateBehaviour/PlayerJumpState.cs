@@ -7,6 +7,8 @@ using UnityEngine;
  */
 public class PlayerJumpState : PlayerFlipper
 {
+    private float jumpMovementSpeed = 10f;
+
     // The power of jump
     private float JumpScale = 10f;
     public override IPlayerState Tick(PlayerStateManager player)
@@ -41,6 +43,11 @@ public class PlayerJumpState : PlayerFlipper
         {
             return player.JumpState;
         }
+    }
+
+    public override void FixedTick(PlayerStateManager player)
+    {
+        player.rb.velocity = new Vector2(player.XMove * jumpMovementSpeed, player.rb.velocity.y);
     }
 
     /**

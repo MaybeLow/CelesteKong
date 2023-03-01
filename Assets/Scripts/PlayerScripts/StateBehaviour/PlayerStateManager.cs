@@ -18,14 +18,8 @@ public class PlayerStateManager : MonoBehaviour
     public PlayerWallgrabState WallgrabState = new PlayerWallgrabState();
     public PlayerFallState FallState = new PlayerFallState();
     public PlayerWallslideState WallslideState = new PlayerWallslideState();
-    public PlayerDashState DashState = new PlayerDashState();
-
-    // Variables that manages the movement scales
-    public float MovementSpeed { get; set; } = 10f;
-    public float JumpMovementSpeed { get; set; } = 10f;
-    public float FallMovementSpeed { get; set; } = 10f;
-    public float ClimbSpeed { get; set; } = 10f;
-    public float WallSlideSpeed { get; set; } = 2f;
+    public PlayerDashState DashState = new PlayerDashState();   
+  
     public float DashScale { get; set; } = 20f;
 
     // A check that ensures the dash cannot be called if it is not recharged
@@ -45,6 +39,8 @@ public class PlayerStateManager : MonoBehaviour
 
     public Animator PlayerAnimator { get; private set; }
 
+    public Transform Transform { get; private set; }
+
     [SerializeField] private Camera playerCamera;
 
     /**
@@ -63,6 +59,7 @@ public class PlayerStateManager : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         bc = GetComponent<BoxCollider2D>();
         PlayerAnimator = GetComponent<Animator>();
+        Transform = GetComponent<Transform>();
     }
 
     /**
@@ -70,7 +67,7 @@ public class PlayerStateManager : MonoBehaviour
      */
     private void Update()
     {
-        //print(currentState);
+        print(currentState);
         GetMoveInput();
         UpdateState();
     }
@@ -82,7 +79,8 @@ public class PlayerStateManager : MonoBehaviour
     {
         if (CanMove)
         {
-            UpdateMovement();
+            // Update movement depending on the current player state    
+            currentState.FixedTick(this);
         }
         CheckTagOverlap();
     }
@@ -98,55 +96,6 @@ public class PlayerStateManager : MonoBehaviour
             currentState.Exit(this);
             currentState = newState;
             currentState.Enter(this);
-        }
-    }
-
-    /**
-     * Update movement depending on the current player state
-     */
-    private void UpdateMovement()
-    {
-        if (currentState == IdleState)
-        {
-            rb.velocity = new Vector2(0f, 0f);
-        }
-        else if (currentState == MoveState)
-        {
-            rb.velocity = new Vector2(XMove * MovementSpeed, rb.velocity.y);
-        }
-        else if (currentState == JumpState)
-        {
-            rb.velocity = new Vector2(XMove * JumpMovementSpeed, rb.velocity.y);
-        }
-        else if (currentState == FallState)
-        {
-            rb.velocity = new Vector2(XMove * FallMovementSpeed, rb.velocity.y);
-        }
-        else if (currentState == WallgrabState)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, YMove * ClimbSpeed);
-        }
-        else if (currentState == WallslideState)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -WallSlideSpeed, float.MaxValue));
-        } 
-        // The length of dash depends on the direction the player is looking at
-        else if (currentState == DashState)
-        {
-            if (XMove == 0f && YMove != 0f)
-            {
-                rb.velocity = new Vector2(0, YMove * DashScale * 0.5f);
-            }
-            else if (XMove != 0f && YMove != 0f)
-            {
-                float dashDirection = transform.localScale.x / Mathf.Abs(transform.localScale.x);
-                rb.velocity = new Vector2(dashDirection * DashScale * 0.7f, YMove * DashScale * 0.7f);
-            }
-            else
-            {
-                float dashDirection = transform.localScale.x / Mathf.Abs(transform.localScale.x);
-                rb.velocity = new Vector2(dashDirection * DashScale, 0f);
-            }
         }
     }
 
@@ -173,7 +122,6 @@ public class PlayerStateManager : MonoBehaviour
      */
     public void OnWalledChange(bool _onWall)
     {
-        Debug.Log(OnWall);
         OnWall = _onWall;
     }
 

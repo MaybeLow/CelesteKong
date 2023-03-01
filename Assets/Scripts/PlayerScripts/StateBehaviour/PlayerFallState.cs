@@ -7,6 +7,8 @@ using UnityEngine;
  */
 public class PlayerFallState : PlayerFlipper
 {
+    private float fallMovementSpeed = 10f;
+
     public override IPlayerState Tick(PlayerStateManager player)
     {
         // Update the rotation of the player
@@ -33,6 +35,11 @@ public class PlayerFallState : PlayerFlipper
         {
             return player.FallState;
         }
+    }
+
+    public override void FixedTick(PlayerStateManager player)
+    {
+        player.rb.velocity = new Vector2(player.XMove * fallMovementSpeed, player.rb.velocity.y);
     }
 
     /**
