@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 /**
  * Player wall slide state
@@ -9,11 +11,14 @@ public class PlayerWallslideState : PlayerFlipper
 {
     // The initial direction the player is facing when it starts wall sliding
     private float initialXMove;
+    private float wallJumpTime = 0.2f;
 
     public override IPlayerState Tick(PlayerStateManager player)
     {
         // State transitions
-        if (Input.GetKeyDown("c")) {
+        if (Input.GetKeyDown("c"))
+        {
+            WallJump(player);
             return player.JumpState;
         }
         else if (Input.GetKey("z"))
@@ -28,13 +33,9 @@ public class PlayerWallslideState : PlayerFlipper
         {
             return player.IdleState;
         }
-        else if (player.OnWall)
-        {
-            return player.WallslideState;
-        }
         else
         {
-            return player.IdleState;
+            return player.WallslideState;
         }
     }
 
@@ -55,4 +56,18 @@ public class PlayerWallslideState : PlayerFlipper
         player.PlayerAnimator.SetBool("isWallSliding", false);
     }
 
+    private void WallJump(PlayerStateManager player)
+    {
+        player.StartCoroutine(DontMove(player));
+        FlipPlayer(player);
+        float dashDirection = player.transform.localScale.x / Mathf.Abs(player.transform.localScale.x);
+        player.rb.AddForce(new Vector2(dashDirection * 500f, 700f));
+    }
+
+    private IEnumerator DontMove(PlayerStateManager player)
+    {
+        player.CanMove = false;
+        yield return new WaitForSeconds(wallJumpTime);
+        player.CanMove = true;
+    }
 }

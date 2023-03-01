@@ -16,10 +16,12 @@ public abstract class PlayerFlipper : IPlayerState
      */
     protected void UpdateFlip(PlayerStateManager player)
     {
-        if (player.XMove < -0.1f && player.transform.localScale.x >= 0
-            || player.XMove > 0.1f && player.transform.localScale.x < -0)
+        if (player.CanMove && 
+            (player.XMove < -0.1f && player.transform.localScale.x >= 0
+            || player.XMove > 0.1f && player.transform.localScale.x < -0))
         {
             FlipPlayer(player);
+            Debug.Log("Flipping player!");
         }
     }
 

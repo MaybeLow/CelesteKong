@@ -30,6 +30,7 @@ public class PlayerStateManager : MonoBehaviour
 
     // A check that ensures the dash cannot be called if it is not recharged
     public bool IsDashRecharged { get; set; } = true;
+    public bool CanMove { get; set; } = true;
 
     public Rigidbody2D rb { get; private set; }
     private BoxCollider2D bc;
@@ -69,7 +70,7 @@ public class PlayerStateManager : MonoBehaviour
      */
     private void Update()
     {
-        print(currentState);
+        //print(currentState);
         GetMoveInput();
         UpdateState();
     }
@@ -79,7 +80,10 @@ public class PlayerStateManager : MonoBehaviour
      */
     private void FixedUpdate()
     {
-        UpdateMovement();
+        if (CanMove)
+        {
+            UpdateMovement();
+        }
         CheckTagOverlap();
     }
 
@@ -169,6 +173,7 @@ public class PlayerStateManager : MonoBehaviour
      */
     public void OnWalledChange(bool _onWall)
     {
+        Debug.Log(OnWall);
         OnWall = _onWall;
     }
 

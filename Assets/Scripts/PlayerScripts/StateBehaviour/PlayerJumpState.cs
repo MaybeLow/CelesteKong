@@ -29,12 +29,6 @@ public class PlayerJumpState : PlayerFlipper
         {
             return player.WallgrabState;
         }
-        else if (Input.GetKeyUp("c") && player.OnWall)
-        {
-            // Wall Jump
-            return player.JumpState;
-        }
-
         else if (Input.GetKeyDown("x") && player.IsDashRecharged)
         {
             return player.DashState;
