@@ -7,13 +7,12 @@ using static UnityEngine.RuleTile.TilingRuleOutput;
 /**
  * Player wall slide state
  */
-public class PlayerWallslideState : PlayerFlipper
+public class PlayerWallslideState : PlayerWallJumper
 {
     private float wallSlideSpeed = 2f;
 
     // The initial direction the player is facing when it starts wall sliding
     private float initialXMove;
-    private float wallJumpTime = 0.2f;
 
     public override IPlayerState Tick(PlayerStateManager player)
     {
@@ -65,20 +64,5 @@ public class PlayerWallslideState : PlayerFlipper
     public override void Exit(PlayerStateManager player)
     {
         player.PlayerAnimator.SetBool("isWallSliding", false);
-    }
-
-    private void WallJump(PlayerStateManager player)
-    {
-        player.StartCoroutine(DontMove(player));
-        FlipPlayer(player);
-        float dashDirection = player.Transform.localScale.x / Mathf.Abs(player.Transform.localScale.x);
-        player.rb.AddForce(new Vector2(dashDirection * 500f, 700f));
-    }
-
-    private IEnumerator DontMove(PlayerStateManager player)
-    {
-        player.CanMove = false;
-        yield return new WaitForSeconds(wallJumpTime);
-        player.CanMove = true;
     }
 }

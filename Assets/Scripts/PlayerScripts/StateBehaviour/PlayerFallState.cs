@@ -5,7 +5,7 @@ using UnityEngine;
 /**
  * Player fall state
  */
-public class PlayerFallState : PlayerFlipper
+public class PlayerFallState : PlayerWallJumper
 {
     private float fallMovementSpeed = 10f;
 
@@ -18,6 +18,11 @@ public class PlayerFallState : PlayerFlipper
         if (Input.GetKey("z") && player.OnWall)
         {
             return player.WallgrabState;
+        }
+        else if (Input.GetKeyDown("c") && player.OnWall)
+        {
+            WallJump(player);
+            return player.JumpState;
         }
         else if (player.OnGround)
         {

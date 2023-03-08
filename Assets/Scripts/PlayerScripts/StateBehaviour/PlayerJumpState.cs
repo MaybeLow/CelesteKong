@@ -5,7 +5,7 @@ using UnityEngine;
 /**
  * Player jump state
  */
-public class PlayerJumpState : PlayerFlipper
+public class PlayerJumpState : PlayerWallJumper
 {
     private float jumpMovementSpeed = 10f;
 
@@ -23,9 +23,14 @@ public class PlayerJumpState : PlayerFlipper
         }
 
         // State transitions
-        if (player.rb.velocity.y <= 0 && !player.OnGround)
+        if (player.rb.velocity.y < 0f && !player.OnGround)
         {
             return player.FallState;
+        }
+        else if (Input.GetKeyDown("c") && player.OnWall)
+        {
+            WallJump(player);
+            return player.JumpState;
         }
         else if (Input.GetKey("z") && player.OnWall)
         {
@@ -35,11 +40,11 @@ public class PlayerJumpState : PlayerFlipper
         {
             return player.DashState;
         }
-        else if (Mathf.Abs(player.XMove) > 0 && player.OnWall)
+        else if (Mathf.Abs(player.XMove) > 0f && player.OnWall && player.rb.velocity.y < 0f)
         {
             return player.WallslideState;
         }
-        else if (player.rb.velocity.y <= 0 && player.OnGround)
+        else if (player.rb.velocity.y <= 0f && player.OnGround)
         {
             return player.IdleState;
         }

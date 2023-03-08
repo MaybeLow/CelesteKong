@@ -33,12 +33,5 @@ public abstract class PlayerFlipper : IPlayerState
         Vector3 localScale = player.Transform.localScale;
         localScale.x *= -1;
         player.Transform.localScale = localScale;
-
-        //BoxCollider2D wall_collider = player.wc;
-        //Vector3 localScale2 = wall_collider.gameObject.transform.localScale;
-        //wall_collider.transform.localScale = localScale2;
-
-        //player.OnWall = player.OnWalled();
-        //MonoBehaviour.print("On wall: " + player.OnWall);
     }
 }

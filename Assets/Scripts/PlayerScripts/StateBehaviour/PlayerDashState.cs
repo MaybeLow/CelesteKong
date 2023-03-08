@@ -10,6 +10,8 @@ using static UnityEngine.RuleTile.TilingRuleOutput;
  */
 public class PlayerDashState : IPlayerState
 {
+    private float enterXMove;
+    private float enterYMove;
     private float dashScale = 20f;
     private float dashTime = 0.4f;
     private float dashCooldownTime = 2f;
@@ -36,18 +38,20 @@ public class PlayerDashState : IPlayerState
 
     public void FixedTick(PlayerStateManager player)
     {
-        if (player.XMove == 0f && player.YMove != 0f)
+        float dashDirection = player.Transform.localScale.x / Mathf.Abs(player.Transform.localScale.x);
+
+        if (enterXMove == 0f && enterYMove != 0f)
         {
-            player.rb.velocity = new Vector2(0, player.YMove * dashScale * 0.5f);
+            player.rb.velocity = new Vector2(0, enterYMove * dashScale * 0.5f);
+            player.Transform.rotation = Quaternion.Euler(player.Transform.rotation.x, player.Transform.rotation.y, 90f * dashDirection * enterYMove);
         }
-        else if (player.XMove != 0f && player.YMove != 0f)
+        else if (enterXMove != 0f && enterYMove != 0f)
         {
-            float dashDirection = player.Transform.localScale.x / Mathf.Abs(player.Transform.localScale.x);
-            player.rb.velocity = new Vector2(dashDirection * dashScale * 0.7f, player.YMove * dashScale * 0.7f);
+            player.rb.velocity = new Vector2(dashDirection * dashScale * 0.7f, enterYMove * dashScale * 0.7f);
+            player.Transform.rotation = Quaternion.Euler(player.Transform.rotation.x, player.Transform.rotation.y, 45f * dashDirection * enterYMove);
         }
         else
         {
-            float dashDirection = player.Transform.localScale.x / Mathf.Abs(player.Transform.localScale.x);
             player.rb.velocity = new Vector2(dashDirection * dashScale, 0f);
         }
     }
@@ -58,6 +62,8 @@ public class PlayerDashState : IPlayerState
      */
     public void Enter(PlayerStateManager player)
     {
+        enterXMove = player.XMove;
+        enterYMove = player.YMove;
         dashEnterTime = Time.time;
         player.PlayerAnimator.SetBool("isDashing", true);
 

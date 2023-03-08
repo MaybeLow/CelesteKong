@@ -7,7 +7,8 @@ using UnityEngine;
  */
 public class PlayerWallgrabState : IPlayerState
 {
-    private float climbSpeed = 10f;
+    private float climbSpeed = 7f;
+    private float climbFinishJumpHeigth = 6f;
 
     // The initial direction the player is facing when a wall is grabbed
     private float initialXMove;
@@ -25,6 +26,7 @@ public class PlayerWallgrabState : IPlayerState
         }
         else if (Mathf.Abs(player.rb.velocity.y) > 0 && !player.OnWall)
         {
+            player.rb.velocity = new Vector2(player.rb.velocity.x, climbFinishJumpHeigth);
             return player.JumpState;
         }
         else
