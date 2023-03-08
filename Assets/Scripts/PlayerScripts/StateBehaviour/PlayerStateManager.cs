@@ -18,9 +18,7 @@ public class PlayerStateManager : MonoBehaviour
     public PlayerWallgrabState WallgrabState = new PlayerWallgrabState();
     public PlayerFallState FallState = new PlayerFallState();
     public PlayerWallslideState WallslideState = new PlayerWallslideState();
-    public PlayerDashState DashState = new PlayerDashState();   
-  
-    public float DashScale { get; set; } = 20f;
+    public PlayerDashState DashState = new PlayerDashState();
 
     // A check that ensures the dash cannot be called if it is not recharged
     public bool IsDashRecharged { get; set; } = true;
@@ -28,6 +26,11 @@ public class PlayerStateManager : MonoBehaviour
 
     public Rigidbody2D rb { get; private set; }
     private BoxCollider2D bc;
+
+    // Temporary
+    //[SerializeField] private BoxCollider2D gc;
+    //[SerializeField] public BoxCollider2D wc;
+    //[SerializeField] private LayerMask groundMask;
 
     // Movement input
     public float XMove { get; set; }
@@ -77,6 +80,8 @@ public class PlayerStateManager : MonoBehaviour
      */
     private void FixedUpdate()
     {
+        //OnGrounded();
+        //OnWalled();
         if (CanMove)
         {
             // Update movement depending on the current player state    
@@ -125,6 +130,20 @@ public class PlayerStateManager : MonoBehaviour
         OnWall = _onWall;
     }
 
+    // Temporary
+    //public void OnGrounded()
+    //{
+        //OnGround = gc.IsTouchingLayers(groundMask);
+        //print("OnGround: " + OnGround);
+    //}
+
+    //public void OnWalled()
+    //{
+        //OnWall = wc.IsTouchingLayers(groundMask);
+    //}
+
+
+
     /**
      * Check collider overlaps with other colliders
      */
@@ -140,12 +159,12 @@ public class PlayerStateManager : MonoBehaviour
             {
                 case "Boulder":
                     print("DEAD");
-                    Destroy(this.gameObject);
+                    //Destroy(this.gameObject);
                     //Game Over
                     break;
                 case "Spike":
                     print("DEAD");
-                    Destroy(this.gameObject);
+                    //Destroy(this.gameObject);
                     //Game Over
                     break;
             }

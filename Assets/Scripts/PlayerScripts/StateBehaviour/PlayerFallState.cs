@@ -31,6 +31,10 @@ public class PlayerFallState : PlayerFlipper
         {
             return player.WallslideState;
         }
+        else if (player.rb.velocity.y > 0f)
+        {
+            return player.JumpState;
+        }
         else
         {
             return player.FallState;

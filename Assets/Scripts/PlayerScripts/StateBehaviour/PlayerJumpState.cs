@@ -23,7 +23,7 @@ public class PlayerJumpState : PlayerFlipper
         }
 
         // State transitions
-        if (player.rb.velocity.y <= 0)
+        if (player.rb.velocity.y <= 0 && !player.OnGround)
         {
             return player.FallState;
         }
@@ -38,6 +38,10 @@ public class PlayerJumpState : PlayerFlipper
         else if (Mathf.Abs(player.XMove) > 0 && player.OnWall)
         {
             return player.WallslideState;
+        }
+        else if (player.rb.velocity.y <= 0 && player.OnGround)
+        {
+            return player.IdleState;
         }
         else
         {

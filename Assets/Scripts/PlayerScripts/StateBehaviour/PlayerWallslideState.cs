@@ -20,7 +20,6 @@ public class PlayerWallslideState : PlayerFlipper
         // State transitions
         if (Input.GetKeyDown("c"))
         {
-            player.OnWall = false;
             WallJump(player);
             return player.JumpState;
         }
@@ -30,12 +29,15 @@ public class PlayerWallslideState : PlayerFlipper
         }
         else if (player.XMove != initialXMove)
         {
-            player.OnWall = false;
             return player.FallState;
         }
         else if (player.OnGround)
         {
             return player.IdleState;
+        }
+        else if (!player.OnWall)
+        {
+            return player.JumpState;
         }
         else
         {
