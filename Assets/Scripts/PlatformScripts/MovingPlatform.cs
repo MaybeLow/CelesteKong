@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MovingPlatform : MonoBehaviour
@@ -13,7 +14,7 @@ public class MovingPlatform : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    private void Start()
+    private void OnEnable()
     {
         MovePlatform();
     }
@@ -26,5 +27,13 @@ public class MovingPlatform : MonoBehaviour
     public Vector2 GetVelocity()
     {
         return rb.velocity;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("PlatformDestroyer")) {
+            gameObject.SetActive(false);
+            MovingPlatformSpawner.AddOnPool(gameObject);
+        }
     }
 }

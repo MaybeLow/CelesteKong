@@ -10,6 +10,7 @@ TagManager:
   - Boulder
   - Floor
   - Spike
+  - PlatformDestroyer
   layers:
   - Default
   - TransparentFX

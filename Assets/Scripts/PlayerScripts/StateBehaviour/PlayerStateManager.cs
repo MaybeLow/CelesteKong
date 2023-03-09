@@ -76,7 +76,7 @@ public class PlayerStateManager : MonoBehaviour
     private void Update()
     {
         //Debug.Log(MovingPlatformVelocity);
-        Debug.Log(MovingPlatforms.Count);
+        //Debug.Log(MovingPlatforms.Count);
         //Debug.Log(currentState);
         GetMoveInput();
         UpdateState();

@@ -4,15 +4,39 @@ using UnityEngine;
 
 public class MovingPlatformSpawner : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private static Queue<GameObject> pool = new Queue<GameObject>();
+
+    [SerializeField] private GameObject platformPrefab;
+    private Transform tr;
+
+    private GameObject platform;
+
+    private void Awake()
     {
-        
+        tr = transform;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SpawnPlatform()
     {
-        
+        platform = GetPlatform();
+        platform.transform.SetPositionAndRotation(tr.position, tr.rotation);
+        platform.SetActive(true);
+    }
+
+    private GameObject GetPlatform()
+    {
+        if (pool.Count == 0)
+        {
+            platform = Instantiate(platformPrefab);
+            return platform;
+        }
+
+        platform = pool.Dequeue();
+        return platform;
+    }
+
+    public static void AddOnPool(GameObject movingPlatform)
+    {
+        pool.Enqueue(movingPlatform);
     }
 }

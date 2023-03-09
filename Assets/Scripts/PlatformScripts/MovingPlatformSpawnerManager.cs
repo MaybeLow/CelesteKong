@@ -4,15 +4,38 @@ using UnityEngine;
 
 public class MovingPlatformSpawnerManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private MovingPlatformSpawner[] spawners;
+    [SerializeField] private float spawnDelay;
+
+    private int currentSpawner;
+
+    private float nextPlatformIn;
+
+    private void Start()
     {
-        
+        currentSpawner = -1;
+        nextPlatformIn = 0f;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
-        
+        nextPlatformIn -= Time.fixedDeltaTime;
+        if (nextPlatformIn <= 0f)
+        {
+            SpawnNextPlatform();
+            nextPlatformIn = spawnDelay;
+        }
+    }
+
+    private void SpawnNextPlatform()
+    {
+        currentSpawner++;
+
+        if (currentSpawner >= spawners.Length)
+        {
+            currentSpawner = 0;
+        }
+
+        spawners[currentSpawner].SpawnPlatform();
     }
 }
