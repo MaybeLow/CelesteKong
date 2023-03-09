@@ -8,7 +8,7 @@ using UnityEngine;
 public class PlayerWallgrabState : IPlayerState
 {
     private float climbSpeed = 7f;
-    private float climbFinishJumpHeigth = 6f;
+    private float climbFinishJumpHeigth = 8f;
 
     // The initial direction the player is facing when a wall is grabbed
     private float initialXMove;

@@ -46,6 +46,8 @@ public class PlayerStateManager : MonoBehaviour
 
     [SerializeField] private Camera playerCamera;
 
+    public List<MovingPlatform> MovingPlatforms { get; set; } = new List<MovingPlatform>();
+
     /**
      * When enabled, set the current state to idle
      */
@@ -70,7 +72,8 @@ public class PlayerStateManager : MonoBehaviour
      */
     private void Update()
     {
-        print(currentState);
+        Debug.Log(MovingPlatforms.Count);
+        //Debug.Log(currentState);
         GetMoveInput();
         UpdateState();
     }
@@ -80,8 +83,6 @@ public class PlayerStateManager : MonoBehaviour
      */
     private void FixedUpdate()
     {
-        //OnGrounded();
-        //OnWalled();
         if (CanMove)
         {
             // Update movement depending on the current player state    
@@ -130,19 +131,15 @@ public class PlayerStateManager : MonoBehaviour
         OnWall = _onWall;
     }
 
-    // Temporary
-    //public void OnGrounded()
-    //{
-        //OnGround = gc.IsTouchingLayers(groundMask);
-        //print("OnGround: " + OnGround);
-    //}
+    public void LandedOnMovingPlatform(MovingPlatform moving)
+    {
+        if (!MovingPlatforms.Contains(moving)) MovingPlatforms.Add(moving);
+    }
 
-    //public void OnWalled()
-    //{
-        //OnWall = wc.IsTouchingLayers(groundMask);
-    //}
-
-
+    public void LeftMovingPlatform(MovingPlatform moving)
+    {
+        if (MovingPlatforms.Contains(moving)) MovingPlatforms.Remove(moving);
+    }
 
     /**
      * Check collider overlaps with other colliders
