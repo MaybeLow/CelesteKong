@@ -43,14 +43,7 @@ public class PlayerMoveState : PlayerFlipper
 
     public override void FixedTick(PlayerStateManager player)
     {
-        Vector2 platformVelocity = new Vector2(0f, 0f);
-        foreach (var item in player.MovingPlatforms)
-        {
-            platformVelocity += item.GetVelocity();
-
-            Debug.Log(item.GetVelocity());
-        }
-        player.rb.velocity = new Vector2(player.XMove * movementSpeed + platformVelocity.x, player.rb.velocity.y);
+        player.rb.velocity = new Vector2(player.XMove * movementSpeed, player.rb.velocity.y) + player.MovingPlatformVelocity;
     }
 
     /**

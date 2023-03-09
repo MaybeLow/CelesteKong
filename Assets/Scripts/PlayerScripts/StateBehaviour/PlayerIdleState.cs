@@ -39,7 +39,7 @@ public class PlayerIdleState : IPlayerState
 
     public void FixedTick(PlayerStateManager player)
     {
-        player.rb.velocity = new Vector2(0f, 0f);
+        player.rb.velocity = player.MovingPlatformVelocity;
     }
 
     /**

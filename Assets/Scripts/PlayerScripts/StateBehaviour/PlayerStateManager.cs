@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 [RequireComponent(typeof(BoxCollider2D))]
 
@@ -48,6 +49,8 @@ public class PlayerStateManager : MonoBehaviour
 
     public List<MovingPlatform> MovingPlatforms { get; set; } = new List<MovingPlatform>();
 
+    public Vector2 MovingPlatformVelocity { get; set; } = new Vector2(0f, 0f);
+
     /**
      * When enabled, set the current state to idle
      */
@@ -72,6 +75,7 @@ public class PlayerStateManager : MonoBehaviour
      */
     private void Update()
     {
+        //Debug.Log(MovingPlatformVelocity);
         Debug.Log(MovingPlatforms.Count);
         //Debug.Log(currentState);
         GetMoveInput();
@@ -133,12 +137,20 @@ public class PlayerStateManager : MonoBehaviour
 
     public void LandedOnMovingPlatform(MovingPlatform moving)
     {
-        if (!MovingPlatforms.Contains(moving)) MovingPlatforms.Add(moving);
+        if (!MovingPlatforms.Contains(moving))
+        {
+            MovingPlatforms.Add(moving);
+            MovingPlatformVelocity += moving.GetVelocity();
+        }
     }
 
     public void LeftMovingPlatform(MovingPlatform moving)
     {
-        if (MovingPlatforms.Contains(moving)) MovingPlatforms.Remove(moving);
+        if (MovingPlatforms.Contains(moving))
+        {
+            MovingPlatforms.Remove(moving);
+            MovingPlatformVelocity -= moving.GetVelocity();
+        }
     }
 
     /**
