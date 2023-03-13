@@ -45,8 +45,6 @@ public class PlayerStateManager : MonoBehaviour
 
     public Transform Transform { get; private set; }
 
-    [SerializeField] private Camera playerCamera;
-
     public List<MovingPlatform> MovingPlatforms { get; set; } = new List<MovingPlatform>();
 
     public Vector2 MovingPlatformVelocity { get; set; } = new Vector2(0f, 0f);

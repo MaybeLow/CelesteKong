@@ -27,9 +27,9 @@ public class BoulderSpawner : MonoBehaviour
 
     private void SpawnBoulder()
     {
-        boulderPrefab.SetDirection(faceRight);
-        Boulder boulder = Instantiate(boulderPrefab, transform.position, Quaternion.identity);
+        //boulderPrefab.SetDirection(faceRight);
+        //Boulder boulder = Instantiate(boulderPrefab, transform.position, Quaternion.identity);
 
-        boulder.SetDirection(faceRight);
+        //boulder.SetDirection(faceRight);
     }
 }
