@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BoulderFallCommand : BoulderCommand
 {
-    private float fallSpeed = 3f;
+    private float fallSpeed = 0.1f;
 
     public BoulderFallCommand(IEntity entity, float time) : base(entity, time)
     {
@@ -13,11 +13,11 @@ public class BoulderFallCommand : BoulderCommand
 
     public override void Execute()
     {
-        entity.rb.velocity = new Vector2(0f, -fallSpeed);
+        entity.rb.MovePosition(new Vector2(entity.rb.position.x, entity.rb.position.y - fallSpeed));
     }
 
     public override void Undo()
     {
-        entity.rb.velocity = new Vector2(0f, fallSpeed);
+        entity.rb.MovePosition(new Vector2(entity.rb.position.x, entity.rb.position.y + fallSpeed));
     }
 }

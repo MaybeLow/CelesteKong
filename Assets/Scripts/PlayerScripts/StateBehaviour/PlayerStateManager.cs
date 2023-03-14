@@ -177,4 +177,15 @@ public class PlayerStateManager : MonoBehaviour
             }
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("PlayerJumper"))
+        {
+            Debug.Log("Collided");
+            Boulder boulder = collision.gameObject.transform.parent.gameObject.GetComponent<Boulder>();
+            boulder.DisableBoulder();
+            rb.AddForce(new Vector2(0f, 300f));
+        }
+    }
 }

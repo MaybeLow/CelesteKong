@@ -6,9 +6,10 @@ public class Boulder : MonoBehaviour, IEntity
 {
     private BoulderCommandController controller;
     private Vector2 moveDirection;
-    private bool undoActive;
+    [SerializeField] private bool undoActive;
 
     protected Rigidbody2D rb;
+    protected SpriteRenderer sr;
 
     [SerializeField] private Transform groundChecker;
     [SerializeField] private LayerMask groundLayer;
@@ -17,6 +18,7 @@ public class Boulder : MonoBehaviour, IEntity
 
     private void Awake()
     {
+        sr = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         controller = GetComponent<BoulderCommandController>();
     }
@@ -31,12 +33,19 @@ public class Boulder : MonoBehaviour, IEntity
     // Update is called once per frame
     private void FixedUpdate()
     {
-        if (undoActive)
+        if (sr.enabled)
+        {
+            if (undoActive)
+            {
+                UpdateUndo();
+            }
+            else
+            {
+                UpdateMovement();
+            }
+        } else if (undoActive)
         {
             UpdateUndo();
-        } else
-        {
-            UpdateMovement();
         }
     }
 
@@ -51,6 +60,11 @@ public class Boulder : MonoBehaviour, IEntity
         }
     }
 
+    public void DisableBoulder()
+    {
+        controller.ExecuteCommand(new BoulderDisableCommand(this, Time.timeSinceLevelLoad, sr));
+    }
+
     private void UpdateUndo()
     {
         controller.UndoCommand();
@@ -58,6 +72,6 @@ public class Boulder : MonoBehaviour, IEntity
 
     private bool IsGrounded()
     {
-        return Physics2D.OverlapCircle(groundChecker.position, 0.5f, groundLayer);
+        return Physics2D.OverlapCircle(groundChecker.position, 0.1f, groundLayer);
     }
 }

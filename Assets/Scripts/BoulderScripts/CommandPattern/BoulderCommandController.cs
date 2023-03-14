@@ -12,7 +12,7 @@ public class BoulderCommandController : MonoBehaviour
         commands.Add(command);
         command.Execute();
 
-        currentCommandIndex = currentCommandIndex - 1;
+        currentCommandIndex = commands.Count - 1;
     }
 
     public void UndoCommand()
