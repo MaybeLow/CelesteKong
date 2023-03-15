@@ -52,6 +52,10 @@ public class PlayerMoveState : PlayerFlipper
     public override void Enter(PlayerStateManager player)
     {
         player.PlayerAnimator.SetBool("isRunning", true);
+        if (player.OnGround)
+        {
+            player.IsDashRecharged = true;
+        }
     }
 
     /**

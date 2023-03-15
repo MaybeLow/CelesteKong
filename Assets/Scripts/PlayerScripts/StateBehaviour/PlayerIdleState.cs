@@ -47,7 +47,10 @@ public class PlayerIdleState : IPlayerState
      */
     public void Enter(PlayerStateManager player)
     {
-        
+        if (player.OnGround)
+        {
+            player.IsDashRecharged = true;
+        }
     }
 
     /**

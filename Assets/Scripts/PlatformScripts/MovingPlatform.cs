@@ -7,7 +7,7 @@ public class MovingPlatform : MonoBehaviour, IPoolableObject
 {
     [SerializeField] private Vector2 velocity;
 
-    private MovingPlatformSpawner spawner;
+    private Spawner spawner;
     private Rigidbody2D rb;
 
     private void Awake()
@@ -25,7 +25,7 @@ public class MovingPlatform : MonoBehaviour, IPoolableObject
         rb.velocity = velocity;
     }
 
-    public void AssignSpawner(MovingPlatformSpawner spawner)
+    public void AssignSpawner(Spawner spawner)
     {
         this.spawner = spawner;
     }

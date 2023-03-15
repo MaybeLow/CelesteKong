@@ -14,7 +14,6 @@ public class PlayerDashState : IPlayerState
     private float enterYMove;
     private float dashScale = 20f;
     private float dashTime = 0.4f;
-    private float dashCooldownTime = 2f;
     private float dashEnterTime;
     private float savedGravity;
 
@@ -82,13 +81,6 @@ public class PlayerDashState : IPlayerState
         player.transform.rotation = Quaternion.identity;
         player.rb.gravityScale = savedGravity;
 
-        player.StartCoroutine(DashCooldown(player));
-    }
-
-    private IEnumerator DashCooldown(PlayerStateManager player)
-    {
         player.IsDashRecharged = false;
-        yield return new WaitForSeconds(dashCooldownTime);
-        player.IsDashRecharged = true;
     }
 }

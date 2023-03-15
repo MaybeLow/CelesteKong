@@ -54,6 +54,7 @@ public class PlayerWallslideState : PlayerWallJumper
      */
     public override void Enter(PlayerStateManager player)
     {
+        player.IsDashRecharged = true;
         initialXMove = player.XMove;
         player.PlayerAnimator.SetBool("isWallSliding", true);
     }

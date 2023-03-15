@@ -45,6 +45,7 @@ public class PlayerWallgrabState : IPlayerState
      */
     public void Enter(PlayerStateManager player)
     {
+        player.IsDashRecharged = true;
         initialXMove = player.XMove;
         player.PlayerAnimator.SetBool("isWallClimbing", true);
     }

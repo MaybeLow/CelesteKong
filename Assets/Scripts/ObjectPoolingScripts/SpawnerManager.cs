@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BoulderSpawnerManager : MonoBehaviour
+public class SpawnerManager : MonoBehaviour
 {
     private Queue<GameObject> pool = new Queue<GameObject>();
 
-    [SerializeField] private BoulderSpawner[] spawners;
+    [SerializeField] private Spawner[] spawners;
     [SerializeField] private float spawnDelay;
 
     private int currentSpawner;

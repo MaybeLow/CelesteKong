@@ -19,6 +19,7 @@ public abstract class PlayerWallJumper : PlayerFlipper
         FlipPlayer(player);
         float dashDirection = player.Transform.localScale.x / Mathf.Abs(player.Transform.localScale.x);
         player.rb.velocity = new Vector2(dashDirection * jumpHeight, jumpHeight * 1.2f);
+        player.IsDashRecharged = true;
     }
 
     private IEnumerator DontMove(PlayerStateManager player)

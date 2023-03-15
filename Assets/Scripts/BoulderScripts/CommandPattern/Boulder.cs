@@ -17,7 +17,7 @@ public class Boulder : MonoBehaviour, IEntity, IPoolableObject
 
     Rigidbody2D IEntity.rb => rb;
 
-    private BoulderSpawner spawner;
+    private Spawner spawner;
 
     private float timeWhenDisabled;
 
@@ -74,7 +74,7 @@ public class Boulder : MonoBehaviour, IEntity, IPoolableObject
         }
     }
 
-    public void AssignSpawner(BoulderSpawner spawner)
+    public void AssignSpawner(Spawner spawner)
     {
         this.spawner = spawner;
     }

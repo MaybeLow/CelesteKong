@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BoulderSpawner : MonoBehaviour
+public class Spawner : MonoBehaviour
 {
     private Queue<GameObject> pool;
 
@@ -14,13 +14,8 @@ public class BoulderSpawner : MonoBehaviour
 
     private void Awake()
     {
-        pool = transform.parent.gameObject.GetComponent<BoulderSpawnerManager>().GetPool();
+        pool = transform.parent.gameObject.GetComponent<SpawnerManager>().GetPool();
         tr = transform;
-    }
-
-    private void FixedUpdate()
-    {
-        Debug.Log(pool.Count);
     }
 
     public void SpawnBoulder()
@@ -35,7 +30,7 @@ public class BoulderSpawner : MonoBehaviour
         if (pool.Count == 0)
         {
             boulder = Instantiate(boulderPrefab);
-            boulder.GetComponent<Boulder>().AssignSpawner(this); 
+            boulder.SendMessage("AssignSpawner", this);
             return boulder;
         }
 
