@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MovingPlatformSpawner : MonoBehaviour
 {
-    private static Queue<GameObject> pool = new Queue<GameObject>();
+    private Queue<GameObject> pool;
 
     [SerializeField] private GameObject platformPrefab;
     private Transform tr;
@@ -13,6 +13,7 @@ public class MovingPlatformSpawner : MonoBehaviour
 
     private void Awake()
     {
+        pool = transform.parent.gameObject.GetComponent<MovingPlatformSpawnerManager>().GetPool();
         tr = transform;
     }
 
@@ -28,14 +29,15 @@ public class MovingPlatformSpawner : MonoBehaviour
         if (pool.Count == 0)
         {
             platform = Instantiate(platformPrefab);
-            return platform;
+            platform.GetComponent<MovingPlatform>().AssignSpawner(this)
+;           return platform;
         }
 
         platform = pool.Dequeue();
         return platform;
     }
 
-    public static void AddOnPool(GameObject movingPlatform)
+    public void AddOnPool(GameObject movingPlatform)
     {
         pool.Enqueue(movingPlatform);
     }

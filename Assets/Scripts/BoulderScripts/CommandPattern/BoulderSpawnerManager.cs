@@ -2,35 +2,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovingPlatformSpawnerManager : MonoBehaviour
+public class BoulderSpawnerManager : MonoBehaviour
 {
     private Queue<GameObject> pool = new Queue<GameObject>();
 
-    [SerializeField] private MovingPlatformSpawner[] spawners;
+    [SerializeField] private BoulderSpawner[] spawners;
     [SerializeField] private float spawnDelay;
 
     private int currentSpawner;
 
-    private float nextPlatformIn;
+    private float nextBoulderIn;
 
     private void Start()
     {
         currentSpawner = -1;
-        nextPlatformIn = 0f;
+        nextBoulderIn = 0f;
     }
 
     private void FixedUpdate()
     {
-        nextPlatformIn -= Time.fixedDeltaTime;
-        if (nextPlatformIn <= 0f)
+        nextBoulderIn -= Time.fixedDeltaTime;
+        if (nextBoulderIn <= 0f)
         {
             SpawnNextPlatform();
-            nextPlatformIn = spawnDelay;
+            nextBoulderIn = spawnDelay;
         }
     }
 
     public Queue<GameObject> GetPool()
-    { 
+    {
         return pool;
     }
 
@@ -43,6 +43,6 @@ public class MovingPlatformSpawnerManager : MonoBehaviour
             currentSpawner = 0;
         }
 
-        spawners[currentSpawner].SpawnPlatform();
+        spawners[currentSpawner].SpawnBoulder();
     }
 }

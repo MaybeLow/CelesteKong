@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class MovingPlatform : MonoBehaviour
+public class MovingPlatform : MonoBehaviour, IPoolableObject
 {
     [SerializeField] private Vector2 velocity;
 
+    private MovingPlatformSpawner spawner;
     private Rigidbody2D rb;
 
     private void Awake()
@@ -24,6 +25,11 @@ public class MovingPlatform : MonoBehaviour
         rb.velocity = velocity;
     }
 
+    public void AssignSpawner(MovingPlatformSpawner spawner)
+    {
+        this.spawner = spawner;
+    }
+
     public Vector2 GetVelocity()
     {
         return rb.velocity;
@@ -32,8 +38,13 @@ public class MovingPlatform : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("PlatformDestroyer")) {
-            gameObject.SetActive(false);
-            MovingPlatformSpawner.AddOnPool(gameObject);
+            PoolObject();
         }
+    }
+
+    public void PoolObject()
+    {
+        gameObject.SetActive(false);
+        spawner.AddOnPool(gameObject);
     }
 }

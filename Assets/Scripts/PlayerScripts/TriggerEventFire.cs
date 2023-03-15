@@ -14,7 +14,7 @@ public class TriggerEventFire : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Ground")
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
             OnTriggerChange?.Invoke(true);
 
@@ -30,7 +30,7 @@ public class TriggerEventFire : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag == "Ground")
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
             OnTriggerChange?.Invoke(false);
 

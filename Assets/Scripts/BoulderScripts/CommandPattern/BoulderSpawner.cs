@@ -4,32 +4,47 @@ using UnityEngine;
 
 public class BoulderSpawner : MonoBehaviour
 {
-    private float targetTime;
-    [SerializeField] private float cooldownTime = 15.0f;
-    [SerializeField] private Boulder boulderPrefab;
-    [SerializeField] private bool faceRight = false;
+    private Queue<GameObject> pool;
 
-    private void Start()
+    [SerializeField] private GameObject boulderPrefab;
+
+    private Transform tr;
+
+    private GameObject boulder;
+
+    private void Awake()
     {
-        targetTime = cooldownTime;
+        pool = transform.parent.gameObject.GetComponent<BoulderSpawnerManager>().GetPool();
+        tr = transform;
     }
 
-    // Update is called once per frame
     private void FixedUpdate()
     {
-        cooldownTime -= Time.deltaTime;
-        if (cooldownTime <= 0.0f)
-        {
-            SpawnBoulder();
-            cooldownTime = targetTime;
-        }
+        Debug.Log(pool.Count);
     }
 
-    private void SpawnBoulder()
+    public void SpawnBoulder()
     {
-        //boulderPrefab.SetDirection(faceRight);
-        //Boulder boulder = Instantiate(boulderPrefab, transform.position, Quaternion.identity);
+        boulder = GetBoulder();
+        boulder.transform.SetPositionAndRotation(tr.position, tr.rotation);
+        boulder.SetActive(true);
+    }
 
-        //boulder.SetDirection(faceRight);
+    private GameObject GetBoulder()
+    {
+        if (pool.Count == 0)
+        {
+            boulder = Instantiate(boulderPrefab);
+            boulder.GetComponent<Boulder>().AssignSpawner(this); 
+            return boulder;
+        }
+
+        boulder = pool.Dequeue();
+        return boulder;
+    }
+
+    public void AddOnPool(GameObject boulder)
+    {
+        pool.Enqueue(boulder);
     }
 }

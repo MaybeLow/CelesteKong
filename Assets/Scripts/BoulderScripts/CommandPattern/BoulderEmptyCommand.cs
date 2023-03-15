@@ -2,17 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BoulderEmptyCommand : MonoBehaviour
+public class BoulderEmptyCommand : BoulderCommand
 {
-    // Start is called before the first frame update
-    void Start()
+    public BoulderEmptyCommand(IEntity entity, float time) : base(entity, time)
     {
-        
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Execute()
     {
-        
+    }
+
+    public override void Undo()
+    {
     }
 }

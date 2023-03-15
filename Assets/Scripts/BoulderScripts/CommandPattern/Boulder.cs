@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Boulder : MonoBehaviour, IEntity
+public class Boulder : MonoBehaviour, IEntity, IPoolableObject
 {
     private BoulderCommandController controller;
     private Vector2 moveDirection;
@@ -10,14 +10,20 @@ public class Boulder : MonoBehaviour, IEntity
 
     protected Rigidbody2D rb;
     protected SpriteRenderer sr;
+    protected CircleCollider2D circleCollider;
 
     [SerializeField] private Transform groundChecker;
     [SerializeField] private LayerMask groundLayer;
 
     Rigidbody2D IEntity.rb => rb;
 
+    private BoulderSpawner spawner;
+
+    private float timeWhenDisabled;
+
     private void Awake()
     {
+        circleCollider = GetComponent<CircleCollider2D>();
         sr = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         controller = GetComponent<BoulderCommandController>();
@@ -28,6 +34,11 @@ public class Boulder : MonoBehaviour, IEntity
     {
         moveDirection = Vector2.right;
         undoActive = false;
+    }
+
+    private void Update()
+    {
+        CheckDisableTime();
     }
 
     // Update is called once per frame
@@ -46,6 +57,9 @@ public class Boulder : MonoBehaviour, IEntity
         } else if (undoActive)
         {
             UpdateUndo();
+        } else
+        {
+            controller.ExecuteCommand(new BoulderEmptyCommand(this, Time.timeSinceLevelLoad));
         }
     }
 
@@ -60,9 +74,28 @@ public class Boulder : MonoBehaviour, IEntity
         }
     }
 
+    public void AssignSpawner(BoulderSpawner spawner)
+    {
+        this.spawner = spawner;
+    }
+
     public void DisableBoulder()
     {
-        controller.ExecuteCommand(new BoulderDisableCommand(this, Time.timeSinceLevelLoad, sr));
+        timeWhenDisabled = Time.time;
+        controller.ExecuteCommand(new BoulderDisableCommand(this, Time.timeSinceLevelLoad, sr, circleCollider));
+    }
+
+    private void CheckDisableTime()
+    {
+        if (sr.enabled == false && undoActive == false)
+        {
+            if (Time.time - timeWhenDisabled > 10.0f)
+            {
+                controller.ExecuteCommand(new BoulderEnableCommand(this, Time.timeSinceLevelLoad, sr, circleCollider));
+                PoolObject();
+            }
+        }
+        
     }
 
     private void UpdateUndo()
@@ -73,5 +106,19 @@ public class Boulder : MonoBehaviour, IEntity
     private bool IsGrounded()
     {
         return Physics2D.OverlapCircle(groundChecker.position, 0.1f, groundLayer);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("ObjectPooler"))
+        {
+            DisableBoulder();
+        }
+    }
+
+    public void PoolObject()
+    {
+        gameObject.SetActive(false);
+        spawner.AddOnPool(gameObject);
     }
 }
