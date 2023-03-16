@@ -25,4 +25,10 @@ public class BoulderCommandController : MonoBehaviour
         commands.RemoveAt(currentCommandIndex);
         currentCommandIndex--;
     }
+
+    public void ResetCommandList()
+    {
+        currentCommandIndex = -1;
+        commands.Clear();
+    }
 }

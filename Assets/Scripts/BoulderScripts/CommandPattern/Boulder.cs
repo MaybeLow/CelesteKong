@@ -5,7 +5,6 @@ using UnityEngine;
 public class Boulder : MonoBehaviour, IEntity, IPoolableObject
 {
     private BoulderCommandController controller;
-    private Vector2 moveDirection;
     [SerializeField] private bool undoActive;
 
     protected Rigidbody2D rb;
@@ -14,6 +13,8 @@ public class Boulder : MonoBehaviour, IEntity, IPoolableObject
 
     [SerializeField] private Transform groundChecker;
     [SerializeField] private LayerMask groundLayer;
+    private Vector2 moveDirection = Vector2.left;
+    private bool onGround = false;
 
     Rigidbody2D IEntity.rb => rb;
 
@@ -32,7 +33,6 @@ public class Boulder : MonoBehaviour, IEntity, IPoolableObject
     // Start is called before the first frame update
     private void Start()
     {
-        moveDirection = Vector2.right;
         undoActive = false;
     }
 
@@ -64,7 +64,7 @@ public class Boulder : MonoBehaviour, IEntity, IPoolableObject
     }
 
     private void UpdateMovement() {
-        if (IsGrounded())
+        if (onGround)
         {
             controller.ExecuteCommand(new BoulderMoveCommand(this, Time.timeSinceLevelLoad, moveDirection));
         }
@@ -94,18 +94,12 @@ public class Boulder : MonoBehaviour, IEntity, IPoolableObject
                 controller.ExecuteCommand(new BoulderEnableCommand(this, Time.timeSinceLevelLoad, sr, circleCollider));
                 PoolObject();
             }
-        }
-        
+        }   
     }
 
     private void UpdateUndo()
     {
         controller.UndoCommand();
-    }
-
-    private bool IsGrounded()
-    {
-        return Physics2D.OverlapCircle(groundChecker.position, 0.1f, groundLayer);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -116,8 +110,19 @@ public class Boulder : MonoBehaviour, IEntity, IPoolableObject
         }
     }
 
+    public void OnGroundedChange(bool _onGround)
+    {
+        if (_onGround == true && onGround == false)
+        {
+            moveDirection *= -1f;
+        }
+        onGround = _onGround;
+    }
+
     public void PoolObject()
     {
+        moveDirection = Vector2.left;
+        controller.ResetCommandList();
         gameObject.SetActive(false);
         spawner.AddOnPool(gameObject);
     }

@@ -14,11 +14,11 @@ public class BoulderMoveCommand : BoulderCommand
 
     public override void Execute()
     {
-        entity.rb.MovePosition(new Vector2(entity.rb.position.x * moveDirection.x + moveSpeed, entity.rb.position.y));
+        entity.rb.MovePosition(new Vector2(entity.rb.position.x + moveSpeed * moveDirection.x, entity.rb.position.y));
     }
 
     public override void Undo()
     {
-        entity.rb.MovePosition(new Vector2(entity.rb.position.x * moveDirection.x - moveSpeed, entity.rb.position.y));
+        entity.rb.MovePosition(new Vector2(entity.rb.position.x - moveSpeed * moveDirection.x, entity.rb.position.y));
     }
 }
