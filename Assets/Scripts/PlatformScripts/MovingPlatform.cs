@@ -3,26 +3,86 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class MovingPlatform : MonoBehaviour, IPoolableObject
+public class MovingPlatform : MonoBehaviour, IPEntity, IPoolableObject
 {
+    private PlatformCommandController controller;
+    [SerializeField] private bool undoActive;
+
+    protected Rigidbody2D rb;
+    protected SpriteRenderer sr;
+
+    private Vector2 moveDirection = Vector2.right;
+
+    Rigidbody2D IPEntity.rb => rb;
+
     [SerializeField] private Vector2 velocity;
 
     private Spawner spawner;
-    private Rigidbody2D rb;
+
+    private float timeWhenDisabled;
+
+    private List<PlatformCommand> commandBuffer = new List<PlatformCommand>();
 
     private void Awake()
     {
+        sr = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
+        controller = GetComponent<PlatformCommandController>();
     }
 
-    private void OnEnable()
+    // Start is called before the first frame update
+    private void Start()
     {
-        MovePlatform();
+        undoActive = false;
     }
 
-    public void MovePlatform()
+    //private void OnEnable()
+    //{
+    //  MovePlatform();
+    //}
+
+    //public void MovePlatform()
+    //{
+    //  rb.velocity = velocity;
+    //}
+
+    private void Update()
     {
-        rb.velocity = velocity;
+        CheckDisableTime();
+    }
+
+    // Update is called once per frame
+    private void FixedUpdate()
+    {
+        if (controller.IsEmpty())
+        {
+            rb.velocity = Vector2.zero;
+        }
+
+        if (sr.enabled)
+        {
+            if (undoActive)
+            {
+                UpdateUndo();
+            }
+            else
+            {
+                UpdateMovement();
+            }
+        }
+        else if (undoActive)
+        {
+            UpdateUndo();
+        }
+        else
+        {
+            controller.ExecuteCommand(new PlatformEmptyCommand(this, Time.timeSinceLevelLoad));
+        }
+    }
+
+    private void UpdateMovement()
+    {
+        controller.ExecuteCommand(new PlatformMoveCommand(this, Time.timeSinceLevelLoad, moveDirection));
     }
 
     public void AssignSpawner(Spawner spawner)
@@ -30,21 +90,54 @@ public class MovingPlatform : MonoBehaviour, IPoolableObject
         this.spawner = spawner;
     }
 
-    public Vector2 GetVelocity()
+    private void UpdateUndo()
     {
-        return rb.velocity;
+        if (!controller.IsEmpty())
+        {
+            controller.UndoCommand();
+        } else
+        {
+            commandBuffer.Add(new PlatformEmptyCommand(this, Time.timeSinceLevelLoad));
+        }
+        
+    }
+
+    public void DisablePlatform()
+    {
+        rb.velocity = Vector2.zero;
+        timeWhenDisabled = Time.time;
+        controller.ExecuteCommand(new PlatformDisableCommand(this, Time.timeSinceLevelLoad, sr));
+    }
+
+    private void CheckDisableTime()
+    {
+        if (sr.enabled == false && undoActive == false)
+        {
+            if (Time.time - timeWhenDisabled > 10.0f)
+            {
+                controller.ExecuteCommand(new PlatformEnableCommand(this, Time.timeSinceLevelLoad, sr));
+                PoolObject();
+            }
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("PlatformDestroyer")) {
-            PoolObject();
+        if (collision.CompareTag("ObjectPooler") || collision.CompareTag("PlatformDestroyer"))
+        {
+            DisablePlatform();
         }
+    }
+
+    public Vector2 GetVelocity()
+    {
+      return rb.velocity;
     }
 
     public void PoolObject()
     {
         gameObject.SetActive(false);
+        controller.ResetCommandList();
         spawner.AddOnPool(gameObject);
     }
 }

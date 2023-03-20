@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5621439878218433869}
   - component: {fileID: 6170063559661588269}
   - component: {fileID: 3391184781050119830}
+  - component: {fileID: -3226068893267935530}
   m_Layer: 6
   m_Name: MovingPlatform
   m_TagString: Poolable
@@ -146,4 +147,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a45e0eecf275ae941b8983615236dbd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  undoActive: 0
   velocity: {x: 5, y: 0}
+--- !u!114 &-3226068893267935530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4834864758196555105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 049b24812b479d34ca2db30efe9cfa2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

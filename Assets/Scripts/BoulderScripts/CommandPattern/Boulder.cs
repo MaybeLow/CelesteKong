@@ -121,7 +121,7 @@ public class Boulder : MonoBehaviour, IEntity, IPoolableObject
 
     public void PoolObject()
     {
-        moveDirection = Vector2.left;
+        moveDirection *= -1f;
         controller.ResetCommandList();
         gameObject.SetActive(false);
         spawner.AddOnPool(gameObject);
