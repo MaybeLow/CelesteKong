@@ -2,14 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.EventSystems.EventTrigger;
 
-public class MovingPlatform : MonoBehaviour, IPEntity, IPoolableObject
+public class MovingPlatform : MonoBehaviour, IPEntity
 {
     private PlatformCommandController controller;
-    [SerializeField] private bool undoActive;
 
     protected Rigidbody2D rb;
     protected SpriteRenderer sr;
+    protected BoxCollider2D bc;
 
     private Vector2 moveDirection = Vector2.right;
 
@@ -17,51 +18,136 @@ public class MovingPlatform : MonoBehaviour, IPEntity, IPoolableObject
 
     [SerializeField] private Vector2 velocity;
 
-    private Spawner spawner;
+    private Vector2 startingPosition;
 
-    private float timeWhenDisabled;
+    private Vector2 endingPosition;
 
-    private List<PlatformCommand> commandBuffer = new List<PlatformCommand>();
+    private float timeSkipTimer = 0f;
+
+    private bool isTeleporting = false;
+
+    [SerializeField] private float startDelay = 2.0f;
+    [SerializeField] private float endDelay = 5.0f;
+
+    private void Start()
+    {
+        startingPosition = transform.position;
+        endingPosition = Vector2.zero;
+        if (startDelay != 0f)
+        {
+            StartCoroutine(StartDelayCoroutine());
+        }
+    }
+
+    public void SkipTime()
+    {
+        if (isTeleporting)
+        {
+            Debug.Log(timeSkipTimer);
+            if (!GameManager.UndoActive())
+            {
+                timeSkipTimer += Time.deltaTime;
+            }
+            else
+            {
+                timeSkipTimer -= Time.deltaTime;
+            }
+
+            if (timeSkipTimer > endDelay)
+            {
+                rb.position = startingPosition;
+                EnablePlatform();
+                isTeleporting = false;
+            } 
+            else if (timeSkipTimer < 0f)
+            {
+                rb.position = endingPosition;
+                EnablePlatform();
+                isTeleporting = false;
+            }
+        }
+    }
+
+    public void StartTeleport()
+    {
+        isTeleporting = true;
+        if (GameManager.UndoActive())
+        {
+            timeSkipTimer = endDelay;
+        } else
+        {
+            timeSkipTimer = 0;
+        }
+    }
+
+    public void Teleport()
+    {
+        if (endingPosition == Vector2.zero)
+        {
+            endingPosition = transform.position;
+        }
+        DisablePlatform();
+        StartTeleport();
+        //controller.ExecuteCommand(new PlatformTeleportCommand(this, Time.timeSinceLevelLoad, startingPosition, endingPosition, this));
+    }
+
+    public bool IsTeleporting()
+    {
+        return isTeleporting;
+    }
+
+    public void DisablePlatform()
+    {
+        rb.velocity = Vector2.zero;
+        sr.enabled = false;
+        bc.enabled = false;
+    }
+
+    public void EnablePlatform()
+    {
+        rb.velocity = velocity;
+        sr.enabled = true;
+        bc.enabled = true;
+    }
+
+    private IEnumerator StartDelayCoroutine()
+    {
+        DisablePlatform();
+
+        yield return new WaitForSeconds(startDelay);
+
+        EnablePlatform();
+    }
 
     private void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         controller = GetComponent<PlatformCommandController>();
-    }
-
-    // Start is called before the first frame update
-    private void Start()
-    {
-        undoActive = false;
-    }
-
-    //private void OnEnable()
-    //{
-    //  MovePlatform();
-    //}
-
-    //public void MovePlatform()
-    //{
-    //  rb.velocity = velocity;
-    //}
-
-    private void Update()
-    {
-        CheckDisableTime();
+        bc = GetComponent<BoxCollider2D>();
     }
 
     // Update is called once per frame
     private void FixedUpdate()
     {
+        SkipTime();
+        StopIfNoCommands();
+        UpdateCommandMovement();
+    }
+
+    private void StopIfNoCommands()
+    {
         if (controller.IsEmpty())
         {
             rb.velocity = Vector2.zero;
         }
+    }
 
+    private void UpdateCommandMovement()
+    {
         if (sr.enabled)
         {
-            if (undoActive)
+            if (GameManager.UndoActive())
             {
                 UpdateUndo();
             }
@@ -70,14 +156,6 @@ public class MovingPlatform : MonoBehaviour, IPEntity, IPoolableObject
                 UpdateMovement();
             }
         }
-        else if (undoActive)
-        {
-            UpdateUndo();
-        }
-        else
-        {
-            controller.ExecuteCommand(new PlatformEmptyCommand(this, Time.timeSinceLevelLoad));
-        }
     }
 
     private void UpdateMovement()
@@ -85,59 +163,26 @@ public class MovingPlatform : MonoBehaviour, IPEntity, IPoolableObject
         controller.ExecuteCommand(new PlatformMoveCommand(this, Time.timeSinceLevelLoad, moveDirection));
     }
 
-    public void AssignSpawner(Spawner spawner)
-    {
-        this.spawner = spawner;
-    }
-
     private void UpdateUndo()
     {
         if (!controller.IsEmpty())
         {
             controller.UndoCommand();
-        } else
-        {
-            commandBuffer.Add(new PlatformEmptyCommand(this, Time.timeSinceLevelLoad));
-        }
-        
+        } 
     }
 
-    public void DisablePlatform()
+    /*public void DisablePlatform()
     {
-        rb.velocity = Vector2.zero;
-        timeWhenDisabled = Time.time;
-        controller.ExecuteCommand(new PlatformDisableCommand(this, Time.timeSinceLevelLoad, sr));
+        controller.ExecuteCommand(new PlatformDisableCommand(this, Time.timeSinceLevelLoad, sr, bc, velocity));
     }
 
-    private void CheckDisableTime()
+    public void EnablePlatform()
     {
-        if (sr.enabled == false && undoActive == false)
-        {
-            if (Time.time - timeWhenDisabled > 10.0f)
-            {
-                controller.ExecuteCommand(new PlatformEnableCommand(this, Time.timeSinceLevelLoad, sr));
-                PoolObject();
-            }
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("ObjectPooler") || collision.CompareTag("PlatformDestroyer"))
-        {
-            DisablePlatform();
-        }
-    }
+        controller.ExecuteCommand(new PlatformEnableCommand(this, Time.timeSinceLevelLoad, sr, bc, velocity));
+    }*/
 
     public Vector2 GetVelocity()
     {
-      return rb.velocity;
-    }
-
-    public void PoolObject()
-    {
-        gameObject.SetActive(false);
-        controller.ResetCommandList();
-        spawner.AddOnPool(gameObject);
+        return rb.velocity;
     }
 }

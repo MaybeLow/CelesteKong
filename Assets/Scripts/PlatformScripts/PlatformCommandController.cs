@@ -37,4 +37,9 @@ public class PlatformCommandController : MonoBehaviour
     {
         return commands.Count == 0;
     }
+
+    public void AddBuffer(List<PlatformCommand> buffer)
+    {
+        commands.AddRange(buffer);
+    }
 }

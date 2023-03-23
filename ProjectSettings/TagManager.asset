@@ -13,6 +13,7 @@ TagManager:
   - PlatformDestroyer
   - Poolable
   - ObjectPooler
+  - PlatformSpawner
   layers:
   - Default
   - TransparentFX
