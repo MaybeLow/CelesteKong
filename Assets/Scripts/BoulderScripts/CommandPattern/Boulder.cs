@@ -12,7 +12,8 @@ public class Boulder : MonoBehaviour, IEntity, IPoolableObject
 
     [SerializeField] private Transform groundChecker;
     [SerializeField] private LayerMask groundLayer;
-    private Vector2 moveDirection = Vector2.left;
+    [SerializeField] private Vector2 startingDirection = Vector2.left;
+    private Vector2 moveDirection;
     private bool onGround = false;
 
     Rigidbody2D IEntity.rb => rb;
@@ -27,6 +28,11 @@ public class Boulder : MonoBehaviour, IEntity, IPoolableObject
         sr = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         controller = GetComponent<BoulderCommandController>();
+    }
+
+    private void Start()
+    {
+        moveDirection = startingDirection;
     }
 
     private void Update()
@@ -123,7 +129,7 @@ public class Boulder : MonoBehaviour, IEntity, IPoolableObject
 
     public void PoolObject()
     {
-        moveDirection *= -1f;
+        moveDirection = startingDirection;
         controller.ResetCommandList();
         gameObject.SetActive(false);
         spawner.AddOnPool(gameObject);

@@ -162,14 +162,11 @@ public class PlayerStateManager : MonoBehaviour
 
         for (int i = 0; i < collisions.Count; i++)
         {
-            switch (collisions[i].tag)
+            string layerName = LayerMask.LayerToName(collisions[i].gameObject.layer);
+            //Debug.Log(layerName);
+            switch (layerName)
             {
-                case "Boulder":
-                    print("DEAD");
-                    //Destroy(this.gameObject);
-                    //Game Over
-                    break;
-                case "Spike":
+                case "Deadly":
                     print("DEAD");
                     //Destroy(this.gameObject);
                     //Game Over
@@ -182,10 +179,11 @@ public class PlayerStateManager : MonoBehaviour
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("PlayerJumper"))
         {
-            Debug.Log("Collided");
+            //Debug.Log("Collided");
             Boulder boulder = collision.gameObject.transform.parent.gameObject.GetComponent<Boulder>();
             boulder.DisableBoulder();
-            rb.AddForce(new Vector2(0f, 300f));
+            rb.velocity = new Vector2(0f, 10f);
+            IsDashRecharged = true;
         }
     }
 }

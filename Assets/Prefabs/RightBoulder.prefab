@@ -85,8 +85,8 @@ GameObject:
   - component: {fileID: 8762062745651249239}
   - component: {fileID: 8762062745651249238}
   - component: {fileID: 8762062745651249245}
-  m_Layer: 0
-  m_Name: Boulder
+  m_Layer: 12
+  m_Name: RightBoulder
   m_TagString: Poolable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -210,12 +210,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6779c8bf9257911419e8a1b50b0f50a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  undoActive: 0
   groundChecker: {fileID: 8762062745854951439}
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  directionRight: 1
+  startingDirection: {x: -1, y: 0}
 --- !u!114 &8762062745651249245
 MonoBehaviour:
   m_ObjectHideFlags: 0
