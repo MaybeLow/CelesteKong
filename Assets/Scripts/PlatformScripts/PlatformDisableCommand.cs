@@ -13,6 +13,7 @@ public class PlatformDisableCommand : PlatformCommand
     {
         this.sr = sr;
         this.bc = bc;
+        this.velocity = velocity;
     }
 
     public override void Execute()
@@ -24,7 +25,7 @@ public class PlatformDisableCommand : PlatformCommand
 
     public override void Undo()
     {
-        entity.rb.velocity = velocity;
+        entity.rb.velocity = -velocity;
         sr.enabled = true;
         bc.enabled = true;
     }

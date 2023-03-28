@@ -15,6 +15,11 @@ public class PlatformCommandController : MonoBehaviour
         currentCommandIndex = commands.Count - 1;
     }
 
+    private void Update()
+    {
+        Debug.Log(commands.Count);
+    }
+
     public void UndoCommand()
     {
         if (currentCommandIndex < 0)
@@ -36,10 +41,5 @@ public class PlatformCommandController : MonoBehaviour
     public bool IsEmpty()
     {
         return commands.Count == 0;
-    }
-
-    public void AddBuffer(List<PlatformCommand> buffer)
-    {
-        commands.AddRange(buffer);
     }
 }

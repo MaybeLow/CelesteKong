@@ -31,4 +31,9 @@ public class BoulderCommandController : MonoBehaviour
         currentCommandIndex = -1;
         commands.Clear();
     }
+
+    public bool IsEmpty()
+    {
+        return commands.Count == 0;
+    }
 }

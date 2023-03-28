@@ -5,7 +5,6 @@ using UnityEngine;
 public class Boulder : MonoBehaviour, IEntity, IPoolableObject
 {
     private BoulderCommandController controller;
-    [SerializeField] private bool undoActive;
 
     protected Rigidbody2D rb;
     protected SpriteRenderer sr;
@@ -30,12 +29,6 @@ public class Boulder : MonoBehaviour, IEntity, IPoolableObject
         controller = GetComponent<BoulderCommandController>();
     }
 
-    // Start is called before the first frame update
-    private void Start()
-    {
-        undoActive = false;
-    }
-
     private void Update()
     {
         CheckDisableTime();
@@ -44,9 +37,10 @@ public class Boulder : MonoBehaviour, IEntity, IPoolableObject
     // Update is called once per frame
     private void FixedUpdate()
     {
+        OnReturnToStart();
         if (sr.enabled)
         {
-            if (undoActive)
+            if (GameManager.UndoActive())
             {
                 UpdateUndo();
             }
@@ -54,16 +48,24 @@ public class Boulder : MonoBehaviour, IEntity, IPoolableObject
             {
                 UpdateMovement();
             }
-        } else if (undoActive)
+        }
+        else if (GameManager.UndoActive())
         {
             UpdateUndo();
-        } else
+        }
+        else
         {
-            controller.ExecuteCommand(new BoulderEmptyCommand(this, Time.timeSinceLevelLoad));
+            ExecuteEmpty();
         }
     }
 
-    private void UpdateMovement() {
+    private void ExecuteEmpty()
+    {
+        controller.ExecuteCommand(new BoulderEmptyCommand(this, Time.timeSinceLevelLoad));
+    }
+
+    private void UpdateMovement()
+    {
         if (onGround)
         {
             controller.ExecuteCommand(new BoulderMoveCommand(this, Time.timeSinceLevelLoad, moveDirection));
@@ -87,14 +89,14 @@ public class Boulder : MonoBehaviour, IEntity, IPoolableObject
 
     private void CheckDisableTime()
     {
-        if (sr.enabled == false && undoActive == false)
+        if (sr.enabled == false && !GameManager.UndoActive())
         {
             if (Time.time - timeWhenDisabled > 10.0f)
             {
                 controller.ExecuteCommand(new BoulderEnableCommand(this, Time.timeSinceLevelLoad, sr, circleCollider));
                 PoolObject();
             }
-        }   
+        }
     }
 
     private void UpdateUndo()
@@ -126,4 +128,13 @@ public class Boulder : MonoBehaviour, IEntity, IPoolableObject
         gameObject.SetActive(false);
         spawner.AddOnPool(gameObject);
     }
+
+    public void OnReturnToStart()
+    {
+        if (controller.IsEmpty() && GameManager.UndoActive())
+        {
+            PoolObject();
+        }
+    }
 }
+

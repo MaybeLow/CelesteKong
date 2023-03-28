@@ -21,6 +21,7 @@ public class SpawnerManager : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //Debug.Log(nextBoulderIn);
         if (!GameManager.UndoActive())
         {
             nextBoulderIn -= Time.fixedDeltaTime;
@@ -28,6 +29,14 @@ public class SpawnerManager : MonoBehaviour
             {
                 SpawnNextPlatform();
                 nextBoulderIn = spawnDelay;
+            }
+        } 
+        else
+        {
+            nextBoulderIn += Time.fixedDeltaTime;
+            if (nextBoulderIn >= spawnDelay)
+            {
+                nextBoulderIn = 0f;
             }
         }
     }
