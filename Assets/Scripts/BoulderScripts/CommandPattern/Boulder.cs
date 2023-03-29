@@ -120,7 +120,11 @@ public class Boulder : MonoBehaviour, IEntity, IPoolableObject
 
     public void OnGroundedChange(bool _onGround)
     {
-        if (_onGround == true && onGround == false)
+        if (_onGround == true && onGround == false && !GameManager.UndoActive())
+        {
+            moveDirection *= -1f;
+        }
+        else if (_onGround == false && onGround == true && GameManager.UndoActive())
         {
             moveDirection *= -1f;
         }

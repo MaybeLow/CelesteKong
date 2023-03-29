@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class SpawnerManager : MonoBehaviour
@@ -19,6 +20,11 @@ public class SpawnerManager : MonoBehaviour
         nextBoulderIn = 0f;
     }
 
+    /*private void Update()
+    {
+        Debug.Log(currentSpawner);
+    }*/
+
     private void FixedUpdate()
     {
         //Debug.Log(nextBoulderIn);
@@ -37,6 +43,11 @@ public class SpawnerManager : MonoBehaviour
             if (nextBoulderIn >= spawnDelay)
             {
                 nextBoulderIn = 0f;
+                currentSpawner--;
+                if (currentSpawner < 0)
+                {
+                    currentSpawner = spawners.Count() - 1;
+                }
             }
         }
     }

@@ -85,6 +85,7 @@ public class PlayerStateManager : MonoBehaviour
      */
     private void FixedUpdate()
     {
+        AddMovingPlatformVelocity();
         if (CanMove)
         {
             // Update movement depending on the current player state    
@@ -133,12 +134,21 @@ public class PlayerStateManager : MonoBehaviour
         OnWall = _onWall;
     }
 
+    private void AddMovingPlatformVelocity()
+    {
+        Vector2 tempVelocity = Vector2.zero;
+        for (int i = 0; i < MovingPlatforms.Count; i++)
+        {
+            tempVelocity += MovingPlatforms[i].GetVelocity();
+        }
+        MovingPlatformVelocity = tempVelocity;
+    }
+
     public void LandedOnMovingPlatform(MovingPlatform moving)
     {
         if (!MovingPlatforms.Contains(moving))
         {
             MovingPlatforms.Add(moving);
-            MovingPlatformVelocity += moving.GetVelocity();
         }
     }
 
@@ -147,7 +157,6 @@ public class PlayerStateManager : MonoBehaviour
         if (MovingPlatforms.Contains(moving))
         {
             MovingPlatforms.Remove(moving);
-            MovingPlatformVelocity -= moving.GetVelocity();
         }
     }
 
@@ -167,7 +176,10 @@ public class PlayerStateManager : MonoBehaviour
             switch (layerName)
             {
                 case "Deadly":
-                    print("DEAD");
+                    if (!GameManager.UndoActive())
+                    {
+                        print("DEAD");
+                    }
                     //Destroy(this.gameObject);
                     //Game Over
                     break;
@@ -177,7 +189,7 @@ public class PlayerStateManager : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("PlayerJumper"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("PlayerJumper") && !GameManager.UndoActive())
         {
             //Debug.Log("Collided");
             Boulder boulder = collision.gameObject.transform.parent.gameObject.GetComponent<Boulder>();
