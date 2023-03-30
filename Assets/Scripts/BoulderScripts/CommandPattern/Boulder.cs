@@ -122,13 +122,14 @@ public class Boulder : MonoBehaviour, IEntity, IPoolableObject
     {
         if (_onGround == true && onGround == false && !GameManager.UndoActive())
         {
-            moveDirection *= -1f;
-        }
-        else if (_onGround == false && onGround == true && GameManager.UndoActive())
-        {
-            moveDirection *= -1f;
+            controller.ExecuteCommand(new BoulderDirectionCommand(this, Time.timeSinceLevelLoad, this));
         }
         onGround = _onGround;
+    }
+
+    public void ChangeBoulderDirection()
+    {
+        moveDirection *= -1f;
     }
 
     public void PoolObject()
