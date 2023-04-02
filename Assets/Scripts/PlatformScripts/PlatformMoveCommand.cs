@@ -14,11 +14,11 @@ public class PlatformMoveCommand : PlatformCommand
     }
     public override void Execute()
     {
-        entity.rb.velocity = new Vector2(moveDirection.x + moveSpeed, 0);
+        entity.rb.velocity = new Vector2(moveDirection.x * moveSpeed, 0);
     }
 
     public override void Undo()
     {
-        entity.rb.velocity = new Vector2(-moveDirection.x - moveSpeed, 0);
+        entity.rb.velocity = new Vector2(-moveDirection.x * moveSpeed, 0);
     }
 }

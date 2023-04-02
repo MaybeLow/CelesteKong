@@ -11,9 +11,11 @@ public class MovingPlatform : MonoBehaviour, IPEntity
     protected SpriteRenderer sr;
     protected BoxCollider2D bc;
 
-    private Vector2 moveDirection = Vector2.right;
+    private Vector2 moveDirection;
 
     Rigidbody2D IPEntity.rb => rb;
+    BoxCollider2D IPEntity.bc => bc;
+    SpriteRenderer IPEntity.sr => sr;
 
     [SerializeField] private Vector2 velocity;
 
@@ -27,6 +29,11 @@ public class MovingPlatform : MonoBehaviour, IPEntity
         sr = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         controller = GetComponent<PlatformCommandController>();
+    }
+
+    private void Start()
+    {
+        moveDirection = new Vector2(spawner.GetDirection(), 0);
     }
 
     private void CheckDisableTime()
@@ -107,7 +114,7 @@ public class MovingPlatform : MonoBehaviour, IPEntity
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("ObjectPooler") || collision.CompareTag("PlatformDestroyer"))
+        if ((collision.CompareTag("ObjectPooler") || collision.CompareTag("PlatformDestroyer")) && !GameManager.UndoActive())
         {
             DisablePlatform();
         }

@@ -6,6 +6,8 @@ public class Spawner : MonoBehaviour
 {
     private Queue<GameObject> pool;
 
+    private float direction;
+
     [SerializeField] private GameObject boulderPrefab;
 
     private Transform tr;
@@ -15,6 +17,7 @@ public class Spawner : MonoBehaviour
     private void Awake()
     {
         pool = transform.parent.gameObject.GetComponent<SpawnerManager>().GetPool();
+        direction = transform.parent.localScale.x / Mathf.Abs(transform.parent.localScale.x);
         tr = transform;
     }
 
@@ -41,5 +44,10 @@ public class Spawner : MonoBehaviour
     public void AddOnPool(GameObject boulder)
     {
         pool.Enqueue(boulder);
+    }
+
+    public float GetDirection()
+    {
+        return direction;
     }
 }

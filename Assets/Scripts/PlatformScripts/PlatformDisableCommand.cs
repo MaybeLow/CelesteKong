@@ -5,28 +5,27 @@ using static UnityEngine.EventSystems.EventTrigger;
 
 public class PlatformDisableCommand : PlatformCommand
 {
-    private SpriteRenderer sr;
-    private BoxCollider2D bc;
+    //private SpriteRenderer sr;
+    //private BoxCollider2D bc;
     private Vector2 velocity;
 
     public PlatformDisableCommand(IPEntity entity, float time, SpriteRenderer sr, BoxCollider2D bc, Vector2 velocity) : base(entity, time)
     {
-        this.sr = sr;
-        this.bc = bc;
+        //this.sr = sr;
+        //this.bc = bc;
         this.velocity = velocity;
     }
 
     public override void Execute()
     {
         entity.rb.velocity = Vector2.zero;
-        sr.enabled = false;
-        bc.enabled = false;
+        entity.sr.enabled = false;
+        entity.bc.enabled = false;
     }
 
     public override void Undo()
     {
-        entity.rb.velocity = -velocity;
-        sr.enabled = true;
-        bc.enabled = true;
+        entity.sr.enabled = true;
+        entity.bc.enabled = true;
     }
 }

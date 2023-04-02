@@ -14,7 +14,8 @@ public class TriggerEventFire : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground")
+            || (collision.CompareTag("Poolable") && GameManager.UndoActive()))
         {
             OnTriggerChange?.Invoke(true);
 
@@ -30,7 +31,8 @@ public class TriggerEventFire : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground")
+            || (collision.CompareTag("Poolable") && GameManager.UndoActive()))
         {
             OnTriggerChange?.Invoke(false);
 
