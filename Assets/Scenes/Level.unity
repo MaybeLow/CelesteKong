@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed24b541282763847881b23b704b4f18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boulderPrefab: {fileID: 4834864758196555105, guid: 69e93f7021d083f4da1078c46d75582c, type: 3}
+  boulderPrefab: {fileID: 4834864758196555105, guid: 99c6bff71e5249c4baab8ce89327a876, type: 3}
 --- !u!4 &39445312
 Transform:
   m_ObjectHideFlags: 0
@@ -1396,7 +1396,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed24b541282763847881b23b704b4f18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boulderPrefab: {fileID: 4834864758196555105, guid: 69e93f7021d083f4da1078c46d75582c, type: 3}
+  boulderPrefab: {fileID: 4834864758196555105, guid: 99c6bff71e5249c4baab8ce89327a876, type: 3}
 --- !u!4 &817575391
 Transform:
   m_ObjectHideFlags: 0
@@ -7790,7 +7790,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed24b541282763847881b23b704b4f18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boulderPrefab: {fileID: 4834864758196555105, guid: 69e93f7021d083f4da1078c46d75582c, type: 3}
+  boulderPrefab: {fileID: 4834864758196555105, guid: 99c6bff71e5249c4baab8ce89327a876, type: 3}
 --- !u!4 &1412161319
 Transform:
   m_ObjectHideFlags: 0
@@ -8495,7 +8495,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed24b541282763847881b23b704b4f18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boulderPrefab: {fileID: 4834864758196555105, guid: 69e93f7021d083f4da1078c46d75582c, type: 3}
+  boulderPrefab: {fileID: 4834864758196555105, guid: 99c6bff71e5249c4baab8ce89327a876, type: 3}
 --- !u!4 &1612758514
 Transform:
   m_ObjectHideFlags: 0
@@ -10426,10 +10426,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawners:
-  - {fileID: 39445311}
-  - {fileID: 1412161318}
-  - {fileID: 817575390}
   - {fileID: 1612758513}
+  - {fileID: 817575390}
+  - {fileID: 1412161318}
+  - {fileID: 39445311}
   spawnDelay: 2
 --- !u!4 &1906589185
 Transform:
