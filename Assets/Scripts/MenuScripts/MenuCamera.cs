@@ -11,7 +11,8 @@ public class MenuCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (menuCentre != null && transform.position.x != menuCentre.x)
+        Debug.Log(menuCentre);
+        if (menuCentre != null && (transform.position.x, transform.position.y) != (menuCentre.x, menuCentre.y))
         {
             transform.position = Vector3.Slerp(transform.position, new Vector3(menuCentre.x, menuCentre.y, transform.position.z), followSpeed * Time.deltaTime);
         }
