@@ -24,25 +24,25 @@ public class MainMenu : MonoBehaviour
         settingsCanvas.SetActive(false);
         profileCanvas.SetActive(false);
         achievementCanvas.SetActive(false);
+        mainCanvas.SetActive(false);
 
-        currentCanvas = mainCanvas;
-        mainCanvas.SetActive(true);
-
-        mc.UpdateCentre(new Vector2(0, 0));
+        mc.UpdateCentre(new Vector2(0, -20f));
+        currentCanvas = profileCanvas;
+        currentCanvas.SetActive(true);
     }
 
     public void OnPlayButton()
     {
         Debug.Log("Play button is pressed");
         mc.UpdateCentre(new Vector2(-20f, 0));
-        changeCurrentCanvas(levelSelectionCanvas);
+        ChangeCurrentCanvas(levelSelectionCanvas);
     }
 
     public void OnBackToMainButton()
     {
         Debug.Log("Back button is pressed");
         mc.UpdateCentre(new Vector2(0, 0));
-        changeCurrentCanvas(mainCanvas);
+        ChangeCurrentCanvas(mainCanvas);
     }
 
     public void OnLevelSelectionButton(int levelId)
@@ -55,29 +55,32 @@ public class MainMenu : MonoBehaviour
     public void OnProfileSelectionButton(int profileId)
     {
         Debug.Log("Profile: " + profileId);
-        //mc.UpdateCentre(new Vector2(-20f, 0));
-        //canvas.SetActive(false);
+        
+        SaveData.LoadGameData(profileId);
+
+        mc.UpdateCentre(new Vector2(0, 0));
+        ChangeCurrentCanvas(mainCanvas);
     }
 
     public void OnSettingsButton()
     {
         Debug.Log("Settings button is pressed");
         mc.UpdateCentre(new Vector2(20f, 0));
-        changeCurrentCanvas(settingsCanvas);
+        ChangeCurrentCanvas(settingsCanvas);
     }
 
     public void OnProfileButton()
     {
         Debug.Log("Profile button is pressed");
         mc.UpdateCentre(new Vector2(0, -20f));
-        changeCurrentCanvas(profileCanvas);
+        ChangeCurrentCanvas(profileCanvas);
     }
 
     public void OnAchievementButton()
     {
         Debug.Log("Achievement button is pressed");
         mc.UpdateCentre(new Vector2(0, 20f));
-        changeCurrentCanvas(achievementCanvas);
+        ChangeCurrentCanvas(achievementCanvas);
     }
 
     public void OnQuitButton()
@@ -85,10 +88,22 @@ public class MainMenu : MonoBehaviour
         Debug.Log("Quit button is pressed");
     }
 
-    private void changeCurrentCanvas(GameObject newCanvas)
+    private void ChangeCurrentCanvas(GameObject newCanvas)
     {
         currentCanvas.SetActive(false);
         currentCanvas = newCanvas;
         currentCanvas.SetActive(true);
+    }
+
+    public void TestSaves()
+    {
+        Debug.Log("Volume pre: " + DataManager.MusicVolume);
+        DataManager.MusicVolume += 5.0f;
+        Debug.Log("Volume pre: " + DataManager.MusicVolume);
+    }
+
+    public void TestSaves2()
+    {
+        SaveData.SaveGameData();
     }
 }
