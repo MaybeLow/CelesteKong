@@ -8,9 +8,9 @@ public class GameData
 {
     private int currentProfile;
 
-    public List<int> UnlockedLevels = new List<int>();
-    public List<int> FinishedLevels = new List<int>();
-    public List<int> UnlockedAchievements = new List<int>();
+    public HashSet<int> UnlockedLevels = new HashSet<int>();
+    public HashSet<int> FinishedLevels = new HashSet<int>();
+    public HashSet<int> UnlockedAchievements = new HashSet<int>();
     public float MusicVolume = 50.0f;
     public float SoundVolume = 50.0f;
     public Dictionary<int, int> ScoresPerLevel = new Dictionary<int, int>();

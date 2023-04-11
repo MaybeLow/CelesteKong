@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(BoxCollider2D))]
 
@@ -177,13 +179,19 @@ public class PlayerStateManager : MonoBehaviour
                 case "Deadly":
                     if (!GameManager.UndoActive())
                     {
-                        print("DEAD");
+                        KillPlayer();
                     }
-                    //Destroy(this.gameObject);
-                    //Game Over
+                    break;
+                case "Enemy":
+                    GameManager.EndCurrentLevel();
                     break;
             }
         }
+    }
+
+    private void KillPlayer()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

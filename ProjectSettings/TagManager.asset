@@ -14,6 +14,7 @@ TagManager:
   - Poolable
   - ObjectPooler
   - PlatformSpawner
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -28,7 +29,7 @@ TagManager:
   - PlayerJumper
   - Boundary
   - Deadly
-  - 
+  - Enemy
   - 
   - 
   - 

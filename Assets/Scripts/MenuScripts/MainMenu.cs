@@ -1,6 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.VersionControl;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
@@ -48,6 +51,7 @@ public class MainMenu : MonoBehaviour
     public void OnLevelSelectionButton(int levelId)
     {
         Debug.Log("Level: " + levelId);
+        SceneManager.LoadScene(levelId);
         //mc.UpdateCentre(new Vector2(-20f, 0));
         //canvas.SetActive(false);
     }
@@ -97,13 +101,6 @@ public class MainMenu : MonoBehaviour
 
     public void TestSaves()
     {
-        Debug.Log("Volume pre: " + DataManager.MusicVolume);
-        DataManager.MusicVolume += 5.0f;
-        Debug.Log("Volume pre: " + DataManager.MusicVolume);
-    }
-
-    public void TestSaves2()
-    {
-        SaveData.SaveGameData();
+        Debug.Log("Finished Levels: " + string.Join(",", DataManager.FinishedLevels));
     }
 }

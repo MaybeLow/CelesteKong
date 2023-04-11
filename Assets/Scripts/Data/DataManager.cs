@@ -6,9 +6,9 @@ public static class DataManager
 {
     private static int currentProfile;
 
-    public static List<int> UnlockedLevels;
-    public static List<int> FinishedLevels;
-    public static List<int> UnlockedAchievements;
+    public static HashSet<int> UnlockedLevels;
+    public static HashSet<int> FinishedLevels;
+    public static HashSet<int> UnlockedAchievements;
     public static float MusicVolume;
     public static float SoundVolume;
     public static Dictionary<int, int> ScoresPerLevel;
