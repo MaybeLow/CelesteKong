@@ -29,11 +29,6 @@ public class PlayerStateManager : MonoBehaviour
     public Rigidbody2D rb { get; private set; }
     private BoxCollider2D bc;
 
-    // Temporary
-    //[SerializeField] private BoxCollider2D gc;
-    //[SerializeField] public BoxCollider2D wc;
-    //[SerializeField] private LayerMask groundMask;
-
     // Movement input
     public float XMove { get; set; }
     public float YMove { get; set; }
@@ -49,6 +44,8 @@ public class PlayerStateManager : MonoBehaviour
     public List<MovingPlatform> MovingPlatforms { get; set; } = new List<MovingPlatform>();
 
     public Vector2 MovingPlatformVelocity { get; set; } = new Vector2(0f, 0f);
+
+    public LocalAchievementService AchievementService;
 
     /**
      * When enabled, set the current state to idle

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3163669675398057214}
   - component: {fileID: 2257472466165775921}
   - component: {fileID: 7506987316554253987}
-  m_Layer: 9
+  m_Layer: 12
   m_Name: PF Village Props - Barricade
   m_TagString: Spike
   m_Icon: {fileID: 0}
@@ -150,7 +150,7 @@ GameObject:
   - component: {fileID: 1776180918277116653}
   - component: {fileID: 3487691097005636627}
   - component: {fileID: 6238795242681122481}
-  m_Layer: 9
+  m_Layer: 12
   m_Name: PF Village Props - Barricade (1)
   m_TagString: Spike
   m_Icon: {fileID: 0}
@@ -453,7 +453,7 @@ GameObject:
   - component: {fileID: 3996822096872343890}
   - component: {fileID: 9060687515052930164}
   - component: {fileID: 876686430011869614}
-  m_Layer: 9
+  m_Layer: 12
   m_Name: PF Village Props - Barricade (4)
   m_TagString: Spike
   m_Icon: {fileID: 0}
@@ -590,7 +590,7 @@ GameObject:
   - component: {fileID: 555756001314454899}
   - component: {fileID: 4972978503502186430}
   - component: {fileID: 7149828761564391674}
-  m_Layer: 9
+  m_Layer: 12
   m_Name: PF Village Props - Barricade (2)
   m_TagString: Spike
   m_Icon: {fileID: 0}
@@ -727,7 +727,7 @@ GameObject:
   - component: {fileID: 2347474478718966272}
   - component: {fileID: 6783206520238167319}
   - component: {fileID: 7076290737723256878}
-  m_Layer: 9
+  m_Layer: 12
   m_Name: PF Village Props - Barricade (3)
   m_TagString: Spike
   m_Icon: {fileID: 0}
@@ -863,7 +863,7 @@ GameObject:
   - component: {fileID: 3998896027503414643}
   - component: {fileID: 5190731578923849661}
   - component: {fileID: 752755594732659353}
-  m_Layer: 9
+  m_Layer: 12
   m_Name: PF Village Props - Barricade (5)
   m_TagString: Spike
   m_Icon: {fileID: 0}

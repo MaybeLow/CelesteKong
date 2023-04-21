@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 /**
  * Player jump state
@@ -70,6 +71,8 @@ public class PlayerJumpState : PlayerWallJumper
         }
 
         player.PlayerAnimator.SetBool("isJumping", true);
+
+        player.AchievementService.BroadcastMessage("Jump");
     }
 
     /**
