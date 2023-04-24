@@ -1,0 +1,17 @@
+{
+  "achievements":
+  [
+    {
+      "id": 0,
+      "description": "Jump 10 times"
+    },
+    {
+      "id": 1,
+      "description": "Finish level 1 within 1 minute"
+    },
+    {
+      "id": 2,
+      "description": "Collect the fish on level 1"
+    }
+  ]
+}

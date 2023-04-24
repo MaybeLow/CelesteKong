@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    private Transform tr;
     [SerializeField] private MenuCamera mc;
     [SerializeField] private GameObject mainCanvas;
     [SerializeField] private GameObject levelSelectionCanvas;
@@ -15,11 +14,6 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private GameObject profileCanvas;
     [SerializeField] private GameObject achievementCanvas;
     private GameObject currentCanvas;
-
-    private void Awake()
-    {
-        tr = GetComponent<Transform>();
-    }
 
     private void Start()
     {
