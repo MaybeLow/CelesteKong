@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class DataManager
 {
-    private static int currentProfile;
+    private static int currentProfile = -1;
 
     public static HashSet<int> UnlockedLevels;
     public static HashSet<int> FinishedLevels;

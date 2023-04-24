@@ -10,10 +10,25 @@ public class GameManager : MonoBehaviour
 
     private static bool undoActive { get; set; } = false;
 
-    public void Awake()
+    private void Awake()
     {
-        Instance = this;
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+
         levelId = SceneManager.GetActiveScene().buildIndex;
+        if (DataManager.GetCurrentProfileId() == -1 )
+        {
+            AudioManager.StopBgm();
+            SceneManager.LoadScene("MainMenu");
+            Destroy(Instance.gameObject);
+        }
     }
 
     public static bool UndoActive()
@@ -24,8 +39,11 @@ public class GameManager : MonoBehaviour
     public static void EndCurrentLevel()
     {
         Debug.Log("LevelFinished");
+        undoActive = false;
+        AudioManager.StopBgm();
         UpdateData();
         SceneManager.LoadScene("MainMenu");
+        Destroy(Instance.gameObject);
     }
 
     private static void UpdateData()
@@ -46,7 +64,9 @@ public class GameManager : MonoBehaviour
     private IEnumerator ActivateUndo()
     {
         undoActive = true;
+        AudioManager.ReverseAudio();
         yield return new WaitForSeconds(10.0f);
         undoActive = false;
+        AudioManager.StopReverse();
     }
 }
