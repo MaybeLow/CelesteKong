@@ -174,6 +174,9 @@ public class PlayerStateManager : MonoBehaviour
             switch (layerName)
             {
                 case "Deadly":
+                    KillPlayer();
+                    break;
+                case "Spike":
                     if (!GameManager.UndoActive())
                     {
                         KillPlayer();
@@ -188,6 +191,7 @@ public class PlayerStateManager : MonoBehaviour
 
     private void KillPlayer()
     {
+        AudioManager.StopReverse();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 

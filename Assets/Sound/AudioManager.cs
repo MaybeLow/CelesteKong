@@ -60,7 +60,10 @@ public class AudioManager : MonoBehaviour
 
     public static void StopBgm()
     {
-        Destroy(instance.gameObject);
+        if (instance != null)
+        {
+            Destroy(instance.gameObject);
+        }
     }
 
     public static void ReverseAudio()

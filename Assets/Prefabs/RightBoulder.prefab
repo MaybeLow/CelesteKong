@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 360789863694921908}
   m_Layer: 10
   m_Name: BoulderJumpCollision
-  m_TagString: Untagged
+  m_TagString: Spike
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -85,7 +85,7 @@ GameObject:
   - component: {fileID: 8762062745651249239}
   - component: {fileID: 8762062745651249238}
   - component: {fileID: 8762062745651249245}
-  m_Layer: 12
+  m_Layer: 9
   m_Name: RightBoulder
   m_TagString: Poolable
   m_Icon: {fileID: 0}
@@ -237,8 +237,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8762062745854951439}
   - component: {fileID: 7546176624716252434}
-  - component: {fileID: 1259026910142756517}
-  m_Layer: 0
+  - component: {fileID: 5575073158835448059}
+  m_Layer: 9
   m_Name: BoulderGroundChecker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -273,7 +273,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.03425193, y: 0.017127063}
+  m_Offset: {x: -0.0299713, y: 0.017127063}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -284,9 +284,9 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.52043915, y: 0.06656579}
+  m_Size: {x: 0.4433659, y: 0.06656579}
   m_EdgeRadius: 0
---- !u!114 &1259026910142756517
+--- !u!114 &5575073158835448059
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -295,7 +295,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8762062745854951438}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e235222c221ac404981486bf85fcb7da, type: 3}
+  m_Script: {fileID: 11500000, guid: 5f517fd0df1ea614083eaa597d69aa26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   OnTriggerChange:
@@ -313,9 +313,3 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  OnMovingPlatformEnter:
-    m_PersistentCalls:
-      m_Calls: []
-  OnMovingPlatformExit:
-    m_PersistentCalls:
-      m_Calls: []

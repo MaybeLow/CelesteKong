@@ -23,7 +23,11 @@ public class GameManager : MonoBehaviour
         }
 
         levelId = SceneManager.GetActiveScene().buildIndex;
-        if (DataManager.GetCurrentProfileId() == -1 )
+    }
+
+    private void Start()
+    {
+        if (DataManager.GetCurrentProfileId() == -1)
         {
             AudioManager.StopBgm();
             SceneManager.LoadScene("MainMenu");
