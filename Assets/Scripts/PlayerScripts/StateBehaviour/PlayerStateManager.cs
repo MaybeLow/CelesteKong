@@ -201,7 +201,7 @@ public class PlayerStateManager : MonoBehaviour
         {
             //Debug.Log("Collided");
             Boulder boulder = collision.gameObject.transform.parent.gameObject.GetComponent<Boulder>();
-            boulder.DisableBoulder();
+            boulder.DisableBoulder(true);
             rb.velocity = new Vector2(0f, 10f);
             IsDashRecharged = true;
         }

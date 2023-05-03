@@ -22,7 +22,7 @@ public class Boulder : MonoBehaviour, IEntity, IPoolableObject
 
     private float timeWhenDisabled;
 
-    [SerializeField] private AudioSource breakSound;
+    private AudioSource breakSound;
     AudioSource IEntity.breakSound => breakSound;
 
     private void Awake()
@@ -31,6 +31,7 @@ public class Boulder : MonoBehaviour, IEntity, IPoolableObject
         sr = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         controller = GetComponent<BoulderCommandController>();
+        breakSound = GetComponent<AudioSource>();
     }
 
     private void Start()
@@ -90,10 +91,10 @@ public class Boulder : MonoBehaviour, IEntity, IPoolableObject
         this.spawner = spawner;
     }
 
-    public void DisableBoulder()
+    public void DisableBoulder(bool triggeredByPlayer)
     {
         timeWhenDisabled = Time.time;
-        controller.ExecuteCommand(new BoulderDisableCommand(this, Time.timeSinceLevelLoad, sr, circleCollider));
+        controller.ExecuteCommand(new BoulderDisableCommand(this, Time.timeSinceLevelLoad, sr, circleCollider, triggeredByPlayer));
     }
 
     private void CheckDisableTime()
@@ -117,7 +118,7 @@ public class Boulder : MonoBehaviour, IEntity, IPoolableObject
     {
         if (collision.CompareTag("ObjectPooler"))
         {
-            DisableBoulder();
+            DisableBoulder(false);
         }
     }
 
