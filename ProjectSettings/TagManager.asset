@@ -6,7 +6,6 @@ TagManager:
   tags:
   - Blockable
   - Ground
-  - Wall
   - Boulder
   - Floor
   - Spike
@@ -15,6 +14,7 @@ TagManager:
   - ObjectPooler
   - PlatformSpawner
   - Enemy
+  - Player_
   layers:
   - Default
   - TransparentFX

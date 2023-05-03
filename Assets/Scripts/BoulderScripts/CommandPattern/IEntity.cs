@@ -5,4 +5,5 @@ using UnityEngine;
 public interface IEntity
 {
     Rigidbody2D rb { get; }
+    AudioSource breakSound { get; }
 }

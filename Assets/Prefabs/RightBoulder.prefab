@@ -215,6 +215,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   startingDirection: {x: -1, y: 0}
+  breakSound: {fileID: 8300000, guid: 8656424e29d1a1746954a4853bc42744, type: 3}
 --- !u!114 &8762062745651249245
 MonoBehaviour:
   m_ObjectHideFlags: 0

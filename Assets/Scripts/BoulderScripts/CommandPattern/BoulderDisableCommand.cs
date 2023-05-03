@@ -9,7 +9,7 @@ public class BoulderDisableCommand : BoulderCommand
 
     public BoulderDisableCommand(IEntity entity, float time, SpriteRenderer sr, CircleCollider2D collider) : base(entity, time)
     {
-        this.circleCollider = collider;
+        circleCollider = collider;
         this.sr = sr;
     }
 

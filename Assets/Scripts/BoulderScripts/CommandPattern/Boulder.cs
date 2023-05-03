@@ -22,6 +22,9 @@ public class Boulder : MonoBehaviour, IEntity, IPoolableObject
 
     private float timeWhenDisabled;
 
+    [SerializeField] private AudioSource breakSound;
+    AudioSource IEntity.breakSound => breakSound;
+
     private void Awake()
     {
         circleCollider = GetComponent<CircleCollider2D>();

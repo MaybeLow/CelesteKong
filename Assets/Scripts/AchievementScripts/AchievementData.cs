@@ -20,7 +20,7 @@ public class AchievementData : Achievement
         }
         else
         {
-            Debug.Log("Achievement Unlocked!");
+            //Debug.Log("Achievement already unlocked!");
         }
     }
 }
