@@ -94,7 +94,7 @@ public class Boulder : MonoBehaviour, IEntity, IPoolableObject
     public void DisableBoulder(bool triggeredByPlayer)
     {
         timeWhenDisabled = Time.time;
-        controller.ExecuteCommand(new BoulderDisableCommand(this, Time.timeSinceLevelLoad, sr, circleCollider, triggeredByPlayer));
+        controller.ExecuteCommand(new BoulderDisableCommand(this, Time.timeSinceLevelLoad, sr, circleCollider, triggeredByPlayer, this));
     }
 
     private void CheckDisableTime()
