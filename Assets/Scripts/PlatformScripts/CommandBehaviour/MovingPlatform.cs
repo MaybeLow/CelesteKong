@@ -40,7 +40,7 @@ public class MovingPlatform : MonoBehaviour, IPEntity
     {
         if (sr.enabled == false && !GameManager.UndoActive())
         {
-            if (Time.time - timeWhenDisabled > 10.0f)
+            if (Time.time - timeWhenDisabled > GameManager.GetRewindTime())
             {
                 controller.ExecuteCommand(new PlatformEnableCommand(this, Time.timeSinceLevelLoad, sr, bc, velocity));
                 PoolObject();

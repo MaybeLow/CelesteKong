@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,6 +10,10 @@ public class GameManager : MonoBehaviour
     private static int levelId;
 
     private static bool undoActive { get; set; } = false;
+
+    private static bool undoAvailable = true;
+
+    private static float rewindTime = 7.0f;
 
     private void Awake()
     {
@@ -35,19 +40,35 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public static float GetRewindTime() { 
+        return rewindTime; 
+    }
+
     public static bool UndoActive()
     {
         return undoActive;
+    }
+
+    public static bool UndoAvailable()
+    {
+        return undoAvailable;
     }
 
     public static void EndCurrentLevel()
     {
         Debug.Log("LevelFinished");
         undoActive = false;
+        undoAvailable = true;
         AudioManager.StopBgm();
         UpdateData();
         SceneManager.LoadScene("MainMenu");
         Destroy(Instance.gameObject);
+    }
+
+    public static void OnPlayerDead()
+    {
+        undoActive = false;
+        undoAvailable = true;
     }
 
     private static void UpdateData()
@@ -59,7 +80,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.G) && !undoActive)
+        if (Input.GetKeyDown(KeyCode.G) && !undoActive && undoAvailable)
         {
             StartCoroutine(ActivateUndo());
         }
@@ -67,10 +88,13 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator ActivateUndo()
     {
+        undoAvailable = false;
         undoActive = true;
         AudioManager.ReverseAudio();
-        yield return new WaitForSeconds(10.0f);
+        yield return new WaitForSeconds(rewindTime);
         undoActive = false;
         AudioManager.StopReverse();
+        yield return new WaitForSeconds(rewindTime);
+        undoAvailable = true;
     }
 }

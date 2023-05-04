@@ -61,3 +61,6 @@ TagManager:
   - name: ForegroundObjects
     uniqueID: 271200517
     locked: 0
+  - name: UI Objects
+    uniqueID: 85315841
+    locked: 0

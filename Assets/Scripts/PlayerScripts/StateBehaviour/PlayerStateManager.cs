@@ -193,6 +193,7 @@ public class PlayerStateManager : MonoBehaviour
     {
         AudioManager.StopReverse();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        GameManager.OnPlayerDead();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
