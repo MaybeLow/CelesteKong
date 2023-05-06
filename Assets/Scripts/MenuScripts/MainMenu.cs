@@ -23,7 +23,7 @@ public class MainMenu : MonoBehaviour
         achievementCanvas.SetActive(false);
         mainCanvas.SetActive(false);
 
-        mc.UpdateCentre(new Vector2(0, -20f));
+        mc.UpdateCentre(new Vector2(0, -10f));
         currentCanvas = profileCanvas;
         currentCanvas.SetActive(true);
     }
@@ -70,14 +70,14 @@ public class MainMenu : MonoBehaviour
     public void OnProfileButton()
     {
         Debug.Log("Profile button is pressed");
-        mc.UpdateCentre(new Vector2(0, -20f));
+        mc.UpdateCentre(new Vector2(0, -10f));
         ChangeCurrentCanvas(profileCanvas);
     }
 
     public void OnAchievementButton()
     {
         Debug.Log("Achievement button is pressed");
-        mc.UpdateCentre(new Vector2(0, 20f));
+        mc.UpdateCentre(new Vector2(0, 10f));
         ChangeCurrentCanvas(achievementCanvas);
     }
 

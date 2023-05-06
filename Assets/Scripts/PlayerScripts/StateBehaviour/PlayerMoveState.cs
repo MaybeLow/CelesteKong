@@ -15,7 +15,8 @@ public class PlayerMoveState : PlayerFlipper
         UpdateFlip(player);
 
         // State transitions
-        if (Input.GetKeyDown("c") && player.OnGround)
+        if (Input.GetKeyDown("c") && player.OnGround
+            || player.rb.velocity.y > 0 && !player.OnGround)
         {
             return player.JumpState;
         }

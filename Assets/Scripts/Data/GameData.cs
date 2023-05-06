@@ -18,6 +18,7 @@ public class GameData
     public GameData(int profileId) 
     { 
         currentProfile = profileId;
+        UnlockedLevels.Add(1);
     }
 
     public int GetProfileId()

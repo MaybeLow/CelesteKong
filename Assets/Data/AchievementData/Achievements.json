@@ -7,11 +7,11 @@
     },
     {
       "id": 1,
-      "description": "Finish level 1 within 1 minute"
+      "description": "Collect the fish on level 1"
     },
     {
       "id": 2,
-      "description": "Collect the fish on level 1"
+      "description": "Testing achievement"
     }
   ]
 }

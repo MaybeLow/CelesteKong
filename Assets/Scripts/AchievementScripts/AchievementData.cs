@@ -11,7 +11,6 @@ public class AchievementData : Achievement
     {
         if (!achievementService.IsAchievementUnlocked(this))
         {
-            Debug.Log(numOfJumps);
             numOfJumps++;
             if (numOfJumps > jumpsToUnlock)
             {

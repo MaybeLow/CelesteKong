@@ -183,7 +183,7 @@ public class PlayerStateManager : MonoBehaviour
                     }
                     break;
                 case "Enemy":
-                    GameManager.EndCurrentLevel();
+                    GameManager.FinishCurrentLevel();
                     break;
             }
         }
@@ -198,11 +198,13 @@ public class PlayerStateManager : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("PlayerJumper") && !GameManager.UndoActive())
+        if (collision.gameObject.layer == LayerMask.NameToLayer("PlayerJumper"))
         {
-            //Debug.Log("Collided");
-            Boulder boulder = collision.gameObject.transform.parent.gameObject.GetComponent<Boulder>();
-            boulder.DisableBoulder(true);
+            if (!GameManager.UndoActive())
+            {
+                Boulder boulder = collision.gameObject.transform.parent.gameObject.GetComponent<Boulder>();
+                boulder.DisableBoulder(true);
+            }
             rb.velocity = new Vector2(0f, 10f);
             IsDashRecharged = true;
         }

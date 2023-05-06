@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -54,15 +55,27 @@ public class GameManager : MonoBehaviour
         return undoAvailable;
     }
 
+    public static void FinishCurrentLevel()
+    {
+        DataManager.FinishedLevels.Add(levelId);
+        if (levelId + 1 < SceneManager.sceneCountInBuildSettings) {
+            DataManager.UnlockedLevels.Add(levelId + 1);
+            SceneManager.LoadScene(levelId + 1);
+        } 
+        else
+        {
+            SceneManager.LoadScene("MainMenu");
+        }
+        EndCurrentLevel();
+        Destroy(Instance.gameObject);
+    }
+
     public static void EndCurrentLevel()
     {
-        Debug.Log("LevelFinished");
         undoActive = false;
         undoAvailable = true;
         AudioManager.StopBgm();
         UpdateData();
-        SceneManager.LoadScene("MainMenu");
-        Destroy(Instance.gameObject);
     }
 
     public static void OnPlayerDead()
