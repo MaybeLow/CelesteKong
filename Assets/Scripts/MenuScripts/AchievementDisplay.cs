@@ -31,6 +31,9 @@ public class AchievementDisplay : MonoBehaviour
             if (!DataManager.UnlockedAchievements.Contains(data.achievements[i].id))
             {
                 text.text += "\nLOCKED!";
+            } else
+            {
+                text.text += "\nUNLOCKED!";
             }
 
             i++;

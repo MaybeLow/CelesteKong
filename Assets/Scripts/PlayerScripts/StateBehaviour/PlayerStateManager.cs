@@ -183,6 +183,7 @@ public class PlayerStateManager : MonoBehaviour
                     }
                     break;
                 case "Enemy":
+                    AchievementService.BroadcastMessage("FinishLevelJump");
                     GameManager.FinishCurrentLevel();
                     break;
             }

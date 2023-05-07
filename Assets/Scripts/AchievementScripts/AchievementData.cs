@@ -12,14 +12,17 @@ public class AchievementData : Achievement
         if (!achievementService.IsAchievementUnlocked(this))
         {
             numOfJumps++;
-            if (numOfJumps > jumpsToUnlock)
+        }
+    }
+
+    public void FinishLevelJump()
+    {
+        if (!achievementService.IsAchievementUnlocked(this))
+        {
+            if (numOfJumps < jumpsToUnlock)
             {
                 achievementService.UnlockAchievement(this);
             }
-        }
-        else
-        {
-            //Debug.Log("Achievement already unlocked!");
         }
     }
 }
