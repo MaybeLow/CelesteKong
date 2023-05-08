@@ -83,7 +83,7 @@ public class MainMenu : MonoBehaviour
 
     public void OnQuitButton()
     {
-        Debug.Log("Quit button is pressed");
+        Application.Quit();
     }
 
     private void ChangeCurrentCanvas(GameObject newCanvas)
