@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -78,6 +76,7 @@ public class PlayerStateManager : MonoBehaviour
         //Debug.Log(currentState);
         GetMoveInput();
         UpdateState();
+        TimeReverseChecker();
     }
 
     /**
@@ -160,6 +159,14 @@ public class PlayerStateManager : MonoBehaviour
         }
     }
 
+    private void TimeReverseChecker()
+    {
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            AchievementService.BroadcastMessage("ReverseCheck", SendMessageOptions.DontRequireReceiver);
+        }
+    }
+
     /**
      * Check collider overlaps with other colliders
      */
@@ -186,7 +193,7 @@ public class PlayerStateManager : MonoBehaviour
                     break;
                 case "Enemy":
                     AchievementService.BroadcastMessage("FinishLevelJump", SendMessageOptions.DontRequireReceiver);
-                    AchievementService.BroadcastMessage("TimeReverse", false, SendMessageOptions.DontRequireReceiver);
+                    AchievementService.BroadcastMessage("TimeReverse", SendMessageOptions.DontRequireReceiver);
                     levelCompleteListener.OnLevelComplete();
                     break;
                 case "TimeFruit":

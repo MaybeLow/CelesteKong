@@ -1852,7 +1852,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e43a03b564ffa14a9fae013080a4526, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lockSprite: {fileID: 21300000, guid: 76e8062e359418e4c887a6c7dde6e6e2, type: 3}
+  lockSprite: {fileID: 21300000, guid: 56f73727873498d4e820304d30aa4e50, type: 3}
   unlockSprite: {fileID: 21300000, guid: 971b533c24c92ee4f8230c1e4b1a53b7, type: 3}
   levelId: 1
 --- !u!212 &540717539
@@ -1896,7 +1896,7 @@ SpriteRenderer:
   m_SortingLayerID: 85315841
   m_SortingLayer: 2
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 76e8062e359418e4c887a6c7dde6e6e2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 56f73727873498d4e820304d30aa4e50, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2210,7 +2210,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 76e8062e359418e4c887a6c7dde6e6e2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 56f73727873498d4e820304d30aa4e50, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2470,7 +2470,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 76e8062e359418e4c887a6c7dde6e6e2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 56f73727873498d4e820304d30aa4e50, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2493,7 +2493,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e43a03b564ffa14a9fae013080a4526, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lockSprite: {fileID: 21300000, guid: 76e8062e359418e4c887a6c7dde6e6e2, type: 3}
+  lockSprite: {fileID: 21300000, guid: 56f73727873498d4e820304d30aa4e50, type: 3}
   unlockSprite: {fileID: 21300000, guid: 971b533c24c92ee4f8230c1e4b1a53b7, type: 3}
   levelId: 3
 --- !u!61 &747058564
@@ -3922,6 +3922,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1296561331}
   - component: {fileID: 1296561332}
+  - component: {fileID: 1296561333}
   m_Layer: 0
   m_Name: Square (2)
   m_TagString: Untagged
@@ -4002,6 +4003,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1296561333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1296561330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a73930f43d671fb4aae3715c8551bd75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Description: Finish level 2 without using time reverse
 --- !u!1 &1314493400
 GameObject:
   m_ObjectHideFlags: 0
@@ -4146,7 +4160,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 76e8062e359418e4c887a6c7dde6e6e2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 56f73727873498d4e820304d30aa4e50, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -4338,7 +4352,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 76e8062e359418e4c887a6c7dde6e6e2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 56f73727873498d4e820304d30aa4e50, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -5096,7 +5110,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 76e8062e359418e4c887a6c7dde6e6e2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 56f73727873498d4e820304d30aa4e50, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -5336,6 +5350,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1617559260}
   - component: {fileID: 1617559261}
+  - component: {fileID: 1617559262}
   m_Layer: 0
   m_Name: Square (1)
   m_TagString: Untagged
@@ -5416,6 +5431,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1617559262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1617559259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a73930f43d671fb4aae3715c8551bd75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Description: Collect the fish on level 1
 --- !u!1 &1637242915
 GameObject:
   m_ObjectHideFlags: 0
@@ -5701,7 +5729,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 76e8062e359418e4c887a6c7dde6e6e2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 56f73727873498d4e820304d30aa4e50, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -5806,6 +5834,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1732700007}
   - component: {fileID: 1732700006}
+  - component: {fileID: 1732700008}
   m_Layer: 0
   m_Name: Square
   m_TagString: Untagged
@@ -5886,6 +5915,19 @@ RectTransform:
   m_AnchoredPosition: {x: -644, y: 271}
   m_SizeDelta: {x: 1.5673, y: 1.4595}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1732700008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1732700005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a73930f43d671fb4aae3715c8551bd75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Description: Jump no more than 20 times on level 1
 --- !u!1 &1739819939
 GameObject:
   m_ObjectHideFlags: 0
@@ -7080,7 +7122,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 76e8062e359418e4c887a6c7dde6e6e2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 56f73727873498d4e820304d30aa4e50, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -7103,7 +7145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e43a03b564ffa14a9fae013080a4526, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lockSprite: {fileID: 21300000, guid: 76e8062e359418e4c887a6c7dde6e6e2, type: 3}
+  lockSprite: {fileID: 21300000, guid: 56f73727873498d4e820304d30aa4e50, type: 3}
   unlockSprite: {fileID: 21300000, guid: 971b533c24c92ee4f8230c1e4b1a53b7, type: 3}
   levelId: 2
 --- !u!61 &2053324785

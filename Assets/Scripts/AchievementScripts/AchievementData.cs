@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AchievementData : Achievement
 {
-    private int jumpsToUnlock = 10;
+    private int jumpsToUnlock = 20;
     private int numOfJumps = 0;
 
     public void Jump()

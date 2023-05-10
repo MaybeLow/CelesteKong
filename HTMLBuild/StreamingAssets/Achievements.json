@@ -1,0 +1,17 @@
+{
+  "achievements":
+  [
+    {
+      "id": 0,
+      "description": "Jump no more than 10 times on level 1"
+    },
+    {
+      "id": 1,
+      "description": "Collect the fish on level 1"
+    },
+    {
+      "id": 2,
+      "description": "Finish level 2 without using time reverse"
+    }
+  ]
+}

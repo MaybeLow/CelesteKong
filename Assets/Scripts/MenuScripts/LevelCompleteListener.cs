@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelCompleteListener : MonoBehaviour
 {
@@ -24,7 +25,12 @@ public class LevelCompleteListener : MonoBehaviour
     public void OnLevelComplete()
     {
         PauseGame();
-        levelCompletePanel.SetActive(true);
+        int levelId = SceneManager.GetActiveScene().buildIndex;
+        if (levelId + 1 < SceneManager.sceneCountInBuildSettings)
+        {
+            DataManager.UnlockedLevels.Add(levelId + 1);
+        }
+            levelCompletePanel.SetActive(true);
     }
 
     public void OnNextLevelButton()

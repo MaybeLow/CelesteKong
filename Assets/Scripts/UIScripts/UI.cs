@@ -21,7 +21,7 @@ public class UI : MonoBehaviour
         TMP_Text text = n.GetComponentInChildren<TMP_Text>();
         text.text = achievement.GetDescription();
 
-        yield return new WaitForSeconds(4.0f);
+        yield return new WaitForSeconds(2.0f);
         Destroy(n);
     }
 }

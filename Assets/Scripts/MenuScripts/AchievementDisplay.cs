@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using System.IO;
@@ -18,17 +16,19 @@ public class AchievementDisplay : MonoBehaviour
     private void ReadAchievementData()
     {
         // Read the entire file into a string
-        string json = File.ReadAllText("Assets/Data/AchievementData/Achievements.json");
+        //string json = File.ReadAllText("Assets/StreamingAssets/Achievements.json");
 
         // Deserialize the JSON data into an instance of the MyData class
-        ParsedAchievements data = JsonConvert.DeserializeObject<ParsedAchievements>(json);
+        //ParsedAchievements data = JsonConvert.DeserializeObject<ParsedAchievements>(json);
 
         int i = 0;
         foreach (GameObject achievementBlock in achievementBlocks)
         {
             TMP_Text text = achievementBlock.GetComponentInChildren<TMP_Text>();
-            text.text = data.achievements[i].description;
-            if (!DataManager.UnlockedAchievements.Contains(data.achievements[i].id))
+            AchievementBlock block = achievementBlock.GetComponent<AchievementBlock>();
+            //text.text = data.achievements[i].description;
+            text.text = block.Description;
+            if (!DataManager.UnlockedAchievements.Contains(i))
             {
                 text.text += "\nLOCKED!";
             } else
@@ -37,7 +37,7 @@ public class AchievementDisplay : MonoBehaviour
             }
 
             i++;
-            if (i >= data.achievements.Length)
+            if (i >= 3)
             {
                 break;
             }
