@@ -47,6 +47,8 @@ public class PlayerStateManager : MonoBehaviour
 
     public LocalAchievementService AchievementService;
 
+    [SerializeField] private LevelCompleteListener levelCompleteListener;
+
     /**
      * When enabled, set the current state to idle
      */
@@ -183,9 +185,9 @@ public class PlayerStateManager : MonoBehaviour
                     }
                     break;
                 case "Enemy":
-                    AchievementService.BroadcastMessage("FinishLevelJump");
-                    AchievementService.BroadcastMessage("TimeReverse", false);
-                    GameManager.FinishCurrentLevel();
+                    AchievementService.BroadcastMessage("FinishLevelJump", SendMessageOptions.DontRequireReceiver);
+                    AchievementService.BroadcastMessage("TimeReverse", false, SendMessageOptions.DontRequireReceiver);
+                    levelCompleteListener.OnLevelComplete();
                     break;
             }
         }

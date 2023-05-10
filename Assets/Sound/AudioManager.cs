@@ -21,6 +21,7 @@ public class AudioManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(this.gameObject);
             audioSource = GetComponent<AudioSource>();
+            audioSource.volume = DataManager.MusicVolume;
             audioSource.pitch = currentPitch;
             audioSource.Play();
         }

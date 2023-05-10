@@ -32,6 +32,7 @@ public class Boulder : MonoBehaviour, IEntity, IPoolableObject
         rb = GetComponent<Rigidbody2D>();
         controller = GetComponent<BoulderCommandController>();
         breakSound = GetComponent<AudioSource>();
+        breakSound.volume = DataManager.SoundVolume;
     }
 
     private void Start()

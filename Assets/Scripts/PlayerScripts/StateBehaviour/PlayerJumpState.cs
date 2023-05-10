@@ -72,7 +72,7 @@ public class PlayerJumpState : PlayerWallJumper
 
         player.PlayerAnimator.SetBool("isJumping", true);
 
-        player.AchievementService.BroadcastMessage("Jump");
+        player.AchievementService.BroadcastMessage("Jump", SendMessageOptions.DontRequireReceiver);
     }
 
     /**

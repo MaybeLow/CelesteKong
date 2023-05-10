@@ -10,7 +10,7 @@ public class Fish : MonoBehaviour
         if (collision.CompareTag("Player_"))
         {
             gameObject.SetActive(false);
-            achievementService.BroadcastMessage("CollectFish");
+            achievementService.BroadcastMessage("CollectFish", SendMessageOptions.DontRequireReceiver);
         }
     }
 }

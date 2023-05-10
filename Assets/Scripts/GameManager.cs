@@ -67,15 +67,21 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene("MainMenu");
         }
         EndCurrentLevel();
-        Destroy(Instance.gameObject);
     }
 
-    public static void EndCurrentLevel()
+    private static void EndCurrentLevel()
     {
         undoActive = false;
         undoAvailable = true;
         AudioManager.StopBgm();
         UpdateData();
+        Destroy(Instance.gameObject);
+    }
+
+    public static void OnExitButton()
+    {
+        SceneManager.LoadScene("MainMenu");
+        EndCurrentLevel();
     }
 
     public static void OnPlayerDead()

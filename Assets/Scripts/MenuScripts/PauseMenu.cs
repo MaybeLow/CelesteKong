@@ -5,13 +5,13 @@ public class PauseMenu : MonoBehaviour
     public GameObject pausePanel;
     private bool isPaused;
 
-    void Start()
+    private void Start()
     {
         isPaused = false;
         pausePanel.SetActive(false);
     }
 
-    void Update()
+    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -26,17 +26,28 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
-    void PauseGame()
+    private void PauseGame()
     {
         isPaused = true;
         Time.timeScale = 0f;
         pausePanel.SetActive(true);
     }
 
-    void ResumeGame()
+    private void ResumeGame()
     {
         isPaused = false;
         Time.timeScale = 1f;
         pausePanel.SetActive(false);
+    }
+
+    public void OnResumeButton()
+    {
+        ResumeGame();
+    }
+
+    public void OnExitButton()
+    {
+        ResumeGame();
+        GameManager.OnExitButton();
     }
 }
