@@ -68,6 +68,8 @@ public class PlayerDashState : IPlayerState
 
         savedGravity = player.rb.gravityScale;
         player.rb.gravityScale = 0;
+
+        player.IsDashRecharged = false;
     }
 
     /**
@@ -80,7 +82,5 @@ public class PlayerDashState : IPlayerState
 
         player.transform.rotation = Quaternion.identity;
         player.rb.gravityScale = savedGravity;
-
-        player.IsDashRecharged = false;
     }
 }

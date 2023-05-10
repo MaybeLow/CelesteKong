@@ -10,7 +10,7 @@ public class BoulderGroundEvent : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.layer != LayerMask.NameToLayer("Spike") 
-            && !collision.CompareTag("Spike"))
+            && !collision.CompareTag("Spike") && collision.gameObject.layer != LayerMask.NameToLayer("Boundary"))
         {
             OnTriggerChange?.Invoke(true);
         }
@@ -19,7 +19,7 @@ public class BoulderGroundEvent : MonoBehaviour
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.layer != LayerMask.NameToLayer("Spike")
-            && !collision.CompareTag("Spike"))
+            && !collision.CompareTag("Spike") && collision.gameObject.layer != LayerMask.NameToLayer("Boundary"))
         {
             OnTriggerChange?.Invoke(false);
         }

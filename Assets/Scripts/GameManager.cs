@@ -116,4 +116,14 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(rewindTime);
         undoAvailable = true;
     }
+
+    public static void DisableUndo()
+    {
+        undoAvailable = false;
+    }
+
+    public static void EnableUndo()
+    {
+        undoAvailable = true;
+    }
 }

@@ -189,6 +189,11 @@ public class PlayerStateManager : MonoBehaviour
                     AchievementService.BroadcastMessage("TimeReverse", false, SendMessageOptions.DontRequireReceiver);
                     levelCompleteListener.OnLevelComplete();
                     break;
+                case "TimeFruit":
+                    GameManager.EnableUndo();
+                    Destroy(collisions[i].gameObject);
+                    IsDashRecharged = true;
+                    break;
             }
         }
     }

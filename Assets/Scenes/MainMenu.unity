@@ -1917,7 +1917,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 47.18408}
@@ -2336,6 +2336,8 @@ GameObject:
   - component: {fileID: 747058561}
   - component: {fileID: 747058559}
   - component: {fileID: 747058562}
+  - component: {fileID: 747058563}
+  - component: {fileID: 747058564}
   m_Layer: 0
   m_Name: Level2
   m_TagString: Untagged
@@ -2414,7 +2416,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 2
+          m_IntArgument: 3
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -2479,6 +2481,47 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &747058563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 747058557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e43a03b564ffa14a9fae013080a4526, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lockSprite: {fileID: 21300000, guid: 76e8062e359418e4c887a6c7dde6e6e2, type: 3}
+  unlockSprite: {fileID: 21300000, guid: 971b533c24c92ee4f8230c1e4b1a53b7, type: 3}
+  levelId: 3
+--- !u!61 &747058564
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 747058557}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 47.35204}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 160, y: 320}
+    newSize: {x: 160, y: 320}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 160, y: 225.29593}
+  m_EdgeRadius: 0
 --- !u!1 &779773229
 GameObject:
   m_ObjectHideFlags: 0
@@ -7073,7 +7116,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 49.32072}
