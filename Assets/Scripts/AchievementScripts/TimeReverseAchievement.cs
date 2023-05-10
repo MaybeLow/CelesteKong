@@ -15,4 +15,12 @@ public class TimeReverseAchievement : Achievement
             achievementService.UnlockAchievement(this);
         }
     }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.G) && !GameManager.UndoActive() && !GameManager.UndoAvailable())
+        {
+            timeWasReversed = true;
+        }
+    }
 }
