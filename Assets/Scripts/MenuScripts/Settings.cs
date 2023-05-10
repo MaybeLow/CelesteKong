@@ -7,6 +7,7 @@ public class Settings : MonoBehaviour
 {
     [SerializeField] private Slider musicSlider;
     [SerializeField] private Slider soundSlider;
+    [SerializeField] private MenuBGM bgm;
 
     private float musicVolume;
     private float soundEffectsVolume;
@@ -32,5 +33,6 @@ public class Settings : MonoBehaviour
         DataManager.MusicVolume = musicVolume;
         DataManager.SoundVolume = soundEffectsVolume;
         SaveData.SaveGameData();
+        bgm.UpdateVolume(DataManager.MusicVolume);
     }
 }
