@@ -18,4 +18,9 @@ public abstract class Achievement : MonoBehaviour
     {
         return achievementID;
     }
+
+    public string GetDescription()
+    {
+        return achievementDescription;
+    }
 }
