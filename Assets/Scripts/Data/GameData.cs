@@ -10,8 +10,8 @@ public class GameData
     public HashSet<int> UnlockedLevels = new HashSet<int>();
     public HashSet<int> FinishedLevels = new HashSet<int>();
     public HashSet<int> UnlockedAchievements = new HashSet<int>();
-    public float MusicVolume = 50.0f;
-    public float SoundVolume = 50.0f;
+    public float MusicVolume = 1.0f;
+    public float SoundVolume = 1.0f;
     public Dictionary<int, int> ScoresPerLevel = new Dictionary<int, int>();
     public Dictionary<int, float> FinishTimePerLevel = new Dictionary<int, float>();
 

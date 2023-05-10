@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
 
     private static float rewindTime = 7.0f;
 
+    [SerializeField] private LocalAchievementService achievementManager;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -95,6 +97,7 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.G) && !undoActive && undoAvailable)
         {
+            achievementManager.BroadcastMessage("TimeReverse", true);
             StartCoroutine(ActivateUndo());
         }
     }

@@ -184,6 +184,7 @@ public class PlayerStateManager : MonoBehaviour
                     break;
                 case "Enemy":
                     AchievementService.BroadcastMessage("FinishLevelJump");
+                    AchievementService.BroadcastMessage("TimeReverse", false);
                     GameManager.FinishCurrentLevel();
                     break;
             }
