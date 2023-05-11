@@ -13,7 +13,7 @@ public class AchievementData : Achievement
         }
     }
 
-    // Unlock achievement only if the player did not exceet the limit of jumps
+    // Unlock achievement only if the player did not exceed the limit of jumps
     public void FinishLevelJump()
     {
         if (!achievementService.IsAchievementUnlocked(this))
