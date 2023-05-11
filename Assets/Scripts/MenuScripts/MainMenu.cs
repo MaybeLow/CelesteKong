@@ -13,6 +13,7 @@ public class MainMenu : MonoBehaviour
 
     private void Start()
     {
+        // A list of all possible menu screens
         levelSelectionCanvas.SetActive(false);
         settingsCanvas.SetActive(false);
         profileCanvas.SetActive(false);
@@ -42,8 +43,6 @@ public class MainMenu : MonoBehaviour
     {
         Debug.Log("Level: " + levelId);
         SceneManager.LoadScene(levelId);
-        //mc.UpdateCentre(new Vector2(-20f, 0));
-        //canvas.SetActive(false);
     }
 
     public void OnProfileSelectionButton(int profileId)

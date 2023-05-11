@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.EventSystems.EventTrigger;
 
 public class PlatformTeleportCommand : PlatformCommand
 {
@@ -17,21 +14,15 @@ public class PlatformTeleportCommand : PlatformCommand
     }
     public override void Execute()
     {
-        //if (!platform.IsTeleporting())
-        //{
-            entity.rb.position = startingPosition;
-            /*platform.DisablePlatform();
-            platform.StartTeleport();*/
-        //}
+       
+        entity.rb.position = startingPosition;
     }
 
     public override void Undo()
     {
-        if (endingPosition != null/* && !platform.IsTeleporting()*/)
+        if (endingPosition != null)
         {
             entity.rb.position = endingPosition;
-            //platform.DisablePlatform();
-            //platform.StartTeleport();
         }
     } 
 }

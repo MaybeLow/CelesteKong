@@ -1,9 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
-using static UnityEngine.RuleTile.TilingRuleOutput;
 
 /**
  * Player dash state
@@ -35,6 +30,7 @@ public class PlayerDashState : IPlayerState
         }
     }
 
+    // The length of the dash depends on the direction.
     public void FixedTick(PlayerStateManager player)
     {
         float dashDirection = player.Transform.localScale.x / Mathf.Abs(player.Transform.localScale.x);

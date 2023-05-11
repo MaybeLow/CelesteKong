@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Boulder : MonoBehaviour, IEntity, IPoolableObject
@@ -45,7 +43,7 @@ public class Boulder : MonoBehaviour, IEntity, IPoolableObject
         CheckDisableTime();
     }
 
-    // Update is called once per frame
+    // Execute a command for the boulder depending on the state of the game
     private void FixedUpdate()
     {
         OnReturnToStart();
@@ -70,11 +68,15 @@ public class Boulder : MonoBehaviour, IEntity, IPoolableObject
         }
     }
 
+    // Execute an empty command to occupy the queue.
+    // An empty command is required to make the object wait for some time.
+    // For example, when it is being hidden, but not disabled.
     private void ExecuteEmpty()
     {
         controller.ExecuteCommand(new BoulderEmptyCommand(this, Time.timeSinceLevelLoad));
     }
 
+    // Execute a movement command
     private void UpdateMovement()
     {
         if (onGround)
@@ -92,12 +94,15 @@ public class Boulder : MonoBehaviour, IEntity, IPoolableObject
         this.spawner = spawner;
     }
 
+    // Execute a disable command.
+    // When disabled, the boulder will wait for some time in case a rewind button is pressed.
     public void DisableBoulder(bool triggeredByPlayer)
     {
         timeWhenDisabled = Time.time;
         controller.ExecuteCommand(new BoulderDisableCommand(this, Time.timeSinceLevelLoad, sr, circleCollider, triggeredByPlayer, this));
     }
 
+    // Update the time to poo the object if it's disabled for too long.
     private void CheckDisableTime()
     {
         if (sr.enabled == false && !GameManager.UndoActive())
@@ -110,11 +115,13 @@ public class Boulder : MonoBehaviour, IEntity, IPoolableObject
         }
     }
 
+    // Execute the undo command
     private void UpdateUndo()
     {
         controller.UndoCommand();
     }
 
+    // Pool the object if it's hit a boundary
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("ObjectPooler"))
@@ -123,6 +130,7 @@ public class Boulder : MonoBehaviour, IEntity, IPoolableObject
         }
     }
 
+    // A boulder changes its direction when it hits the ground
     public void OnGroundedChange(bool _onGround)
     {
         if (_onGround == true && onGround == false && !GameManager.UndoActive())
@@ -145,6 +153,7 @@ public class Boulder : MonoBehaviour, IEntity, IPoolableObject
         spawner.AddOnPool(gameObject);
     }
 
+    // Empty the command list when the object is pooled
     public void OnReturnToStart()
     {
         if (controller.IsEmpty() && GameManager.UndoActive())

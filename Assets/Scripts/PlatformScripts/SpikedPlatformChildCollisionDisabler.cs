@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SpikedPlatformChildCollisionDisabler : MonoBehaviour
@@ -7,7 +5,7 @@ public class SpikedPlatformChildCollisionDisabler : MonoBehaviour
     private SpriteRenderer parentSpriteRenderer;
     private BoxCollider2D bc;
     private SpriteRenderer sr;
-    // Start is called before the first frame update
+
     void Awake()
     {
         bc = GetComponent<BoxCollider2D>();
@@ -15,7 +13,7 @@ public class SpikedPlatformChildCollisionDisabler : MonoBehaviour
         parentSpriteRenderer = transform.parent.gameObject.GetComponent<SpriteRenderer>();
     }
 
-    // Update is called once per frame
+    // Disable spikes if the platform is disabled
     void FixedUpdate()
     {
         if (parentSpriteRenderer.enabled == false) { 

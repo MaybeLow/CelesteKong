@@ -159,6 +159,9 @@ public class PlayerStateManager : MonoBehaviour
         }
     }
 
+    /**
+     * Send a message to the achievement service whenever the player uses the time reverse
+     */
     private void TimeReverseChecker()
     {
         if (Input.GetKeyDown(KeyCode.G))

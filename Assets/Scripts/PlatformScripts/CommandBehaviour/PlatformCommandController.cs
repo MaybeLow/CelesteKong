@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,6 +14,7 @@ public class PlatformCommandController : MonoBehaviour
         currentCommandIndex = commands.Count - 1;
     }
 
+    // Execute an undo command
     public void UndoCommand()
     {
         if (currentCommandIndex < 0)

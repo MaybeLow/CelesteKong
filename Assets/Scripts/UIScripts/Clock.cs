@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Clock : MonoBehaviour
@@ -14,6 +12,7 @@ public class Clock : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
     }
 
+    // Update the clock sprite, depending on the time state
     private void Update()
     {
         if (GameManager.UndoAvailable() && !sr.sprite.Equals(filledClock))

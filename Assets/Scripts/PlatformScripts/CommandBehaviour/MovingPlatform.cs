@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class MovingPlatform : MonoBehaviour, IPEntity
@@ -36,6 +33,7 @@ public class MovingPlatform : MonoBehaviour, IPEntity
         moveDirection = new Vector2(spawner.GetDirection(), 0);
     }
 
+    // Keep track of the time the platform has been disabled
     private void CheckDisableTime()
     {
         if (sr.enabled == false && !GameManager.UndoActive())
@@ -60,7 +58,7 @@ public class MovingPlatform : MonoBehaviour, IPEntity
         CheckDisableTime();
     }
 
-    // Update is called once per frame
+    // Update the state of the platform with a correct command
     private void FixedUpdate()
     {
         OnReturnToStart();
@@ -120,6 +118,7 @@ public class MovingPlatform : MonoBehaviour, IPEntity
         }
     }
 
+    // If a platform returns to the starting position, pool it
     public void OnReturnToStart()
     {
         if (controller.IsEmpty() && GameManager.UndoActive())

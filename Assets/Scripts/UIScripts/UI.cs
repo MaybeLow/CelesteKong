@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class UI : MonoBehaviour
@@ -13,6 +11,7 @@ public class UI : MonoBehaviour
         StartCoroutine(NotificationCoroutine(achievement));
     }
 
+    // Display an achievement notification for a fixed amount of time
     private IEnumerator NotificationCoroutine(Achievement achievement)
     {
         GameObject n = Instantiate(achievementNotif, transform);

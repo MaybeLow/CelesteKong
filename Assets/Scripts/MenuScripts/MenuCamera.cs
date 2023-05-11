@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MenuCamera : MonoBehaviour
@@ -8,7 +6,7 @@ public class MenuCamera : MonoBehaviour
 
     private Vector2 menuCentre;
 
-    // Update is called once per frame
+    // Update menu camera
     void Update()
     {
         if (menuCentre != null && (transform.position.x, transform.position.y) != (menuCentre.x, menuCentre.y))

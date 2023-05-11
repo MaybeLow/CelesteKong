@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class FishAchievement : Achievement
 {
+    // achievement unlocked when the fish is collected by the player
     public void CollectFish()
     {
         if (!achievementService.IsAchievementUnlocked(this))

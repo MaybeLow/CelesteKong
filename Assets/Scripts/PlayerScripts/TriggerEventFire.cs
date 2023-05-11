@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -12,6 +10,8 @@ public class TriggerEventFire : MonoBehaviour
 
     private MovingPlatform moving;
 
+    // Check when the player stands on the ground.
+    // Also update the player's velocity according to the velocity of the moving platform it stands on
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Ground")
@@ -23,12 +23,12 @@ public class TriggerEventFire : MonoBehaviour
             if (moving)
             {
                 OnMovingPlatformEnter?.Invoke(moving);
-                //Debug.Log("entrer " + moving);
             }
 
         }
     }
 
+    // Check when the player leaves the ground.
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Ground")
@@ -39,7 +39,6 @@ public class TriggerEventFire : MonoBehaviour
             if (moving)
             {
                 OnMovingPlatformExit?.Invoke(moving);
-                //Debug.Log("exit " + moving);
             }
         }
     }

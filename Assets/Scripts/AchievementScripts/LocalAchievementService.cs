@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class LocalAchievementService : MonoBehaviour, IAchievementService
@@ -12,11 +10,13 @@ public class LocalAchievementService : MonoBehaviour, IAchievementService
         unlockSound = GetComponent<AudioSource>();
     }
 
+    // Check if the achievement is already unlocked
     public bool IsAchievementUnlocked(Achievement achievement)
     {
         return DataManager.UnlockedAchievements.Contains(achievement.GetID());
     }
 
+    // Unlock an achievement and display a notification
     public bool UnlockAchievement(Achievement achievement)
     {
         if (IsAchievementUnlocked(achievement))

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -20,14 +19,11 @@ public class SpawnerManager : MonoBehaviour
         nextBoulderIn = 0f;
     }
 
-    /*private void Update()
-    {
-        Debug.Log(currentSpawner);
-    }*/
-
+    // Update the spawner time.
+    // The spawner has forward and backward timers to keep
+    // track of time in the reverse state.
     private void FixedUpdate()
     {
-        //Debug.Log(nextBoulderIn);
         if (!GameManager.UndoActive())
         {
             nextBoulderIn -= Time.fixedDeltaTime;

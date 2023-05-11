@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,6 +20,7 @@ public class Spawner : MonoBehaviour
         tr = transform;
     }
 
+    // Spawn the object from the pool, or instantiate if the pool is empty
     public void SpawnBoulder()
     {
         boulder = GetBoulder();
@@ -28,6 +28,7 @@ public class Spawner : MonoBehaviour
         boulder.SetActive(true);
     }
 
+    // Get a new boulder or instantiate
     private GameObject GetBoulder()
     {
         if (pool.Count == 0)

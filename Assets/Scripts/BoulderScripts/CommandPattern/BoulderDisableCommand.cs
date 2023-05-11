@@ -20,7 +20,6 @@ public class BoulderDisableCommand : BoulderCommand
     {
         if (triggeredByPlayer)
         {
-            //entity.breakSound.pitch = 1f;
             entity.breakSound.Play();
         }
 
@@ -38,6 +37,8 @@ public class BoulderDisableCommand : BoulderCommand
         sr.enabled = true;
     }
 
+    // Audio is played in reversed when the destroyed object appears during time reverse.
+    // This only works if the object destroyer was the player.
     private IEnumerator PlayAudioInReverse()
     {
         entity.breakSound.loop = true;

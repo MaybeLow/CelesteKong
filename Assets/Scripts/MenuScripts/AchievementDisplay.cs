@@ -13,6 +13,9 @@ public class AchievementDisplay : MonoBehaviour
         ReadAchievementData();
     }
     
+    // Initially, the class was supposed to read a json file.
+    // However, the Unity build for this game did not read the json file.
+    // Some parts of the method were commented out to keep the same functionality
     private void ReadAchievementData()
     {
         // Read the entire file into a string

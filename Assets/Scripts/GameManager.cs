@@ -1,7 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -16,6 +13,7 @@ public class GameManager : MonoBehaviour
 
     private static float rewindTime = 7.0f;
 
+    // Instantiate a singleton class
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -33,6 +31,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        // Return to menu if the profile is not selected
         if (DataManager.GetCurrentProfileId() == -1)
         {
             AudioManager.StopBgm();
@@ -55,6 +54,7 @@ public class GameManager : MonoBehaviour
         return undoAvailable;
     }
 
+    // Called, when the next level button is pressed
     public static void FinishCurrentLevel()
     {
         DataManager.FinishedLevels.Add(levelId);
@@ -69,6 +69,7 @@ public class GameManager : MonoBehaviour
         EndCurrentLevel();
     }
 
+    // Exit the level safely and update data
     private static void EndCurrentLevel()
     {
         undoActive = false;
@@ -92,11 +93,11 @@ public class GameManager : MonoBehaviour
 
     private static void UpdateData()
     {
-        //DataManager.SetCurrentProfileId(0);
         DataManager.FinishedLevels.Add(levelId);
         SaveData.SaveGameData();
     }
 
+    // Listen to the input. When the button is pressed, reverse time for a fixed number of seconds
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.G) && !undoActive && undoAvailable)

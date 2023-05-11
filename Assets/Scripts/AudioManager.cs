@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour
@@ -9,7 +7,8 @@ public class AudioManager : MonoBehaviour
     private bool isUndoingReverse = false;
     private static AudioManager instance;
     private AudioSource audioSource;
-    // Start is called before the first frame update
+
+    // Instantiate a singleton class
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -27,6 +26,8 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    // Play sound in the direction of the current time state.
+    // When time is reversed, reverse the audio
     private void FixedUpdate()
     {
         if (isReversing)

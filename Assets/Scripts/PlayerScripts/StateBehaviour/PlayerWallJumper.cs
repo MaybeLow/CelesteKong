@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class PlayerWallJumper : PlayerFlipper
@@ -22,6 +21,7 @@ public abstract class PlayerWallJumper : PlayerFlipper
         player.IsDashRecharged = true;
     }
 
+    // Do not allow the player to move for a small amount of time when it wall jumps
     private IEnumerator DontMove(PlayerStateManager player)
     {
         player.CanMove = false;

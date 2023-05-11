@@ -1,9 +1,9 @@
-using UnityEngine;
 
 public class TimeReverseAchievement : Achievement
 {
     private bool timeWasReversed = false;
 
+    // Unlock if time was not reversed
     public void TimeReverse()
     {
         if (!timeWasReversed)

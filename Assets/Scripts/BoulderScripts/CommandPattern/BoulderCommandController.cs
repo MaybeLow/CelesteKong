@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +6,7 @@ public class BoulderCommandController : MonoBehaviour
     private List<BoulderCommand> commands = new List<BoulderCommand>();
     private int currentCommandIndex = -1;
 
+    // A command to add to the command list
     public void ExecuteCommand(BoulderCommand command)
     {
         commands.Add(command);
@@ -15,6 +15,7 @@ public class BoulderCommandController : MonoBehaviour
         currentCommandIndex = commands.Count - 1;
     }
 
+    // Undo the command and update the list and the counters
     public void UndoCommand()
     {
         if (currentCommandIndex < 0) {
